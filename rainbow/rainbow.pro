@@ -46,6 +46,7 @@ SOURCES += \
     src/PhysicsCloth.cpp \
     src/PhysicsCollider.cpp \
     src/PhysicsJoint.cpp \
+    src/PhysicsJointFixed.cpp \
     src/PhysicsJointGeneric.cpp \
     src/PhysicsJointHinge.cpp \
     src/PhysicsJointSocket.cpp \
@@ -80,6 +81,7 @@ SOURCES += \
     src/Vector3.cpp \
     src/Vector4.cpp \
     src/VertexLayout.cpp
+
 
 HEADERS += \
     src/Activator.h \
@@ -123,6 +125,7 @@ HEADERS += \
     src/PhysicsCloth.h \
     src/PhysicsCollider.h \
     src/PhysicsJoint.h \
+     src/PhysicsJointFixed.h \
     src/PhysicsJointGeneric.h \
     src/PhysicsJointHinge.h \
     src/PhysicsJointSocket.h \
@@ -161,6 +164,7 @@ HEADERS += \
     src/Vector4.h \
     src/VertexLayout.h \
     src/rainbow.h
+
     
 
 INCLUDEPATH += $$PWD/../rainbow/src

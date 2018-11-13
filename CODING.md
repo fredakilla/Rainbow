@@ -26,7 +26,7 @@ class **Terrain** = **Terrain**.h + **Terrain**.cpp
 
 #include "Vector3.h";
 
-namespace gameplay
+namespace rainbow
 {
 
 class Foo
@@ -62,7 +62,7 @@ private:
 - Should be declared in classes directly after constructor and destructors.
 - Keep the naming simple and short-and-sweet.
 ```cpp
-namespace gameplay
+namespace rainbow
 {
 
 class Camera
@@ -85,7 +85,7 @@ public:
 ## Enums (bitwise operators)
 - To enable an **enum class** to support bitwise operators for bitwise operation usage (flags, masks, contraints, etc.)
 ```cpp
-namespace gameplay
+namespace rainbow
 {
 
 class ColorBlendState
@@ -104,7 +104,7 @@ public:
 };
 
 }
-GP_ENABLE_BITWISE_OPERATORS(gameplay::ColorBlendState::WriteMask);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::ColorBlendState::WriteMask);
 ```
 
 ## Smart Pointers vs Pointers
@@ -177,7 +177,7 @@ GP_ERROR("Invalid json base64 string for propertyName: %s", propertyName);
 
 ## GP_ Macros and Global Definitions
 - Use existing **GP_XXX** for various compile time change functionality.
-- Use **GP_XXX** as a prefix for all gameplay scoped macros and global constants.
+- Use **GP_XXX** as a prefix for all rainbow scoped macros and global constants.
 
 ## Assertions
 - Use **GP_ASSERT** for quick danger checks in start of impl that is checked in debug mode.
@@ -272,7 +272,7 @@ Game::Game() :
 - Change your ide or editor to replace tabs for spaces.
 
 ## Line Spacing
-- One line between gameplay namespace.
+- One line between rainbow namespace.
 - One line of space between functions declarations in source and header.
 - One line after each class scope section in header.
 - Function call spacing:
@@ -287,7 +287,7 @@ serializer->writeFloat("range", _range, kLightRange);
   - No space just inside the brackets.
   - One space separating commas, colons and condition comparison operators.
 ```cpp
-    if (enumName.compare("gameplay::Light::Type") == 0)
+    if (enumName.compare("rainbow::Light::Type") == 0)
     {
         switch (static_cast<Light::Type>(value))
         {

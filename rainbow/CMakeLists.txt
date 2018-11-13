@@ -181,7 +181,7 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES 
 endif()
 
 add_library(rainbow STATIC
-    ${RAINBOW}
+    ${RAINBOW_SRC}
 )
 
 set_target_properties(rainbow PROPERTIES

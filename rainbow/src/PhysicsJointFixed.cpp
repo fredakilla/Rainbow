@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsJointFixed.h"
 
-namespace gameplay
+namespace rainbow
 {
 
 PhysicsJointFixed::PhysicsJointFixed() 
@@ -24,7 +24,7 @@ std::shared_ptr<Serializable> PhysicsJointFixed::createObject()
 
 std::string PhysicsJointFixed::getClassName()
 {
-    return "gameplay::PhysicsJointFixed";
+    return "rainbow::PhysicsJointFixed";
 }
 
 void PhysicsJointFixed::onSerialize(Serializer * serializer)

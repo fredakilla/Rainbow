@@ -1,46 +1,46 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(GAMEPLAY_APP_SRC
+set(RAINBOW_APP_SRC
     src/App.cpp
     src/App.h
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    set(GAMEPLAY_APP_PLATFORM_SRC
+    set(RAINBOW_APP_PLATFORM_SRC
         src/main-windows.cpp
-        gameplay-app.rc
+        rainbow-app.rc
     )
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    set(GAMEPLAY_APP_PLATFORM_SRC
+    set(RAINBOW_APP_PLATFORM_SRC
         src/main-linux.cpp
     )
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(GAMEPLAY_APP_PLATFORM_SRC
+    set(RAINBOW_APP_PLATFORM_SRC
         src/main-macos.mm
     )
 endif()
 
 include_directories( 
-    ../gameplay/src
+    ../rainbow/src
     ../external-deps/include
 )
 
-add_executable(gameplay-app ${GAMEPLAY_APP_SRC} ${GAMEPLAY_APP_PLATFORM_SRC})
+add_executable(rainbow-app ${RAINBOW_APP_SRC} ${RAINBOW_APP_PLATFORM_SRC})
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     add_definitions(-DVK_USE_PLATFORM_WIN32_KHR)
     include_directories( 
         $ENV{VULKAN_SDK}/Include
     )
-    target_link_libraries(gameplay-app
+    target_link_libraries(rainbow-app
         imm32.lib
         version.lib
         imagehlp.lib
         winmm.lib
         xinput.lib
-        gameplay
-        $<$<CONFIG:Debug>:${PROJECT_SOURCE_DIR}/external-deps/lib/windows/x86_64/Debug/gameplay-deps.lib>
-        $<$<CONFIG:Release>:${PROJECT_SOURCE_DIR}/external-deps/lib/windows/x86_64/Release/gameplay-deps.lib>
+        rainbow
+        $<$<CONFIG:Debug>:${PROJECT_SOURCE_DIR}/external-deps/lib/windows/x86_64/Debug/rainbow-deps.lib>
+        $<$<CONFIG:Release>:${PROJECT_SOURCE_DIR}/external-deps/lib/windows/x86_64/Release/rainbow-deps.lib>
         $ENV{VULKAN_SDK}/Lib/vulkan-1.lib
     )
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -49,10 +49,10 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     include_directories( 
         $ENV{VULKAN_SDK}/include
     )
-    target_link_libraries(gameplay-app
-        gameplay
+    target_link_libraries(rainbow-app
+        rainbow
         $ENV{VULKAN_SDK}/lib/libvulkan.so
-        ${PROJECT_SOURCE_DIR}/external-deps/lib/linux/x86_64/libgameplay-deps.a
+        ${PROJECT_SOURCE_DIR}/external-deps/lib/linux/x86_64/librainbow-deps.a
         m
         GL
         rt
@@ -94,12 +94,12 @@ elseif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         ${AUDIOTOOLBOX_LIBRARY}
     )
 
-    find_library(GAMEPLAY_DEPS_LIBRARY NAMES gameplay-deps
+    find_library(RAINBOW_DEPS_LIBRARY NAMES rainbow-deps
         HINTS ${PROJECT_SOURCE_DIR}/external-deps/lib/macos/x86_64
     )
-    target_link_libraries(gameplay-app
-        gameplay
-        ${GAMEPLAY_DEPS_LIBRARY}
+    target_link_libraries(rainbow-app
+        rainbow
+        ${RAINBOW_DEPS_LIBRARY}
         m
         dl
         pthread
@@ -113,9 +113,9 @@ if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES 
     set(CMAKE_CXX_FLAGS "-std=c++11")
 endif()
 
-set_target_properties(gameplay-app PROPERTIES
-    OUTPUT_NAME "gameplay-app"
+set_target_properties(rainbow-app PROPERTIES
+    OUTPUT_NAME "rainbow-app"
     CLEAN_DIRECT_OUTPUT 1
 )
 
-source_group(src FILES ${GAMEPLAY_APP_SRC} ${GAMEPLAY_APP_PLATFORM_SRC})
+source_group(src FILES ${RAINBOW_APP_SRC} ${RAINBOW_APP_PLATFORM_SRC})
