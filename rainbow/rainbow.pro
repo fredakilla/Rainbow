@@ -109,7 +109,7 @@ HEADERS += \
     src/Graphics.h \
     src/GraphicsUtil.h \
     src/Heightfield.h \
-    src/Input.h
+    src/Input.h \
     src/Light.h \
     src/Logger.h \
     src/Material.h \
