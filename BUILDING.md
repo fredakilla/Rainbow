@@ -5,20 +5,18 @@ Windows 10 - Setup
 - Install Vulkan SDK                         (https://vulkan.lunarg.com/sdk/home)
 - Install Qt 5.10 (open-source) to C:\Qt)    (https://www.qt.io/download)
 - Set QTDIR environment variable             (QTDIR=C:\Qt\5.10.1\msvc2015_64)
-- Clone Prana repo
+- Clone Rainbow repo
 - Run install.bat
 
 Windows 10 - Build with Qt Creator (Option A)
 ----------------------------------------------
 - Run Qt Creator
-- Open gameplay/gameplay.pro
-- Open gameplay-app/gameplay-app.pro
-- Open gameplay-editor/gameplay-editor.pro
+- Open rainbow-all.pro
 - Expand "Configure Project" kits by expanding "Desktop Qt 5.10.1 MSVC2015 64bit"
 - Uncheck Profile and change long build paths for Debug and Release to:
 ```
-Debug = "../build/%{CurrentProject:Name}/Debug"
-Release = "../build/%{CurrentProject:Name}/Release"
+Debug = build/%{CurrentProject:Name}/Debug
+Release = build/%{CurrentProject:Name}/Release
 ```
 - Build and Run
 
@@ -32,10 +30,10 @@ Windows 10 - Build with CMake and Visual Studio 2015 (Option B)
 - Open menu Qt VS Tools->Qt Options
 - Add Path=C:\Qt\Qt5.10.1\msvc2015_64 and Name=msvc2015_64
 - Run generate-projects.bat
-- Open build\GamePlay.sln
+- Open build\Rainbow.sln
 - Open menu Qt VS Tools->Open Qt Project File(.pro)...
-- Select gameplay-editor\gameplay-editor.pro
-- Right-click gameplay-editor->Set as Startup Project
+- Select rainbow-editor\rainbow-editor.pro
+- Right-click rainbow-editor->Set as Startup Project
 - Build and Run
 
 Ubuntu 16.04 - Setup
@@ -51,21 +49,19 @@ export PATH=$VULKAN_SDK/bin:$PATH
 export LD_LIBRARY_PATH=$VULKAN_SDK/lib:$LD_LIBRARY_PATH
 ```
 - Reboot computer
-- Clone GamePlay repo
+- Clone Rainbow repo
 - Run install.sh
 
 Ubuntu 16.04 - Build with Qt Creator
 ------------------------------------
 - Install Qt 5.10 (open-source) to ~/Qt     (https://www1.qt.io/download)
 - Run Qt Creator
-- Open gameplay/gameplay.pro
-- Open gameplay-app/gameplay-app.pro
-- Open gameplay-editor/gameplay-editor.pro
+- Open rainbow-all.pro
 - Expand "Configure Project" kits by expanding "Desktop Qt 5.10.1 GCC 64bit"
 - Uncheck Profile and change long build paths for Debug and Release to:
 ```
-Debug   = "../build/%{CurrentProject:Name}/Debug"
-Release = "../build/%{CurrentProject:Name}/Release"
+Debug   = build/%{CurrentProject:Name}/Debug
+Release = build/%{CurrentProject:Name}/Release
 ```
 - Build and Run
 
@@ -81,19 +77,17 @@ export VULKAN_SDK="~/vulkansdk-macos-1.0.69.0/macOS"
 export VK_ICD_FILENAMES=$VULKAN_SDK/etc/vulkan/icd.d/MoltenVK_icd.json
 ```
 - Reboot computer
-- Clone GamePlay repo
+- Clone Rainbow repo
 - Run install.sh
 
 MacOS High Sierra - Build with Qt Creator
 -----------------------------------------
 - Install Qt 5.10 (open-source) to ~/Qt     (https://www1.qt.io/download)
-- Open gameplay/gameplay.pro
-- Open gameplay-app/gameplay-app.pro
-- Open gameplay-editor/gameplay-editor.pro
+- Open rainbow-all.pro
 - Expand "Configure Project" kits by expanding "Desktop Qt 5.10.1 clang 64bit"
 - Uncheck Profile and change long build paths for Debug and Release to:
 ```
-Debug   = "../build/%{CurrentProject:Name}/Debug"
-Release = "../build/%{CurrentProject:Name}/Release"
+Debug   = build/%{CurrentProject:Name}/Debug
+Release = build/%{CurrentProject:Name}/Release
 ```
 - Build and Run
