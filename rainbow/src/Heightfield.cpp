@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Heightfield.h"
 
-namespace prana
+namespace rainbow
 {
 
 Heightfield::Heightfield() :

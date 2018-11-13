@@ -1,6 +1,6 @@
 #pragma once
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -104,4 +104,4 @@ public:
 
 }
 
-GP_ENABLE_BITWISE_OPERATORS(prana::ColorBlendState::WriteMask);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::ColorBlendState::WriteMask);

@@ -2,7 +2,7 @@
 #include "Mesh.h"
 #include "FileSystem.h"
 
-namespace prana
+namespace rainbow
 {
 
 Mesh::Mesh()
@@ -20,7 +20,7 @@ std::shared_ptr<Serializable> Mesh::createObject()
 
 std::string Mesh::getClassName()
 {
-    return "prana::Mesh";
+    return "rainbow::Mesh";
 }
 
 void Mesh::onSerialize(Serializer* serializer)

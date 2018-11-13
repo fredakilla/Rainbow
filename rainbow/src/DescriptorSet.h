@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace prana
+namespace rainbow
 {
     class Buffer;
     class Texture;
@@ -123,4 +123,4 @@ private:
 
 }
 
-GP_ENABLE_BITWISE_OPERATORS(prana::DescriptorSet::Descriptor::ShaderStages);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::DescriptorSet::Descriptor::ShaderStages);

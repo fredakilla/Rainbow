@@ -6,7 +6,7 @@
 #define SCENEOBJECT_DIRTY_MATRIX_LOCAL 1
 #define SCENEOBJECT_DIRTY_MATRIX_WORLD 2
 
-namespace prana
+namespace rainbow
 {
 
 Scene::Scene() :
@@ -150,7 +150,7 @@ std::shared_ptr<Serializable> Scene::createObject()
 
 std::string Scene::getClassName()
 {
-    return "prana::Scene";
+    return "rainbow::Scene";
 }
 
 void Scene::onSerialize(Serializer* serializer)

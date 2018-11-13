@@ -1,8 +1,8 @@
 #pragma once
 
-#include "gameplay.h"
+#include "rainbow.h"
 
-namespace gameplay
+namespace rainbow
 {
 
 /**

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Audio.h"
 
-namespace prana
+namespace rainbow
 {
 
 Audio* Audio::_audio = nullptr;

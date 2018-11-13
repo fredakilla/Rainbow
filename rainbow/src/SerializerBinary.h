@@ -2,7 +2,7 @@
 
 #include "Serializer.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

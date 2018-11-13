@@ -14,7 +14,7 @@ class SceneView;
 class PropertiesView;
 class Project;
 
-#include "gameplay.h"
+#include "rainbow.h"
 
 /**
  * Defines the main editor window and toolbars.
@@ -78,7 +78,7 @@ public:
      *
      * @return The open scene.
      */
-    std::shared_ptr<gameplay::Scene> getScene() const;
+    std::shared_ptr<rainbow::Scene> getScene() const;
 
     /**
      * Gets the scene view.
@@ -99,14 +99,14 @@ public:
      *
      * @return The begin screen position for a selection or nullptr for no selection.
      */
-    gameplay::Vector2* getSelectionBegin() const;
+    rainbow::Vector2* getSelectionBegin() const;
 
     /**
      * Gets the end screen position for a drag selection or nullptr for no drag selection.
      *
      * @return The screen end point for a drag selection or nullptr for no drag selection.
      */
-    gameplay::Vector2* getSelectionEnd() const;
+    rainbow::Vector2* getSelectionEnd() const;
 
     /**
      * Determines if the editor is in fullscreen or windowed mode.
@@ -193,10 +193,10 @@ private:
     PropertiesView *_propertiesView;
     SceneView*_sceneView;
     QString _scenePath;
-    std::shared_ptr<gameplay::Scene> _scene;
+    std::shared_ptr<rainbow::Scene> _scene;
     EditMode _editMode;
-    gameplay::Vector2* _selectionBegin;
-    gameplay::Vector2* _selectionEnd;
+    rainbow::Vector2* _selectionBegin;
+    rainbow::Vector2* _selectionEnd;
     QToolButton* _transformModeButton;
     QToolButton* _shadingButton;
     QToolButton* _showButton;

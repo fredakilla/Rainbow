@@ -2,7 +2,7 @@
 
 #include "Asset.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

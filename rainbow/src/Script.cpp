@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Script.h"
 
-namespace prana
+namespace rainbow
 {
 
 Script::Script() : Component()

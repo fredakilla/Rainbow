@@ -4,7 +4,7 @@
 #include "Graphics.h"
 #include "Material.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

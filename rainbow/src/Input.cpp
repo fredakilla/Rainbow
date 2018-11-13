@@ -2,7 +2,7 @@
 #include "Input.h"
 #include "SerializerJson.h"
 
-namespace prana
+namespace rainbow
 {
 
 static std::string __keyModifierNames[] =
@@ -191,7 +191,7 @@ std::string Input::getGamepadAxisName(GamepadAxis gamepadAxis)
 std::string Input::enumToString(const std::string& enumName, int value)
 {
     std::string result;
-    if (enumName.compare("prana::Input::KeyModifiers") == 0)
+    if (enumName.compare("rainbow::Input::KeyModifiers") == 0)
     {
         std::vector<std::string> names;
         if (value == static_cast<int>(KeyModifiers::eNone))
@@ -244,7 +244,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
             result += *itr;
         }
     }
-    else if (enumName.compare("prana::Input::GamepadAxis") == 0)
+    else if (enumName.compare("rainbow::Input::GamepadAxis") == 0)
     {
         switch (value)
         {
@@ -271,7 +271,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
                 break;
         }
     }
-    else if (enumName.compare("prana::Input::MouseAxis") == 0)
+    else if (enumName.compare("rainbow::Input::MouseAxis") == 0)
     {
         switch (value)
         {
@@ -289,7 +289,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
                 break;
         }
     }
-    else if (enumName.compare("prana::Input::Mapping::Type") == 0)
+    else if (enumName.compare("rainbow::Input::Mapping::Type") == 0)
     {
         switch (value)
         {
@@ -310,7 +310,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
                 break;
         }
     }
-    else if (enumName.compare("prana::Input::Mapping::Action") == 0)
+    else if (enumName.compare("rainbow::Input::Mapping::Action") == 0)
     {
         switch (value)
         {
@@ -325,7 +325,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
             break;
         }
     }
-    else if (enumName.compare("prana::Input::Mapping::ActionProfile") == 0)
+    else if (enumName.compare("rainbow::Input::Mapping::ActionProfile") == 0)
     {
         switch (value)
         {
@@ -340,7 +340,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
             break;
         }
     }
-    else if (enumName.compare("prana::Input::MouseButton") == 0)
+    else if (enumName.compare("rainbow::Input::MouseButton") == 0)
     {
         switch (value)
         {
@@ -361,7 +361,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
                 break;
         }
     }
-    else if (enumName.compare("prana::Input::Key") == 0)
+    else if (enumName.compare("rainbow::Input::Key") == 0)
     {
         switch (value)
         {
@@ -679,7 +679,7 @@ std::string Input::enumToString(const std::string& enumName, int value)
 int Input::enumParse(const std::string& enumName, const std::string& str)
 {
     int result = 0;
-    if (enumName.compare("prana::Input::KeyModifiers") == 0)
+    if (enumName.compare("rainbow::Input::KeyModifiers") == 0)
     {
         std::string nameBuffer;
         std::vector<std::string> names;
@@ -718,7 +718,7 @@ int Input::enumParse(const std::string& enumName, const std::string& str)
                 result |= static_cast<int>(KeyModifiers::eRightMeta);
         }
     }
-    else if (enumName.compare("prana::Input::GamepadAxis") == 0)
+    else if (enumName.compare("rainbow::Input::GamepadAxis") == 0)
     {
         if (str.compare("eLeftX") == 0)
             result = static_cast<int>(GamepadAxis::eLeftX);
@@ -733,7 +733,7 @@ int Input::enumParse(const std::string& enumName, const std::string& str)
         else if (str.compare("eRightZ") == 0)
             result = static_cast<int>(GamepadAxis::eRightZ);
     }
-    else if (enumName.compare("prana::Input::MouseAxis") == 0)
+    else if (enumName.compare("rainbow::Input::MouseAxis") == 0)
     {
         if (str.compare("eX") == 0)
             result = static_cast<int>(MouseAxis::eX);
@@ -742,7 +742,7 @@ int Input::enumParse(const std::string& enumName, const std::string& str)
         else if (str.compare("eScrollWheel") == 0)
             result = static_cast<int>(MouseAxis::eScrollWheel);
     }
-    else if (enumName.compare("prana::Input::Mapping::Type") == 0)
+    else if (enumName.compare("rainbow::Input::Mapping::Type") == 0)
     {
         if (str.compare("eKey") == 0)
             result = static_cast<int>(Mapping::Type::eKey);
@@ -753,21 +753,21 @@ int Input::enumParse(const std::string& enumName, const std::string& str)
         else if (str.compare("eGamepadAxis") == 0)
             result = static_cast<int>(Mapping::Type::eGamepadAxis);
     }
-    else if (enumName.compare("prana::Input::Mapping::Action") == 0)
+    else if (enumName.compare("rainbow::Input::Mapping::Action") == 0)
     {
         if (str.compare("ePositive") == 0)
             result = static_cast<int>(Mapping::Action::ePositive);
         else if (str.compare("eNegative") == 0)
             result = static_cast<int>(Mapping::Action::eNegative);
     }
-    else if (enumName.compare("prana::Input::Mapping::ActionProfile") == 0)
+    else if (enumName.compare("rainbow::Input::Mapping::ActionProfile") == 0)
     {
         if (str.compare("ePrimary") == 0)
             result = static_cast<int>(Mapping::ActionProfile::ePrimary);
         else if (str.compare("eSecondary") == 0)
             result = static_cast<int>(Mapping::ActionProfile::eSecondary);
     }
-    else if (enumName.compare("prana::Input::MouseButton") == 0)
+    else if (enumName.compare("rainbow::Input::MouseButton") == 0)
     {
         if (str.compare("eLeft") == 0)
             result = static_cast<int>(MouseButton::eLeft);
@@ -776,7 +776,7 @@ int Input::enumParse(const std::string& enumName, const std::string& str)
         else if (str.compare("eMiddle") == 0)
             result = static_cast<int>(MouseButton::eMiddle);
     }
-    else if (enumName.compare("prana::Input::Key") == 0)
+    else if (enumName.compare("rainbow::Input::Key") == 0)
     {
         if (str.compare("eNone") == 0)
             result = static_cast<int>(Key::eNone);
@@ -1557,7 +1557,7 @@ Input::ActionState::ActionSlot::ActionSlot()
 
 std::string Input::Mappings::getClassName()
 {
-    return "prana::Input::Mappings";
+    return "rainbow::Input::Mappings";
 }
 
 std::shared_ptr<Serializable> Input::Mappings::createObject()
@@ -1641,7 +1641,7 @@ Input::Mapping::Mapping() :
 
 std::string Input::Mapping::getClassName()
 {
-    return "prana::Input::Mapping";
+    return "rainbow::Input::Mapping";
 }
 
 void Input::Mapping::serialize(Serializer* serializer, const ActionProfileMap& map)
@@ -1679,18 +1679,18 @@ void Input::Mapping::deserialize(Serializer* serializer, ActionProfileMap& map)
 
 void Input::Mapping::onSerialize(Serializer* serializer)
 {
-    serializer->writeEnum("type", "prana::Input::Mapping::Type", static_cast<int>(_type), static_cast<int>(Type::eCount));
+    serializer->writeEnum("type", "rainbow::Input::Mapping::Type", static_cast<int>(_type), static_cast<int>(Type::eCount));
     serializer->writeBool("inverted", _inverted, false);
     serializer->writeString("name", _name.c_str(), "");
     serializer->writeString("description", _description.c_str(), "");
     switch (_type)
     {
     case Type::eMouseAxis:
-        serializer->writeEnum("mouseAxis", "prana::Input::MouseAxis", static_cast<int>(_mouseAxis), static_cast<int>(MouseAxis::eCount));
+        serializer->writeEnum("mouseAxis", "rainbow::Input::MouseAxis", static_cast<int>(_mouseAxis), static_cast<int>(MouseAxis::eCount));
         break;
     case Type::eGamepadAxis:
         serializer->writeInt("gamepadIndex", _gamepadIndex, kGamepadsAnyIndex);
-        serializer->writeEnum("gamepadAxis", "prana::Input::GamepadAxis", static_cast<int>(_gamepadAxis), static_cast<int>(GamepadAxis::eCount));
+        serializer->writeEnum("gamepadAxis", "rainbow::Input::GamepadAxis", static_cast<int>(_gamepadAxis), static_cast<int>(GamepadAxis::eCount));
         break;
     case Type::eKey:
         serializer->writeInt("gamepadIndex", _gamepadIndex, kGamepadsAnyIndex);
@@ -1704,18 +1704,18 @@ void Input::Mapping::onSerialize(Serializer* serializer)
 
 void Input::Mapping::onDeserialize(Serializer* serializer)
 {
-    _type = static_cast<Type>(serializer->readEnum("type", "prana::Input::Mapping::Type", static_cast<int>(Type::eCount)));
+    _type = static_cast<Type>(serializer->readEnum("type", "rainbow::Input::Mapping::Type", static_cast<int>(Type::eCount)));
     _inverted = serializer->readBool("inverted", false);
     serializer->readString("name", _name, "");
     serializer->readString("description", _description, "");
     switch (_type)
     {
     case Type::eMouseAxis:
-        _mouseAxis = static_cast<MouseAxis>(serializer->readEnum("mouseAxis", "prana::Input::MouseAxis", static_cast<int>(MouseAxis::eCount)));
+        _mouseAxis = static_cast<MouseAxis>(serializer->readEnum("mouseAxis", "rainbow::Input::MouseAxis", static_cast<int>(MouseAxis::eCount)));
         break;
     case Type::eGamepadAxis:
         _gamepadIndex = serializer->readInt("gamepadIndex", kGamepadsAnyIndex);
-        _gamepadAxis = static_cast<GamepadAxis>(serializer->readEnum("gamepadAxis", "prana::Input::GamepadAxis", static_cast<int>(GamepadAxis::eCount)));
+        _gamepadAxis = static_cast<GamepadAxis>(serializer->readEnum("gamepadAxis", "rainbow::Input::GamepadAxis", static_cast<int>(GamepadAxis::eCount)));
         break;
     case Type::eKey:
         _gamepadIndex = serializer->readInt("gamepadIndex", kGamepadsAnyIndex);
@@ -1864,14 +1864,14 @@ Input::Mapping::ActionData::ActionData(ActionProfile profile, Action action) :
 
 void Input::Mapping::ActionData::onSerialize(Serializer* serializer)
 {
-    serializer->writeEnum("profile", "prana::Input::Mapping::ActionProfile", static_cast<int>(profile), static_cast<int>(ActionProfile::eCount));
-    serializer->writeEnum("action", "prana::Input::Mapping::Action", static_cast<int>(action), static_cast<int>(Action::eCount));
+    serializer->writeEnum("profile", "rainbow::Input::Mapping::ActionProfile", static_cast<int>(profile), static_cast<int>(ActionProfile::eCount));
+    serializer->writeEnum("action", "rainbow::Input::Mapping::Action", static_cast<int>(action), static_cast<int>(Action::eCount));
 }
 
 void Input::Mapping::ActionData::onDeserialize(Serializer* serializer)
 {
-    profile = static_cast<ActionProfile>(serializer->readEnum("profile", "prana::Input::Mapping::ActionProfile", static_cast<int>(ActionProfile::eCount)));
-    action = static_cast<Action>(serializer->readEnum("action", "prana::Input::Mapping::Action", static_cast<int>(Action::eCount)));
+    profile = static_cast<ActionProfile>(serializer->readEnum("profile", "rainbow::Input::Mapping::ActionProfile", static_cast<int>(ActionProfile::eCount)));
+    action = static_cast<Action>(serializer->readEnum("action", "rainbow::Input::Mapping::Action", static_cast<int>(Action::eCount)));
 }
 
 Input::Mapping::KeyActionData::KeyActionData(ActionProfile profile, Action action) : ActionData(profile, action)
@@ -1880,22 +1880,22 @@ Input::Mapping::KeyActionData::KeyActionData(ActionProfile profile, Action actio
 
 std::string Input::Mapping::KeyActionData::getClassName()
 {
-    return "prana::Input::Mapping::KeyActionData";
+    return "rainbow::Input::Mapping::KeyActionData";
 }
 
 void Input::Mapping::KeyActionData::onSerialize(Serializer* serializer)
 {
     ActionData::onSerialize(serializer);
-    serializer->writeEnum("key", "prana::Input::Key", slotIndex, static_cast<int>(Key::eNone));
-    serializer->writeEnum("modifiers", "prana::Input::KeyModifiers", static_cast<int>(modifiers), static_cast<int>(KeyModifiers::eNone));
+    serializer->writeEnum("key", "rainbow::Input::Key", slotIndex, static_cast<int>(Key::eNone));
+    serializer->writeEnum("modifiers", "rainbow::Input::KeyModifiers", static_cast<int>(modifiers), static_cast<int>(KeyModifiers::eNone));
     serializer->writeInt("gamepadIndex", gamepadIndex, kGamepadsAnyIndex);
 }
 
 void Input::Mapping::KeyActionData::onDeserialize(Serializer* serializer)
 {
     ActionData::onDeserialize(serializer);
-    slotIndex = serializer->readEnum("key", "prana::Input::Key", static_cast<int>(Key::eNone));
-    modifiers = static_cast<KeyModifiers>(serializer->readEnum("modifiers", "prana::Input::KeyModifiers", static_cast<int>(KeyModifiers::eNone)));
+    slotIndex = serializer->readEnum("key", "rainbow::Input::Key", static_cast<int>(Key::eNone));
+    modifiers = static_cast<KeyModifiers>(serializer->readEnum("modifiers", "rainbow::Input::KeyModifiers", static_cast<int>(KeyModifiers::eNone)));
     gamepadIndex = serializer->readInt("gamepadIndex", kGamepadsAnyIndex);
 }
 
@@ -1910,19 +1910,19 @@ Input::Mapping::MouseButtonActionData::MouseButtonActionData(ActionProfile profi
 
 std::string Input::Mapping::MouseButtonActionData::getClassName()
 {
-    return "prana::Input::Mapping::MouseButtonActionData";
+    return "rainbow::Input::Mapping::MouseButtonActionData";
 }
 
 void Input::Mapping::MouseButtonActionData::onSerialize(Serializer* serializer)
 {
     ActionData::onSerialize(serializer);
-    serializer->writeEnum("mouseButton", "prana::Input::MouseButton", slotIndex, static_cast<int>(MouseButton::eNone));
+    serializer->writeEnum("mouseButton", "rainbow::Input::MouseButton", slotIndex, static_cast<int>(MouseButton::eNone));
 }
 
 void Input::Mapping::MouseButtonActionData::onDeserialize(Serializer* serializer)
 {
     ActionData::onDeserialize(serializer);
-    slotIndex = serializer->readEnum("mouseButton", "prana::Input::MouseButton", static_cast<int>(MouseButton::eNone));
+    slotIndex = serializer->readEnum("mouseButton", "rainbow::Input::MouseButton", static_cast<int>(MouseButton::eNone));
 }
 
 std::shared_ptr<Serializable> Input::Mapping::MouseButtonActionData::createObject()

@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace prana
+namespace rainbow
 {
 
 /**

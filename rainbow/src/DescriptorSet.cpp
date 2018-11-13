@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "DescriptorSet.h"
 
-namespace prana
+namespace rainbow
 {
 
 DescriptorSet::Descriptor::Descriptor()

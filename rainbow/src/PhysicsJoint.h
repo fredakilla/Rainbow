@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "PhysicsRigidBody.h" 
 
-namespace prana
+namespace rainbow
 {
 
 /**

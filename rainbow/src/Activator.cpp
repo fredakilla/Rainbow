@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "Light.h"
 
-namespace prana
+namespace rainbow
 {
 
 Activator::Activator()
@@ -101,29 +101,29 @@ void Activator::registerSystemTypes()
         return;
     }
         // Register engine types with
-    Activator::getActivator()->registerType("prana::Game::Config", Game::Config::createObject);
-    Activator::getActivator()->registerType("prana::Scene", Scene::createObject);
-    Activator::getActivator()->registerType("prana::SceneObject", SceneObject::createObject);
-    Activator::getActivator()->registerType("prana::Camera", Camera::createObject);
-    Activator::getActivator()->registerType("prana::Input::Mapping::KeyActionData", Input::Mapping::KeyActionData::createObject);
-    Activator::getActivator()->registerType("prana::Input::Mapping::MouseButtonActionData", Input::Mapping::MouseButtonActionData::createObject);
-    Activator::getActivator()->registerType("prana::Input::Mapping", Input::Mapping::createObject);
-    Activator::getActivator()->registerType("prana::Input::Mappings", Input::Mappings::createObject);
-    Activator::getActivator()->registerType("prana::Light", Light::createObject);
+    Activator::getActivator()->registerType("rainbow::Game::Config", Game::Config::createObject);
+    Activator::getActivator()->registerType("rainbow::Scene", Scene::createObject);
+    Activator::getActivator()->registerType("rainbow::SceneObject", SceneObject::createObject);
+    Activator::getActivator()->registerType("rainbow::Camera", Camera::createObject);
+    Activator::getActivator()->registerType("rainbow::Input::Mapping::KeyActionData", Input::Mapping::KeyActionData::createObject);
+    Activator::getActivator()->registerType("rainbow::Input::Mapping::MouseButtonActionData", Input::Mapping::MouseButtonActionData::createObject);
+    Activator::getActivator()->registerType("rainbow::Input::Mapping", Input::Mapping::createObject);
+    Activator::getActivator()->registerType("rainbow::Input::Mappings", Input::Mappings::createObject);
+    Activator::getActivator()->registerType("rainbow::Light", Light::createObject);
 
     // Register engine enums
-    Activator::getActivator()->registerEnum("prana::Camera::Mode", Camera::enumToString, Camera::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::GamepadAxis", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::Key", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::KeyModifiers", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::MouseAxis", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::MouseButton", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::Mapping::Action", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::Mapping::ActionProfile", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Input::Mapping::Type", Input::enumToString, Input::enumParse);
-    Activator::getActivator()->registerEnum("prana::Light::Type", Light::enumToString, Light::enumParse);
-    Activator::getActivator()->registerEnum("prana::Light::Mode", Light::enumToString, Light::enumParse);
-    Activator::getActivator()->registerEnum("prana::Light::Shadows", Light::enumToString, Light::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Camera::Mode", Camera::enumToString, Camera::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::GamepadAxis", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::Key", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::KeyModifiers", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::MouseAxis", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::MouseButton", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::Mapping::Action", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::Mapping::ActionProfile", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Input::Mapping::Type", Input::enumToString, Input::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Light::Type", Light::enumToString, Light::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Light::Mode", Light::enumToString, Light::enumParse);
+    Activator::getActivator()->registerEnum("rainbow::Light::Shadows", Light::enumToString, Light::enumParse);
 }
 
 }

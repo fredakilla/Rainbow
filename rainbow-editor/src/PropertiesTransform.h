@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gameplay.h>
+#include <rainbow.h>
 #include <QWidget>
 
 
@@ -34,7 +34,7 @@ public:
      *
      * @param object The object to edit transform from.
      */
-    void setObject(gameplay::SceneObject* object);
+    void setObject(rainbow::SceneObject* object);
 
 signals:
 
@@ -53,7 +53,7 @@ private:
     void updateProperties();
 
     Ui::PropertiesTransform* _ui;
-    gameplay::SceneObject* _object;
+    rainbow::SceneObject* _object;
     bool _expanded;
     int _expandedHeight;
 };

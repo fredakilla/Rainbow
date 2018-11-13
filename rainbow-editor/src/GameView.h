@@ -7,13 +7,13 @@
 #include <QTimer>
 #include <QSize>
 
-#include "gameplay.h"
+#include "rainbow.h"
 
 
 /**
  * The main game view to render scenes into viewport(s).
  */
-class GameView : public QWidget, public gameplay::Game
+class GameView : public QWidget, public rainbow::Game
 {
     Q_OBJECT
 public:
@@ -121,8 +121,8 @@ private:
     static Input::MouseButton translateMouseButton(Qt::MouseButton button);
 
     EditorWindow* _editor;
-    gameplay::Graphics* _graphics;
-    std::shared_ptr<gameplay::Scene> _scene;
+    rainbow::Graphics* _graphics;
+    std::shared_ptr<rainbow::Scene> _scene;
     bool _wireframe;
     QTimer _timer;
     QSize _size;

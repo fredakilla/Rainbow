@@ -2,7 +2,7 @@
 
 #include "Serializable.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -80,7 +80,7 @@ public:
     /**
      * Registers a callback for functor for instantiating new object for the specified type name.
      *
-     * The className should be namespaced. Ex. prana::SceneObject
+     * The className should be namespaced. Ex. rainbow::SceneObject
      *
      * @param className The type name to be registered to create a custom object.
      * @param create The create instance callback used to dynamically create a serializable object.
@@ -90,7 +90,7 @@ public:
     /**
      * Registers an enum for resolving enumerated values to/from strings. 
      *
-     * The enumName should be namespaced. Ex prana::Camera::Type
+     * The enumName should be namespaced. Ex rainbow::Camera::Type
      *
      * If the enumeration support bitwise operations, it must return the string representation.
      * 

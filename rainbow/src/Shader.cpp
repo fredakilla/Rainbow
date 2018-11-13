@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Shader.h"
 
-namespace prana
+namespace rainbow
 {
 
 Shader::Shader() :

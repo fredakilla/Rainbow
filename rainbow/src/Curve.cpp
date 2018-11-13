@@ -3,7 +3,7 @@
 #include "Quaternion.h"
 #include "MathUtil.h"
 
-namespace prana
+namespace rainbow
 {
 
 Curve* Curve::create(size_t pointCount, size_t componentCount)

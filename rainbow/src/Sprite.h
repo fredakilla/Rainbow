@@ -2,7 +2,7 @@
 
 #include "Renderer.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

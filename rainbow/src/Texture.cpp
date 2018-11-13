@@ -2,7 +2,7 @@
 #include "Texture.h"
 #include "Graphics.h"
 
-namespace prana
+namespace rainbow
 {
 
 Texture::Texture() :

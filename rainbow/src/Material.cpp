@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Material.h"
 
-namespace prana
+namespace rainbow
 {
 
 Material::Material()

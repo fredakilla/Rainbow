@@ -2,7 +2,7 @@
 
 #include "Texture.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

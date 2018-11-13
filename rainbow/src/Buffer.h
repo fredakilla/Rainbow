@@ -2,7 +2,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -85,4 +85,4 @@ private:
 
 }
 
-GP_ENABLE_BITWISE_OPERATORS(prana::Buffer::Usage);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::Buffer::Usage);

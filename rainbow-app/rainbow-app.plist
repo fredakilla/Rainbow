@@ -5,15 +5,15 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>gameplay-app</string>
+	<string>rainbow-app</string>
 	<key>CFBundleIconFile</key>
-        <string>gameplay-app.icns</string>
+        <string>rainbow-app.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>gamplay-app</string>
+	<string>rainbow-app</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>gameplay-app</string>
+	<string>rainbow-app</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -21,7 +21,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2018 gameplay3d. All rights reserved.</string>
+	<string>Copyright © 2018 rainbow3d. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Animation.h"
 
-namespace prana
+namespace rainbow
 {
 
 Animation::Animation() : Component()

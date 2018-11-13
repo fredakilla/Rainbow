@@ -38,13 +38,13 @@ std::shared_ptr<Project> Project::create(const QString& path, const QString& nam
     // Create a project file
     if (!_serializerActivated)
     {
-        gameplay::Activator::getActivator()->registerType("gameplay::Project", &Project::createObject);
+        rainbow::Activator::getActivator()->registerType("rainbow::Project", &Project::createObject);
         _serializerActivated = true;
     }
     QString projectFilePath(path + QString("/") + QString(QLatin1String(PROJECT_FILE)));
     QByteArray projectFilePathByteArray = projectFilePath.toLatin1();
     const char* projectFilePathStr = projectFilePathByteArray.data();
-    auto projectWriter = gameplay::SerializerJson::createWriter(projectFilePathStr);
+    auto projectWriter = rainbow::SerializerJson::createWriter(projectFilePathStr);
     projectWriter->writeObject(nullptr, project);
     projectWriter->close();
 
@@ -52,29 +52,29 @@ std::shared_ptr<Project> Project::create(const QString& path, const QString& nam
     QString configFilePath(path + QString("/") + QString(QLatin1String(PROJECT_CONFIG_FILE)));
     QByteArray configFilePathByteArray = configFilePath.toLatin1();
     const char* configFilePathStr = configFilePathByteArray.data();
-    auto configWriter = gameplay::SerializerJson::createWriter(configFilePathStr);
-    auto config = std::make_shared<gameplay::Game::Config>();
+    auto configWriter = rainbow::SerializerJson::createWriter(configFilePathStr);
+    auto config = std::make_shared<rainbow::Game::Config>();
     configWriter->writeObject(nullptr, config);
     configWriter->close();
 
     // Create an empty scene.
-    auto scene = std::make_shared<gameplay::Scene>();
+    auto scene = std::make_shared<rainbow::Scene>();
     scene->setName(PROJECT_SCENE_NAME);
 
     // Add and object with a camera component
-    auto camera = std::make_shared<gameplay::Camera>();
-    camera->setMode(gameplay::Camera::Mode::ePerspective);
-    auto cameraObject = std::make_shared<gameplay::SceneObject>();
+    auto camera = std::make_shared<rainbow::Camera>();
+    camera->setMode(rainbow::Camera::Mode::ePerspective);
+    auto cameraObject = std::make_shared<rainbow::SceneObject>();
     cameraObject->setName(PROJECT_CAMERA_NAME);
     cameraObject->addComponent(camera);
     scene->addChild(cameraObject);
 
     // Add an object with a directional light component
-    auto light = std::make_shared<gameplay::Light>();
-    auto lightObject = std::make_shared<gameplay::SceneObject>();
+    auto light = std::make_shared<rainbow::Light>();
+    auto lightObject = std::make_shared<rainbow::SceneObject>();
     lightObject->setName(PROJECT_LIGHT_NAME);
     lightObject->addComponent(light);
-    lightObject->setPosition(gameplay::Vector3(0.0f, 0.0f, 10.0f));
+    lightObject->setPosition(rainbow::Vector3(0.0f, 0.0f, 10.0f));
     scene->addChild(lightObject);
 
     // Create a scene file
@@ -83,7 +83,7 @@ std::shared_ptr<Project> Project::create(const QString& path, const QString& nam
 
     QByteArray sceneFilePathByteArray = sceneFilePath.toLatin1();
     const char* sceneFilePathStr = sceneFilePathByteArray.data();
-    auto sceneWriter = gameplay::SerializerJson::createWriter(sceneFilePathStr);
+    auto sceneWriter = rainbow::SerializerJson::createWriter(sceneFilePathStr);
     sceneWriter->writeObject(nullptr, scene);
     sceneWriter->close();
 
@@ -94,7 +94,7 @@ std::shared_ptr<Project> Project::open(const QString& path, QObject* parent)
 {
     if (!_serializerActivated)
     {
-        gameplay::Activator::getActivator()->registerType("gameplay::Project", &Project::createObject);
+        rainbow::Activator::getActivator()->registerType("rainbow::Project", &Project::createObject);
         _serializerActivated = true;
     }
 
@@ -104,7 +104,7 @@ std::shared_ptr<Project> Project::open(const QString& path, QObject* parent)
 
     QByteArray ba = projectPath.toLatin1();
     const char* str = ba.data();
-    auto projectReader = gameplay::Serializer::createReader(str);
+    auto projectReader = rainbow::Serializer::createReader(str);
     auto project = std::dynamic_pointer_cast<Project>(projectReader->readObject(nullptr));
     projectReader->close();
 
@@ -158,23 +158,23 @@ QVariant Project::data(const QModelIndex& index, int role) const
     return QFileSystemModel::data(index, role);
 }
 
-std::shared_ptr<gameplay::Serializable> Project::createObject()
+std::shared_ptr<rainbow::Serializable> Project::createObject()
 {
     return std::static_pointer_cast<Serializable>(std::make_shared<Project>());
 }
 
 std::string Project::getClassName()
 {
-    return "gameplay::Project";
+    return "rainbow::Project";
 }
 
-void Project::onSerialize(gameplay::Serializer* serializer)
+void Project::onSerialize(rainbow::Serializer* serializer)
 {
     serializer->writeString("name", _name.c_str(), "");
     serializer->writeString("scene", _scenePath.c_str(), "");
 }
 
-void Project::onDeserialize(gameplay::Serializer* serializer)
+void Project::onDeserialize(rainbow::Serializer* serializer)
 {
     serializer->readString("name", _name, "" );
     serializer->readString("scene", _scenePath, "");

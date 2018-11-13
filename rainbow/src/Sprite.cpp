@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Sprite.h"
 
-namespace prana
+namespace rainbow
 {
 
 Sprite::Sprite()
@@ -19,7 +19,7 @@ std::shared_ptr<Serializable> Sprite::createObject()
 
 std::string Sprite::getClassName()
 {
-    return "prana::Sprite";
+    return "rainbow::Sprite";
 }
 
 void Sprite::onSerialize(Serializer* serializer)

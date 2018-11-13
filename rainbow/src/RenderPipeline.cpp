@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "RenderPipeline.h"
 
-namespace prana
+namespace rainbow
 {
 
 RenderPipeline::RenderPipeline() :

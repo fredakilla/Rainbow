@@ -163,7 +163,7 @@ HEADERS += \
     src/rainbow.h
     
 
-INCLUDEPATH += $$PWD/../prana/src
+INCLUDEPATH += $$PWD/../rainbow/src
 INCLUDEPATH += $$PWD/../external-deps/include
 
 win32 {

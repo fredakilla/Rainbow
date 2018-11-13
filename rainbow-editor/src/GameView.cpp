@@ -19,7 +19,7 @@ GameView::GameView(QWidget* parent) : QWidget(parent),
 
 GameView::~GameView()
 {
-    gameplay::Game::getInstance()->exit();
+    rainbow::Game::getInstance()->exit();
 }
 
 void GameView::setEditor(EditorWindow* editor)

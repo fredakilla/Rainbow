@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Path.h"
 
-namespace prana
+namespace rainbow
 {
 
 Path::Path()
@@ -19,7 +19,7 @@ std::shared_ptr<Serializable> Path::createObject()
 
 std::string Path::getClassName()
 {
-    return "prana::Path";
+    return "rainbow::Path";
 }
 
 void Path::onSerialize(Serializer* serializer)

@@ -2,7 +2,7 @@
 #include "PhysicsJoint.h"
 #include "Vector3.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsJoint::PhysicsJoint()

@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-namespace prana
+namespace rainbow
 {
    
     class Vector3;

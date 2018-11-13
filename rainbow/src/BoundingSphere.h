@@ -2,7 +2,7 @@
 
 #include "Frustum.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

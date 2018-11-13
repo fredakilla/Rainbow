@@ -4,7 +4,7 @@
 #include "Quaternion.h"
 
 
-namespace prana
+namespace rainbow
 {
 
 static const float MATRIX_IDENTITY[16] =

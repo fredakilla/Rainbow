@@ -7,7 +7,7 @@
 #include "Vector3.h"
 #include "SceneObject.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

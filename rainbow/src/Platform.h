@@ -19,7 +19,7 @@
 #undef Unsorted
 #endif
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -92,12 +92,12 @@ public:
      *
      * Example:
      *
-     * Platform::getPlatform()->loadPlugin("./prana-user");
+     * Platform::getPlatform()->loadPlugin("./rainbow-user");
      *
      * Dynamically loads:
-     *  prana-user.dll       (windows)
-     *  prana-user.so        (linux)
-     *  prana-user.dynlib    (macos)
+     *  rainbow-user.dll       (windows)
+     *  rainbow-user.so        (linux)
+     *  rainbow-user.dynlib    (macos)
      *
      * Required plugin symbols:
      *

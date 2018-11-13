@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Vector3.h"
 
-namespace prana
+namespace rainbow
 {
 
 Vector3::Vector3()

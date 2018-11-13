@@ -8,7 +8,7 @@
 #include "RenderPass.h"
 #include "Shader.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

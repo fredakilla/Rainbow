@@ -6,7 +6,7 @@
 #include "SceneObject.h"
 #include "FileSystem.h"
 
-namespace prana
+namespace rainbow
 {
 
 #define SWAPCHAIN_IMAGE_COUNT       3

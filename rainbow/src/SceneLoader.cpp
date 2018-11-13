@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "SceneLoader.h"
 
-namespace prana
+namespace rainbow
 {
 
 SceneLoader::SceneLoader() 

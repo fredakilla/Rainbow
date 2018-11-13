@@ -51,7 +51,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-x.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-x.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="labelPosition">
@@ -83,7 +83,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-z.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-z.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="labelRotation">
@@ -144,7 +144,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-x.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-x.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="labelPx">
@@ -163,7 +163,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-x.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-x.png</pixmap>
    </property>
   </widget>
   <widget class="QDoubleSpinBox" name="doubleSpinBoxPositionX">
@@ -278,7 +278,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-y.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-y.png</pixmap>
    </property>
   </widget>
   <widget class="QDoubleSpinBox" name="doubleSpinBoxPositionY">
@@ -313,7 +313,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-y.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-y.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="labelSy">
@@ -332,7 +332,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-y.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-y.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="labelRz">
@@ -351,7 +351,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-z.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-z.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="labelSz">
@@ -370,7 +370,7 @@
     <enum>Qt::AutoText</enum>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/axis-z.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/axis-z.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButtonStatic">
@@ -386,7 +386,7 @@
     <string> Static</string>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/static.png</normaloff>:/res/images/static.png</iconset>
    </property>
    <property name="checkable">
@@ -409,7 +409,7 @@
     <string>  Movable</string>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/movable.png</normaloff>:/res/images/movable.png</iconset>
    </property>
    <property name="checkable">
@@ -442,7 +442,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="../gameplay-editor.qrc">:/res/images/scene-object.png</pixmap>
+    <pixmap resource="../rainbow-editor.qrc">:/res/images/scene-object.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -499,7 +499,7 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/menu.png</normaloff>:/res/images/menu.png</iconset>
    </property>
    <property name="iconSize">
@@ -528,7 +528,7 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/arrow-down.png</normaloff>:/res/images/arrow-down.png</iconset>
    </property>
    <property name="iconSize">
@@ -543,7 +543,7 @@
   </widget>
   <action name="actionReset">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/reset.png</normaloff>:/res/images/reset.png</iconset>
    </property>
    <property name="text">
@@ -552,7 +552,7 @@
   </action>
   <action name="actionInfo">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/help.png</normaloff>:/res/images/help.png</iconset>
    </property>
    <property name="text">
@@ -590,7 +590,7 @@
   <zorder>toolButtonHeaderExpander</zorder>
  </widget>
  <resources>
-  <include location="../gameplay-editor.qrc"/>
+  <include location="../rainbow-editor.qrc"/>
  </resources>
  <connections/>
 </ui>

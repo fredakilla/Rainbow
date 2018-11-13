@@ -8,7 +8,7 @@
 #include "Vector4.h"
 #include "Matrix.h"
 
-namespace prana
+namespace rainbow
 {
 
 SerializerJson::SerializerJson(Type type,

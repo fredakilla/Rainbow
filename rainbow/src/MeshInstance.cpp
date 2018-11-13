@@ -2,7 +2,7 @@
 #include "MeshInstance.h"
 #include "FileSystem.h"
 
-namespace prana
+namespace rainbow
 {
 
 MeshInstance::MeshInstance()
@@ -20,7 +20,7 @@ std::shared_ptr<Serializable> MeshInstance::createObject()
 
 std::string MeshInstance::getClassName()
 {
-    return "prana::MeshInstance";
+    return "rainbow::MeshInstance";
 }
 
 void MeshInstance::onSerialize(Serializer* serializer)

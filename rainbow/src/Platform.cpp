@@ -5,7 +5,7 @@
 #define PLUGIN_FN_ON_LOAD       "onLoad"
 #define PLUGIN_FN_ON_UNLOAD     "onUnload"
 
-namespace prana
+namespace rainbow
 {
 
 struct GamepadAxisDpadRemap

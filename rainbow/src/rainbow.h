@@ -111,4 +111,4 @@
 #include "PhysicsVehicle.h"
 #include "PhysicsCloth.h"
 
-using namespace prana;
+using namespace rainbow;

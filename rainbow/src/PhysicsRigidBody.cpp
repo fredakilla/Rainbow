@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsRigidBody.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsRigidBody::PhysicsRigidBody()
@@ -112,7 +112,7 @@ std::shared_ptr<Serializable> PhysicsRigidBody::createObject()
 
 std::string PhysicsRigidBody::getClassName()
 {
-    return "prana::PhysicsRigidBody";
+    return "rainbow::PhysicsRigidBody";
 }
 
 void PhysicsRigidBody::onSerialize(Serializer * serializer)

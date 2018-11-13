@@ -2,7 +2,7 @@
 
 #include "EditorWindow.h"
 #include "SceneSortFilterProxyModel.h"
-#include "gameplay.h"
+#include "rainbow.h"
 
 #include <QWidget>
 #include <QStandardItem>
@@ -96,17 +96,17 @@ signals:
 
 private:
 
-    QStandardItem* createSceneItem(std::shared_ptr<gameplay::Scene> scene);
-    QStandardItem* createObjectItem(std::shared_ptr<gameplay::SceneObject> object);
-    QStandardItem* createScene(std::shared_ptr<gameplay::Scene> scene);
-    QStandardItem* createObjectHierarchy(std::shared_ptr<gameplay::SceneObject> object);
-    void visitorAddItem(std::shared_ptr<gameplay::Scene> parent, QStandardItem* parentItem);
-    void visitorAddItem(std::shared_ptr<gameplay::SceneObject> parent, QStandardItem* parentItem);
-    void addToHiearchy(std::shared_ptr<gameplay::SceneObject> object, QStandardItem* item);
+    QStandardItem* createSceneItem(std::shared_ptr<rainbow::Scene> scene);
+    QStandardItem* createObjectItem(std::shared_ptr<rainbow::SceneObject> object);
+    QStandardItem* createScene(std::shared_ptr<rainbow::Scene> scene);
+    QStandardItem* createObjectHierarchy(std::shared_ptr<rainbow::SceneObject> object);
+    void visitorAddItem(std::shared_ptr<rainbow::Scene> parent, QStandardItem* parentItem);
+    void visitorAddItem(std::shared_ptr<rainbow::SceneObject> parent, QStandardItem* parentItem);
+    void addToHiearchy(std::shared_ptr<rainbow::SceneObject> object, QStandardItem* item);
 
     Ui::SceneView* _ui;
     EditorWindow* _editor;
-    std::shared_ptr<gameplay::Scene> _scene;
+    std::shared_ptr<rainbow::Scene> _scene;
     QStandardItemModel* _sceneModel;
     SceneSortFilterProxyModel* _sortFilter;
     std::list<QStandardItem*>* _selectedItems;

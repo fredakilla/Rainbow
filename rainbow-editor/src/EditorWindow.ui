@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>GamePlay - editor</string>
+   <string>rainbow - editor</string>
   </property>
   <property name="iconSize">
    <size>
@@ -356,7 +356,7 @@
   </widget>
   <action name="actionNewProject">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/file-new.png</normaloff>:/res/images/file-new.png</iconset>
    </property>
    <property name="text">
@@ -368,7 +368,7 @@
   </action>
   <action name="actionOpenProject">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/file-open.png</normaloff>:/res/images/file-open.png</iconset>
    </property>
    <property name="text">
@@ -383,7 +383,7 @@
   </action>
   <action name="actionSave">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/file-save.png</normaloff>:/res/images/file-save.png</iconset>
    </property>
    <property name="text">
@@ -426,7 +426,7 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/preferences.png</normaloff>:/res/images/preferences.png</iconset>
    </property>
    <property name="text">
@@ -483,7 +483,7 @@
   </action>
   <action name="actionDelete">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/delete.png</normaloff>:/res/images/delete.png</iconset>
    </property>
    <property name="text">
@@ -511,7 +511,7 @@
   </action>
   <action name="actionImport">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/file-import.png</normaloff>:/res/images/file-import.png</iconset>
    </property>
    <property name="text">
@@ -555,7 +555,7 @@
   </action>
   <action name="actionPlay">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/play.png</normaloff>:/res/images/play.png</iconset>
    </property>
    <property name="text">
@@ -567,7 +567,7 @@
   </action>
   <action name="actionPackage">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/file-package.png</normaloff>:/res/images/file-package.png</iconset>
    </property>
    <property name="text">
@@ -585,7 +585,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/transform-pan.png</normaloff>:/res/images/transform-pan.png</iconset>
    </property>
    <property name="text">
@@ -606,7 +606,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/transform-move.png</normaloff>:/res/images/transform-move.png</iconset>
    </property>
    <property name="text">
@@ -624,7 +624,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/transform-rotate.png</normaloff>:/res/images/transform-rotate.png</iconset>
    </property>
    <property name="text">
@@ -642,7 +642,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/transform-scale.png</normaloff>:/res/images/transform-scale.png</iconset>
    </property>
    <property name="text">
@@ -671,7 +671,7 @@
   </action>
   <action name="actionTransformModeWorld">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/transform-mode-world.png</normaloff>:/res/images/transform-mode-world.png</iconset>
    </property>
    <property name="text">
@@ -683,7 +683,7 @@
   </action>
   <action name="actionTransformModeLocal">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/transform-mode-local.png</normaloff>:/res/images/transform-mode-local.png</iconset>
    </property>
    <property name="text">
@@ -695,7 +695,7 @@
   </action>
   <action name="actionCreateObject">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-object.png</normaloff>:/res/images/scene-object.png</iconset>
    </property>
    <property name="text">
@@ -707,7 +707,7 @@
   </action>
   <action name="actionCreateCube">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-shape-cube.png</normaloff>:/res/images/scene-shape-cube.png</iconset>
    </property>
    <property name="text">
@@ -719,7 +719,7 @@
   </action>
   <action name="actionCreateCone">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-shape-cone.png</normaloff>:/res/images/scene-shape-cone.png</iconset>
    </property>
    <property name="text">
@@ -731,7 +731,7 @@
   </action>
   <action name="actionCreateCylinder">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-shape-cylinder.png</normaloff>:/res/images/scene-shape-cylinder.png</iconset>
    </property>
    <property name="text">
@@ -743,7 +743,7 @@
   </action>
   <action name="actionCreateSphere">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-shape-sphere.png</normaloff>:/res/images/scene-shape-sphere.png</iconset>
    </property>
    <property name="text">
@@ -755,7 +755,7 @@
   </action>
   <action name="actionCreateCamera">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-camera.png</normaloff>:/res/images/scene-camera.png</iconset>
    </property>
    <property name="text">
@@ -767,7 +767,7 @@
   </action>
   <action name="actionCreateSpotLight">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-light-spot.png</normaloff>:/res/images/scene-light-spot.png</iconset>
    </property>
    <property name="text">
@@ -779,7 +779,7 @@
   </action>
   <action name="actionCreatePointLight">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-light-point.png</normaloff>:/res/images/scene-light-point.png</iconset>
    </property>
    <property name="text">
@@ -791,7 +791,7 @@
   </action>
   <action name="actionCreateDirectionalLight">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-light-directional.png</normaloff>:/res/images/scene-light-directional.png</iconset>
    </property>
    <property name="text">
@@ -803,7 +803,7 @@
   </action>
   <action name="actionCreateTerrain">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-terrain.png</normaloff>:/res/images/scene-terrain.png</iconset>
    </property>
    <property name="text">
@@ -815,7 +815,7 @@
   </action>
   <action name="actionCreateSprite">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-sprite.png</normaloff>:/res/images/scene-sprite.png</iconset>
    </property>
    <property name="text">
@@ -827,7 +827,7 @@
   </action>
   <action name="actionCreateText">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-text.png</normaloff>:/res/images/scene-text.png</iconset>
    </property>
    <property name="text">
@@ -839,7 +839,7 @@
   </action>
   <action name="actionCreateUI">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-ui.png</normaloff>:/res/images/scene-ui.png</iconset>
    </property>
    <property name="text">
@@ -851,7 +851,7 @@
   </action>
   <action name="actionCreateParticleEmitter">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-particles.png</normaloff>:/res/images/scene-particles.png</iconset>
    </property>
    <property name="text">
@@ -863,7 +863,7 @@
   </action>
   <action name="actionCreateAudio">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-audio.png</normaloff>:/res/images/scene-audio.png</iconset>
    </property>
    <property name="text">
@@ -875,7 +875,7 @@
   </action>
   <action name="actionCreateVideo">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-video.png</normaloff>:/res/images/scene-video.png</iconset>
    </property>
    <property name="text">
@@ -895,7 +895,7 @@
   </action>
   <action name="actionShadingLit">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/shading-lit.png</normaloff>:/res/images/shading-lit.png</iconset>
    </property>
    <property name="text">
@@ -907,7 +907,7 @@
   </action>
   <action name="actionShadingUnlit">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/shading-unlit.png</normaloff>:/res/images/shading-unlit.png</iconset>
    </property>
    <property name="text">
@@ -922,7 +922,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/shading-wireframe.png</normaloff>:/res/images/shading-wireframe.png</iconset>
    </property>
    <property name="text">
@@ -954,7 +954,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/show-grid.png</normaloff>:/res/images/show-grid.png</iconset>
    </property>
    <property name="text">
@@ -969,7 +969,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/fullscreen.png</normaloff>:/res/images/fullscreen.png</iconset>
    </property>
    <property name="text">
@@ -1012,7 +1012,7 @@
   </action>
   <action name="actionShow">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/show.png</normaloff>:/res/images/show.png</iconset>
    </property>
    <property name="text">
@@ -1062,7 +1062,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../gameplay-editor.qrc"/>
+  <include location="../rainbow-editor.qrc"/>
  </resources>
  <connections/>
  <slots>

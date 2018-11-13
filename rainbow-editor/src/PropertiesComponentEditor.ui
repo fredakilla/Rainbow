@@ -129,7 +129,7 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/menu.png</normaloff>:/res/images/menu.png</iconset>
    </property>
    <property name="iconSize">
@@ -158,7 +158,7 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/arrow-down.png</normaloff>:/res/images/arrow-down.png</iconset>
    </property>
    <property name="iconSize">
@@ -173,7 +173,7 @@
   </widget>
   <action name="actionReset">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/reset.png</normaloff>:/res/images/reset.png</iconset>
    </property>
    <property name="text">
@@ -182,7 +182,7 @@
   </action>
   <action name="actionDetach">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/delete.png</normaloff>:/res/images/delete.png</iconset>
    </property>
    <property name="text">
@@ -194,7 +194,7 @@
   </action>
   <action name="actionInfo">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/help.png</normaloff>:/res/images/help.png</iconset>
    </property>
    <property name="text">
@@ -210,7 +210,7 @@
   <zorder>toolButtonHeaderExpander</zorder>
  </widget>
  <resources>
-  <include location="../gameplay-editor.qrc"/>
+  <include location="../rainbow-editor.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Rectangle.h"
 
-namespace prana
+namespace rainbow
 {
 
 Rectangle::Rectangle()

@@ -2,7 +2,7 @@
 #include "PhysicsCollider.h"
 #include "Vector3.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsCollider::PhysicsCollider()
@@ -38,7 +38,7 @@ std::shared_ptr<Serializable> PhysicsCollider::createObject()
 
 std::string PhysicsCollider::getClassName()
 {
-    return "prana::PhysicsCollider";
+    return "rainbow::PhysicsCollider";
 }
 
 void PhysicsCollider::onSerialize(Serializer * serializer)

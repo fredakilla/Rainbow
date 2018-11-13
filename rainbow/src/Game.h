@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "Input.h"
 
-namespace prana
+namespace rainbow
 {
 
 class Graphics;

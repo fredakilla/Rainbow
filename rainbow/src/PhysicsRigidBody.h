@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -231,4 +231,4 @@ protected:
 
 }
 
-GP_ENABLE_BITWISE_OPERATORS(prana::PhysicsRigidBody::FreezeConstraints);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::PhysicsRigidBody::FreezeConstraints);

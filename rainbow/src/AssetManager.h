@@ -2,7 +2,7 @@
 
 #include "AssetLoader.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

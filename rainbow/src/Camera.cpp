@@ -14,7 +14,7 @@
 #define CAMERA_CLIP_PLANE_NEAR 0.1f
 #define CAMERA_CLIP_PLANE_FAR 1000.f
 
-namespace prana
+namespace rainbow
 {
 
 Camera::Camera() : Component(),
@@ -273,7 +273,7 @@ std::shared_ptr<Serializable> Camera::createObject()
 
 std::string Camera::enumToString(const std::string& enumName, int value)
 {
-    if (enumName.compare("prana::Camera::Mode") == 0)
+    if (enumName.compare("rainbow::Camera::Mode") == 0)
     {
         switch (value)
         {
@@ -290,7 +290,7 @@ std::string Camera::enumToString(const std::string& enumName, int value)
 
 int Camera::enumParse(const std::string& enumName, const std::string& str)
 {
-    if (enumName.compare("prana::Camera::Mode") == 0)
+    if (enumName.compare("rainbow::Camera::Mode") == 0)
     {
         if (str.compare("ePerspective") == 0)
             return static_cast<int>(Mode::ePerspective);
@@ -302,12 +302,12 @@ int Camera::enumParse(const std::string& enumName, const std::string& str)
 
 std::string Camera::getClassName()
 {
-    return "prana::Camera";
+    return "rainbow::Camera";
 }
 
 void Camera::onSerialize(Serializer* serializer)
 {
-    serializer->writeEnum("mode", "prana::Camera::Mode", static_cast<int>(_mode), -1);
+    serializer->writeEnum("mode", "rainbow::Camera::Mode", static_cast<int>(_mode), -1);
     if (_mode == Mode::ePerspective)
     {
         serializer->writeFloat("fieldOfView", _fieldOfView, CAMERA_FIELD_OF_VIEW);
@@ -324,7 +324,7 @@ void Camera::onSerialize(Serializer* serializer)
 
 void Camera::onDeserialize(Serializer* serializer)
 {
-    _mode = static_cast<Camera::Mode>(serializer->readEnum("mode", "prana::Camera::Mode", -1));
+    _mode = static_cast<Camera::Mode>(serializer->readEnum("mode", "rainbow::Camera::Mode", -1));
     if (_mode == Mode::ePerspective)
     {
         _fieldOfView = serializer->readFloat("fieldOfView", CAMERA_FIELD_OF_VIEW);

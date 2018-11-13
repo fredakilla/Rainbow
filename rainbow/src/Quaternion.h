@@ -4,7 +4,7 @@
 #include "Matrix.h"
 #include "Plane.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

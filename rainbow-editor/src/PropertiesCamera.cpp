@@ -23,7 +23,7 @@ PropertiesCamera::~PropertiesCamera()
     delete _ui;
 }
 
-void PropertiesCamera::setCamera(std::shared_ptr<gameplay::Camera> camera)
+void PropertiesCamera::setCamera(std::shared_ptr<rainbow::Camera> camera)
 {
     _camera = camera;
 
@@ -42,15 +42,15 @@ QString PropertiesCamera::getHeaderIcon() const
 
 void PropertiesCamera::onReset(bool)
 {
-    _camera->reset(static_cast<gameplay::Camera::Mode>(_ui->comboBoxMode->currentIndex()));
+    _camera->reset(static_cast<rainbow::Camera::Mode>(_ui->comboBoxMode->currentIndex()));
     updateProperties();
 }
 
 void PropertiesCamera::onModeChanged(int index)
 {
-    switch (static_cast<gameplay::Camera::Mode>(index))
+    switch (static_cast<rainbow::Camera::Mode>(index))
     {
-    case gameplay::Camera::Mode::ePerspective:
+    case rainbow::Camera::Mode::ePerspective:
         {
             _ui->labelSize->hide();
             _ui->doubleSpinBoxSize->hide();
@@ -60,7 +60,7 @@ void PropertiesCamera::onModeChanged(int index)
             break;
         }
 
-    case gameplay::Camera::Mode::eOrthograhic:
+    case rainbow::Camera::Mode::eOrthograhic:
         {
             _ui->labelFieldOfView->hide();
             _ui->spinBoxFieldOfView->hide();

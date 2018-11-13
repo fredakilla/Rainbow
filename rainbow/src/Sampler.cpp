@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Sampler.h"
 
-namespace prana
+namespace rainbow
 {
 
 Sampler::Sampler() :

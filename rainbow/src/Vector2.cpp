@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Vector2.h"
 
-namespace prana
+namespace rainbow
 {
 
 Vector2::Vector2()

@@ -4,7 +4,7 @@
 #include "TextureLoader.h"
 #include "SceneLoader.h"
 
-namespace prana
+namespace rainbow
 {
 
 AssetManager::AssetManager() 

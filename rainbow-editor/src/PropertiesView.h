@@ -5,7 +5,7 @@
 #include "PropertiesComponentEditor.h"
 #include "PropertiesTransform.h"
 #include "PropertiesCamera.h"
-#include "gameplay.h"
+#include "rainbow.h"
 #include <QWidget>
 #include <QFrame>
 
@@ -84,6 +84,6 @@ private:
     Ui::PropertiesView* _ui;
     EditorWindow* _editor;
     SceneView* _sceneView;
-    gameplay::SceneObject _selectedObject;
-    std::vector<std::shared_ptr<gameplay::Component>> _components;
+    rainbow::SceneObject _selectedObject;
+    std::vector<std::shared_ptr<rainbow::Component>> _components;
 };

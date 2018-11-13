@@ -3,7 +3,7 @@
 #include "Component.h"
 #include "Physics.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

@@ -3,7 +3,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 
-namespace prana
+namespace rainbow
 {
 
 class Plane;

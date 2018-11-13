@@ -4,7 +4,7 @@
 #include "Ray.h"
 #include "Plane.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

@@ -33,13 +33,13 @@ echo "Using ar : $AR"
 echo "Amalgamating $TARGET"
 
 cd $TARGET
-rm -f libprana-deps.a
+rm -f librainbow-deps.a
 mkdir -p tmp
 cp *.a ./tmp/
 
 # Build an MRI script file
 MRI="$CWD/deps.mri"
-echo "create prana-deps.a" >$MRI
+echo "create librainbow-deps.a" >$MRI
 for file in ./tmp/* ; do
     if [ -e "$file" ];
     then
@@ -56,7 +56,7 @@ cat $MRI
 $AR -M < $MRI
 
 # move amalgamated lib to output dir
-mv -f prana-deps.a $OUTDIR
+mv -f librainbow-deps.a $OUTDIR
 
 # Clean up
 rm $MRI

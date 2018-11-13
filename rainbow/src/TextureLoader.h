@@ -3,7 +3,7 @@
 #include "AssetLoader.h"
 #include "Vector2.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

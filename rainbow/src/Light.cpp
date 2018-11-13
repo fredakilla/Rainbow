@@ -6,7 +6,7 @@
 #define LIGHT_ANGLE 30.0f
 #define LIGHT_INTENSITY 1.0f
 
-namespace prana
+namespace rainbow
 {
 
 Light::Light() : Component(),
@@ -134,7 +134,7 @@ std::shared_ptr<Serializable> Light::createObject()
 
 std::string Light::enumToString(const std::string& enumName, int value)
 {
-    if (enumName.compare("prana::Light::Type") == 0)
+    if (enumName.compare("rainbow::Light::Type") == 0)
     {
         switch (value)
         {
@@ -148,7 +148,7 @@ std::string Light::enumToString(const std::string& enumName, int value)
                 return "eDirectional";
         }
     }
-    else if(enumName.compare("prana::Light::Lighting") == 0)
+    else if(enumName.compare("rainbow::Light::Lighting") == 0)
     {
         switch (value)
         {
@@ -160,7 +160,7 @@ std::string Light::enumToString(const std::string& enumName, int value)
                 return "eRealtime";
         }
     }
-    else if(enumName.compare("prana::Light::Shadows") == 0)
+    else if(enumName.compare("rainbow::Light::Shadows") == 0)
     {
         switch (value)
         {
@@ -179,7 +179,7 @@ std::string Light::enumToString(const std::string& enumName, int value)
 
 int Light::enumParse(const std::string& enumName, const std::string& str)
 {
-    if (enumName.compare("prana::Light::Type") == 0)
+    if (enumName.compare("rainbow::Light::Type") == 0)
     {
         if (str.compare("eDirectional") == 0)
             return static_cast<int>(Type::eDirectional);
@@ -188,14 +188,14 @@ int Light::enumParse(const std::string& enumName, const std::string& str)
         else if (str.compare("eSpot") == 0)
             return static_cast<int>(Type::eSpot);
     }
-    else if (enumName.compare("prana::Light::Lighting") == 0)
+    else if (enumName.compare("rainbow::Light::Lighting") == 0)
     {
         if (str.compare("eRealtime") == 0)
             return static_cast<int>(Lighting::eRealtime);
         else if (str.compare("eBaked") == 0)
             return static_cast<int>(Lighting::eBaked);
     }
-    else if (enumName.compare("prana::Light::Shadows") == 0)
+    else if (enumName.compare("rainbow::Light::Shadows") == 0)
     {
         if (str.compare("eNone") == 0)
             return static_cast<int>(Shadows::eNone);
@@ -209,12 +209,12 @@ int Light::enumParse(const std::string& enumName, const std::string& str)
 
 std::string Light::getClassName()
 {
-    return "prana::Light";
+    return "rainbow::Light";
 }
 
 void Light::onSerialize(Serializer* serializer)
 {
-    serializer->writeEnum("type", "prana::Light::Type", static_cast<int>(_type), -1);
+    serializer->writeEnum("type", "rainbow::Light::Type", static_cast<int>(_type), -1);
     serializer->writeColor("color", _color, LIGHT_COLOR);
     serializer->writeFloat("intensity", _intensity, LIGHT_INTENSITY);
     switch (_type)
@@ -236,13 +236,13 @@ void Light::onSerialize(Serializer* serializer)
             break;
     }
 
-    serializer->writeEnum("lighting", "prana::Light::Lighting", static_cast<int>(_lighting), static_cast<int>(Lighting::eRealtime));
-    serializer->writeEnum("shadows", "prana::Light::Shadows", static_cast<int>(_shadows), static_cast<int>(Shadows::eNone));
+    serializer->writeEnum("lighting", "rainbow::Light::Lighting", static_cast<int>(_lighting), static_cast<int>(Lighting::eRealtime));
+    serializer->writeEnum("shadows", "rainbow::Light::Shadows", static_cast<int>(_shadows), static_cast<int>(Shadows::eNone));
 }
 
 void Light::onDeserialize(Serializer* serializer)
 {
-    _type = static_cast<Light::Type>(serializer->readEnum("type", "prana::Light::Type", -1));
+    _type = static_cast<Light::Type>(serializer->readEnum("type", "rainbow::Light::Type", -1));
     _color = serializer->readColor("color", LIGHT_COLOR);
     _intensity = serializer->readFloat("intensity", LIGHT_INTENSITY);
     switch(_type)
@@ -264,8 +264,8 @@ void Light::onDeserialize(Serializer* serializer)
         default:
             break;
     }
-    _lighting = static_cast<Light::Lighting>(serializer->readEnum("lighting", "prana::Light::Lighting", static_cast<int>(Lighting::eRealtime)));
-    _shadows = static_cast<Light::Shadows>(serializer->readEnum("shadows", "prana::Light::Shadows", static_cast<int>(Shadows::eNone)));
+    _lighting = static_cast<Light::Lighting>(serializer->readEnum("lighting", "rainbow::Light::Lighting", static_cast<int>(Lighting::eRealtime)));
+    _shadows = static_cast<Light::Shadows>(serializer->readEnum("shadows", "rainbow::Light::Shadows", static_cast<int>(Shadows::eNone)));
 }
 
 }

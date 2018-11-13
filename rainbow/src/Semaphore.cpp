@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Semaphore.h"
 
-namespace prana
+namespace rainbow
 {
 
 Semaphore::Semaphore() :

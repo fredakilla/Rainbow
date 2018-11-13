@@ -5,7 +5,7 @@
 #include "BoundingSphere.h"
 #include "BoundingBox.h"
 
-namespace prana
+namespace rainbow
 {
 
 Ray::Ray() : 

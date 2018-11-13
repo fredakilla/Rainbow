@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsJointHinge.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsJointHinge::PhysicsJointHinge() 
@@ -151,7 +151,7 @@ std::shared_ptr<Serializable> PhysicsJointHinge::createObject()
 
 std::string PhysicsJointHinge::getClassName()
 {
-    return "prana::PhysicsJointHinge";
+    return "rainbow::PhysicsJointHinge";
 }
 
 void PhysicsJointHinge::onSerialize(Serializer * serializer)

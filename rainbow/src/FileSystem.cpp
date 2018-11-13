@@ -23,7 +23,7 @@
 extern AAssetManager* __assetManager;
 #endif
 
-namespace prana
+namespace rainbow
 {
 
 #if GP_PLATFORM_ANDROID

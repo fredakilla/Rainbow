@@ -35,28 +35,28 @@ PropertiesComponentEditor::~PropertiesComponentEditor()
     delete _ui;
 }
 
-void PropertiesComponentEditor::setComponent(std::shared_ptr<gameplay::Component> component)
+void PropertiesComponentEditor::setComponent(std::shared_ptr<rainbow::Component> component)
 {
     GP_ASSERT(component);
 
     _ui->checkBoxEnabled->setEnabled(component->isEnabled());
 
-    if (component->getClassName().compare("gameplay::Camera") == 0)
+    if (component->getClassName().compare("rainbow::Camera") == 0)
     {
         PropertiesCamera* propertiesCamera = new PropertiesCamera(this);
         _ui->labelHeaderName->setText(propertiesCamera->getHeaderName());
         _ui->labelHeaderIcon->setPixmap(QPixmap(propertiesCamera->getHeaderIcon()));
         _ui->widgetComponentProperties->layout()->addWidget(propertiesCamera);
-        propertiesCamera->setCamera(std::dynamic_pointer_cast<gameplay::Camera>(component));
+        propertiesCamera->setCamera(std::dynamic_pointer_cast<rainbow::Camera>(component));
 
      }
-    else if(component->getClassName().compare("gameplay::Light") == 0)
+    else if(component->getClassName().compare("rainbow::Light") == 0)
     {
         PropertiesLight* propertiesLight = new PropertiesLight(this);
         _ui->labelHeaderName->setText(propertiesLight->getHeaderName());
         _ui->labelHeaderIcon->setPixmap(QPixmap(propertiesLight->getHeaderIcon()));
         _ui->widgetComponentProperties->layout()->addWidget(propertiesLight);
-        propertiesLight->setLight(std::dynamic_pointer_cast<gameplay::Light>(component));
+        propertiesLight->setLight(std::dynamic_pointer_cast<rainbow::Light>(component));
     }
     _expandedHeight = geometry().height();
 }

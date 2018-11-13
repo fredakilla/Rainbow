@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Component.h"
 
-namespace prana
+namespace rainbow
 {
 
 Component::Component() :

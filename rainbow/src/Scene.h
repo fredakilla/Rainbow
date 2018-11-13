@@ -4,7 +4,7 @@
 #include "SceneObject.h"
 #include "Camera.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

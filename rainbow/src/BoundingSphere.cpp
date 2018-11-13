@@ -2,7 +2,7 @@
 #include "BoundingSphere.h"
 #include "BoundingBox.h"
 
-namespace prana
+namespace rainbow
 {
 
 BoundingSphere::BoundingSphere()

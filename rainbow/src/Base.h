@@ -81,9 +81,9 @@
 #else
 #define GP_ERROR(...) do \
 { \
-    prana::Logger::log(prana::Logger::Level::eError, "%s -- ", __current__func__); \
-    prana::Logger::log(prana::Logger::Level::eError, __VA_ARGS__); \
-    prana::Logger::log(prana::Logger::Level::eError, "\n"); \
+    rainbow::Logger::log(rainbow::Logger::Level::eError, "%s -- ", __current__func__); \
+    rainbow::Logger::log(rainbow::Logger::Level::eError, __VA_ARGS__); \
+    rainbow::Logger::log(rainbow::Logger::Level::eError, "\n"); \
     GP_DEBUG_BREAK(); \
     assert(0); \
     std::exit(-1); \
@@ -91,15 +91,15 @@
 #endif
 #define GP_WARN(...) do \
 { \
-    prana::Logger::log(prana::Logger::Level::eWarn, "%s -- ", __current__func__); \
-    prana::Logger::log(prana::Logger::Level::eWarn, __VA_ARGS__); \
-    prana::Logger::log(prana::Logger::Level::eWarn, "\n"); \
+    rainbow::Logger::log(rainbow::Logger::Level::eWarn, "%s -- ", __current__func__); \
+    rainbow::Logger::log(rainbow::Logger::Level::eWarn, __VA_ARGS__); \
+    rainbow::Logger::log(rainbow::Logger::Level::eWarn, "\n"); \
 } while (0)
 #define GP_INFO(...) do \
 { \
-    prana::Logger::log(prana::Logger::Level::eInfo, "%s -- ", __current__func__); \
-    prana::Logger::log(prana::Logger::Level::eInfo, __VA_ARGS__); \
-    prana::Logger::log(prana::Logger::Level::eInfo, "\n"); \
+    rainbow::Logger::log(rainbow::Logger::Level::eInfo, "%s -- ", __current__func__); \
+    rainbow::Logger::log(rainbow::Logger::Level::eInfo, __VA_ARGS__); \
+    rainbow::Logger::log(rainbow::Logger::Level::eInfo, "\n"); \
 } while (0)
 
 // Memory
@@ -205,7 +205,7 @@ operator^=(E& lhs,E rhs){
 
 
 // Engine
-#define GP_ENGINE_NAME                  "prana"
+#define GP_ENGINE_NAME                  "rainbow"
 #define GP_ENGINE_VERSION_MAJOR         4
 #define GP_ENGINE_VERSION_MINOR         0
 #define GP_ENGINE_HOME_PATH             "./"
@@ -263,7 +263,7 @@ operator^=(E& lhs,E rhs){
 #define GP_GRAPHICS_MIP_LEVELS_MAX                  0xFFFFFFFF
 
 
-namespace prana
+namespace rainbow
 {
 
 /**

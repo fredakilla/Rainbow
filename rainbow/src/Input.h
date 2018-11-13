@@ -3,7 +3,7 @@
 #include "Serializable.h"
 #include "Vector2.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -859,4 +859,4 @@ private:
 
 }
 
-GP_ENABLE_BITWISE_OPERATORS(prana::Input::KeyModifiers);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::Input::KeyModifiers);

@@ -3,7 +3,7 @@
 #include "AudioListener.h"
 #include "AudioSource.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

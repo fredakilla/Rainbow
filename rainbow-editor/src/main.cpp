@@ -17,9 +17,9 @@ int main(int argc, char* argv[])
 {
     // Set the application meta data
     QCoreApplication::setOrganizationDomain("io");
-    QCoreApplication::setOrganizationName("gameplay");
-    QCoreApplication::setApplicationName("GamePlay");
-    QCoreApplication::setApplicationVersion("4.0.0");
+    QCoreApplication::setOrganizationName("Rainbow");
+    QCoreApplication::setApplicationName("Rainbow");
+    QCoreApplication::setApplicationVersion("1.0.0");
 
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 

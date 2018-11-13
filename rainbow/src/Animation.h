@@ -3,7 +3,7 @@
 #include "Component.h"
 #include "SceneObject.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

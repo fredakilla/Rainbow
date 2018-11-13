@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Asset.h"
 
-namespace prana
+namespace rainbow
 {
 
 Asset::Asset() 

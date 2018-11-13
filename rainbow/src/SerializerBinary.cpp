@@ -9,7 +9,7 @@
 #include "Vector4.h"
 #include "Matrix.h"
 
-namespace prana
+namespace rainbow
 {
 
 unsigned char SerializerBinary::BIT_NULL = 0x00;

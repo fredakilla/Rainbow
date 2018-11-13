@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Tileset.h"
 
-namespace prana
+namespace rainbow
 {
 
 Tileset::Tileset()
@@ -19,7 +19,7 @@ std::shared_ptr<Serializable> Tileset::createObject()
 
 std::string Tileset::getClassName()
 {
-    return "prana::Tileset";
+    return "rainbow::Tileset";
 }
 
 void Tileset::onSerialize(Serializer* serializer)

@@ -2,7 +2,7 @@
 #include "Physics.h"
 #include "PhysicsCollider.h"
 
-namespace prana
+namespace rainbow
 {
 
 Physics* Physics::_physics = nullptr;

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "CommandBuffer.h"
 
-namespace prana
+namespace rainbow
 {
 
 CommandBuffer::CommandBuffer() : 

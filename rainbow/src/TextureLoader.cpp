@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "TextureLoader.h"
 
-namespace prana
+namespace rainbow
 {
 
 TextureLoader::TextureLoader() 

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Text.h"
 
-namespace prana
+namespace rainbow
 {
 
 Text::Text()
@@ -19,7 +19,7 @@ std::shared_ptr<Serializable> Text::createObject()
 
 std::string Text::getClassName()
 {
-    return "prana::Text";
+    return "rainbow::Text";
 }
 
 void Text::onSerialize(Serializer* serializer)

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Renderer.h"
 
-namespace prana
+namespace rainbow
 {
 
 Renderer::Renderer() : 

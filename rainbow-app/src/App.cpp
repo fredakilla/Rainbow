@@ -1,6 +1,6 @@
 #include "App.h"
 
-namespace gameplay
+namespace rainbow
 {
 
 App app;

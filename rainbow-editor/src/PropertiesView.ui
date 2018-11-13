@@ -116,7 +116,7 @@
          <string> Component</string>
         </property>
         <property name="icon">
-         <iconset resource="../gameplay-editor.qrc">
+         <iconset resource="../rainbow-editor.qrc">
           <normaloff>:/res/images/attach.png</normaloff>:/res/images/attach.png</iconset>
         </property>
        </widget>
@@ -254,7 +254,7 @@
   </layout>
   <action name="actionAttachCamera">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-camera.png</normaloff>:/res/images/scene-camera.png</iconset>
    </property>
    <property name="text">
@@ -263,7 +263,7 @@
   </action>
   <action name="actionAttachLight">
    <property name="icon">
-    <iconset resource="../gameplay-editor.qrc">
+    <iconset resource="../rainbow-editor.qrc">
      <normaloff>:/res/images/scene-light-point.png</normaloff>:/res/images/scene-light-point.png</iconset>
    </property>
    <property name="text">
@@ -280,7 +280,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../gameplay-editor.qrc"/>
+  <include location="../rainbow-editor.qrc"/>
  </resources>
  <connections/>
 </ui>

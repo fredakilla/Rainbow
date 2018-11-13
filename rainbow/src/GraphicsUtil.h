@@ -3,7 +3,7 @@
 #include "Texture.h"
 #include "vulkan/vulkan.h"
 
-namespace prana
+namespace rainbow
 {
 
 std::string toErrorString(VkResult result);
@@ -19,7 +19,7 @@ std::string toErrorString(VkResult result);
 }
 
 /**
- * Maps prana::Format to VkFormat
+ * Maps rainbow::Format to VkFormat
  */
 static const VkFormat lookupVkFormat[] =
 {
@@ -51,7 +51,7 @@ static const VkFormat lookupVkFormat[] =
 };
 
 /**
- * Maps prana::SampleCount to VkSampleCountFlagBits
+ * Maps rainbow::SampleCount to VkSampleCountFlagBits
  */
 static const VkSampleCountFlagBits lookupVkSampleCountFlagBits[] =
 {
@@ -64,7 +64,7 @@ static const VkSampleCountFlagBits lookupVkSampleCountFlagBits[] =
 };
 
 /**
- * Maps prana::Sampler::Filter to VkFilter
+ * Maps rainbow::Sampler::Filter to VkFilter
  */
 static const VkFilter lookupVkFilter[] =
 {
@@ -73,7 +73,7 @@ static const VkFilter lookupVkFilter[] =
 };
 
 /**
- * Maps prana::Sampler::Filter to VkSamplerMipmapMode
+ * Maps rainbow::Sampler::Filter to VkSamplerMipmapMode
  */
 static const VkSamplerMipmapMode lookupVkSamplerMipmapMode[] =
 {
@@ -82,7 +82,7 @@ static const VkSamplerMipmapMode lookupVkSamplerMipmapMode[] =
 };
 
 /**
- * Maps prana::Sampler::AddressMode to VkSamplerAddressMode
+ * Maps rainbow::Sampler::AddressMode to VkSamplerAddressMode
  */
 static const VkSamplerAddressMode lookupVkSamplerAddressMode[] =
 {
@@ -94,7 +94,7 @@ static const VkSamplerAddressMode lookupVkSamplerAddressMode[] =
 };
 
 /**
- * Maps prana::Sampler::BorderColor to VkBorderColor
+ * Maps rainbow::Sampler::BorderColor to VkBorderColor
  */
 static const VkBorderColor lookupVkBorderColor[] =
 {
@@ -104,7 +104,7 @@ static const VkBorderColor lookupVkBorderColor[] =
 };
 
 /**
- * Maps prana::Sampler::CompareFunc to VkCompareOp
+ * Maps rainbow::Sampler::CompareFunc to VkCompareOp
  */
 static const VkCompareOp lookupVkCompareOp[] =
 {
@@ -119,7 +119,7 @@ static const VkCompareOp lookupVkCompareOp[] =
 };
 
 /**
- * Maps prana::DepthStencilState::StencilOp to VkStencilOp
+ * Maps rainbow::DepthStencilState::StencilOp to VkStencilOp
  */
 static const VkStencilOp lookupVkStencilOp[] =
 {
@@ -134,7 +134,7 @@ static const VkStencilOp lookupVkStencilOp[] =
 };
 
 /**
- * Maps prana::ColorBlendState::BlendOp to VkBlendOp
+ * Maps rainbow::ColorBlendState::BlendOp to VkBlendOp
  */
 static const VkBlendOp lookupVkBlendOp[] =
 {
@@ -146,7 +146,7 @@ static const VkBlendOp lookupVkBlendOp[] =
 };
 
 /**
- * Maps prana::ColorBlendState::BlendFactor to VkBlendFactor
+ * Maps rainbow::ColorBlendState::BlendFactor to VkBlendFactor
  */
 static const VkBlendFactor lookupVkBlendFactor[] =
 {
@@ -168,7 +168,7 @@ static const VkBlendFactor lookupVkBlendFactor[] =
 };
 
 /**
- * Maps prana::DescriptorSet::Descriptor::ShaderStages to VkShaderStageFlags
+ * Maps rainbow::DescriptorSet::Descriptor::ShaderStages to VkShaderStageFlags
  */
 static const VkShaderStageFlags lookupVkShaderStageFlags[] =
 {
@@ -180,7 +180,7 @@ static const VkShaderStageFlags lookupVkShaderStageFlags[] =
 };
 
 /**
- * Maps prana::RasterizerState::FillMode to VkPolygonMode
+ * Maps rainbow::RasterizerState::FillMode to VkPolygonMode
  */
 static const VkPolygonMode lookupVkPolygonMode[] =
 {
@@ -189,7 +189,7 @@ static const VkPolygonMode lookupVkPolygonMode[] =
 };
 
 /**
- * Maps prana::RasterizerState::CullMode to VkCullModeFlags
+ * Maps rainbow::RasterizerState::CullMode to VkCullModeFlags
  */
 static const VkCullModeFlags lookupVkCullModeFlags[] =
 {
@@ -199,7 +199,7 @@ static const VkCullModeFlags lookupVkCullModeFlags[] =
 };
 
 /**
- * Maps prana::RasterizerState::FrontFace to VkFrontFace
+ * Maps rainbow::RasterizerState::FrontFace to VkFrontFace
  */
 static const VkFrontFace lookupVkFrontFace[] =
 {

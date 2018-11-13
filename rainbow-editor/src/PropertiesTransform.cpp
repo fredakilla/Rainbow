@@ -34,7 +34,7 @@ PropertiesTransform::~PropertiesTransform()
     delete _ui;
 }
 
-void PropertiesTransform::setObject(gameplay::SceneObject* object)
+void PropertiesTransform::setObject(rainbow::SceneObject* object)
 {
     _object = object;
     _expandedHeight = geometry().height();
@@ -45,19 +45,19 @@ void PropertiesTransform::setObject(gameplay::SceneObject* object)
 void PropertiesTransform::updateProperties()
 {
     // Object position
-    const gameplay::Vector3 position = _object->getPosition();
+    const rainbow::Vector3 position = _object->getPosition();
     _ui->doubleSpinBoxPositionX->setValue(position.x);
     _ui->doubleSpinBoxPositionY->setValue(position.y);
     _ui->doubleSpinBoxPositionZ->setValue(position.z);
 
     // Object eulerAngles
-    const gameplay::Vector3 eulerAngles = _object->getEulerAngles();
+    const rainbow::Vector3 eulerAngles = _object->getEulerAngles();
     _ui->doubleSpinBoxRotationX->setValue(eulerAngles.x);
     _ui->doubleSpinBoxRotationY->setValue(eulerAngles.y);
     _ui->doubleSpinBoxRotationZ->setValue(eulerAngles.z);
 
     // Object scale
-    const gameplay::Vector3 localScale = _object->getLocalScale();
+    const rainbow::Vector3 localScale = _object->getLocalScale();
     _ui->doubleSpinBoxScaleX->setValue(localScale.x);
     _ui->doubleSpinBoxScaleY->setValue(localScale.y);
     _ui->doubleSpinBoxScaleZ->setValue(localScale.z);

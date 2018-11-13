@@ -2,7 +2,7 @@
 #include "VertexLayout.h"
 #include "Format.h"
 
-namespace prana
+namespace rainbow
 {
 
 VertexLayout::VertexLayout()

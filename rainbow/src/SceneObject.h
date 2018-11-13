@@ -6,7 +6,7 @@
 #include "BoundingSphere.h"
 #include "Component.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

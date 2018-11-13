@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "AudioSource.h"
 
-namespace prana
+namespace rainbow
 {
 
 AudioSource::AudioSource()
@@ -79,7 +79,7 @@ std::shared_ptr<Serializable> AudioSource::createObject()
 
 std::string AudioSource::getClassName()
 {
-    return "prana::AudioSource";
+    return "rainbow::AudioSource";
 }
 
 void AudioSource::onSerialize(Serializer * serializer)

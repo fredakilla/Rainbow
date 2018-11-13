@@ -1,6 +1,6 @@
-#include "gameplay.h"
+#include "rainbow.h"
 
-using namespace gameplay;
+using namespace rainbow;
 
 int main(int argc, char** argv)
 {

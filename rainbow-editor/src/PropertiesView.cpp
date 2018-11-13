@@ -41,12 +41,12 @@ void PropertiesView::onSelectionChanged()
 
     QStandardItem* selectedItem = selectedItems->front();
     QVariant userData = selectedItem->data(Qt::UserRole + 1);
-    gameplay::Serializable* selectedSerializableObject = (gameplay::Serializable*)userData.toLongLong();
-    if (selectedSerializableObject && selectedSerializableObject->getClassName() != "gameplay::SceneObject")
+    rainbow::Serializable* selectedSerializableObject = (rainbow::Serializable*)userData.toLongLong();
+    if (selectedSerializableObject && selectedSerializableObject->getClassName() != "rainbow::SceneObject")
     {
         selectedSerializableObject = nullptr;
     }
-    if (gameplay::SceneObject* selectedObject = selectedSerializableObject ? static_cast<gameplay::SceneObject*>(selectedSerializableObject) : nullptr)
+    if (rainbow::SceneObject* selectedObject = selectedSerializableObject ? static_cast<rainbow::SceneObject*>(selectedSerializableObject) : nullptr)
     {
         showProperties();
 
@@ -62,8 +62,8 @@ void PropertiesView::onSelectionChanged()
         clearPropertyEditors();
 
         // Get the components
-        std::vector<std::shared_ptr<gameplay::Component>> components = selectedObject->getComponents();
-        for (std::shared_ptr<gameplay::Component> component : components)
+        std::vector<std::shared_ptr<rainbow::Component>> components = selectedObject->getComponents();
+        for (std::shared_ptr<rainbow::Component> component : components)
         {
             // Create a property editor for each type of component
             PropertiesComponentEditor* editor = new PropertiesComponentEditor(this);

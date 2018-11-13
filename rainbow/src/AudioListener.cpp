@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "AudioListener.h"
 
-namespace prana
+namespace rainbow
 {
 
 AudioListener::AudioListener()

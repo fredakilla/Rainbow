@@ -11,7 +11,7 @@
 #include "ui_EditorWindow.h"
 #include <QtWidgets>
 
-#define TYPE_WINDOW_TITLE "GamePlay Editor"
+#define TYPE_WINDOW_TITLE "Rainbow Editor"
 
 EditorWindow::EditorWindow(QWidget* parent) : QMainWindow(parent), 
     _ui(new Ui::EditorWindow),
@@ -112,8 +112,8 @@ EditorWindow::EditorWindow(QWidget* parent) : QMainWindow(parent),
     connect(_ui->actionFullscreen, SIGNAL(triggered()), this, SLOT(onFullscreen()));
 
     // Initialize the selection begin and end to offscreen which means no selection.
-    _selectionBegin = new gameplay::Vector2(-1, -1);
-    _selectionEnd = new gameplay::Vector2(-1, -1);
+    _selectionBegin = new rainbow::Vector2(-1, -1);
+    _selectionEnd = new rainbow::Vector2(-1, -1);
 
     emit restoringState();
 }
@@ -144,7 +144,7 @@ std::shared_ptr<Project> EditorWindow::getProject() const
      return _editMode;
  }
 
-std::shared_ptr<gameplay::Scene> EditorWindow::getScene() const
+std::shared_ptr<rainbow::Scene> EditorWindow::getScene() const
 {
     return _scene;
 }
@@ -159,7 +159,7 @@ PropertiesView* EditorWindow::getPropertiesView() const
     return _propertiesView;
 }
 
-gameplay::Vector2* EditorWindow::getSelectionBegin() const
+rainbow::Vector2* EditorWindow::getSelectionBegin() const
 {
     if (_selectionBegin->x < 0 || _selectionBegin->y < 0)
         return nullptr;
@@ -167,7 +167,7 @@ gameplay::Vector2* EditorWindow::getSelectionBegin() const
     return _selectionBegin;
 }
 
-gameplay::Vector2* EditorWindow::getSelectionEnd() const
+rainbow::Vector2* EditorWindow::getSelectionEnd() const
 {
     if (_selectionEnd->x < 0 || _selectionEnd->y < 0)
         return nullptr;
@@ -205,8 +205,8 @@ void EditorWindow::onOpenScene(const QString& path)
     {
         _scenePath = path;
         QByteArray pathByteArray = path.toLatin1();
-        auto reader = gameplay::Serializer::createReader(pathByteArray.data());
-        _scene = std::dynamic_pointer_cast<gameplay::Scene>(reader->readObject(nullptr));
+        auto reader = rainbow::Serializer::createReader(pathByteArray.data());
+        _scene = std::dynamic_pointer_cast<rainbow::Scene>(reader->readObject(nullptr));
 
         emit sceneChanged();
     }

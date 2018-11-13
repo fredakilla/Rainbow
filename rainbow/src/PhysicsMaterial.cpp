@@ -2,7 +2,7 @@
 #include "PhysicsRigidBody.h"
 #include "PhysicsMaterial.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsMaterial::PhysicsMaterial()

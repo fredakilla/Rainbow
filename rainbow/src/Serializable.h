@@ -2,7 +2,7 @@
 
 #include "Serializer.h"
 
-namespace prana
+namespace rainbow
 {
     
 /**
@@ -24,7 +24,7 @@ public:
      * Gets the class name string for the object.
      *
      * This is used by the Serializer when reading/writing objects.
-     * The class name should be namespaced. Ex: prana::SceneObject
+     * The class name should be namespaced. Ex: rainbow::SceneObject
      */
     virtual std::string getClassName() { return "";  }
 

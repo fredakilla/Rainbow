@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "MathUtil.h"
 
-namespace prana
+namespace rainbow
 {
 
 void MathUtil::smooth(float* x, float target, float elapsedTime, float responseTime)

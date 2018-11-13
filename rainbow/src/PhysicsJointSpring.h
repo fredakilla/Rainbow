@@ -2,7 +2,7 @@
 
 #include "PhysicsJoint.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

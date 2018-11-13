@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsJointSocket.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsJointSocket::PhysicsJointSocket() 
@@ -105,7 +105,7 @@ std::shared_ptr<Serializable> PhysicsJointSocket::createObject()
 
 std::string PhysicsJointSocket::getClassName()
 {
-    return "prana::PhysicsJointSocket";
+    return "rainbow::PhysicsJointSocket";
 }
 
 void PhysicsJointSocket::onSerialize(Serializer * serializer)

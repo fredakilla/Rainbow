@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gameplay.h"
+#include "rainbow.h"
 #include <QWidget>
 
 namespace Ui
@@ -34,7 +34,7 @@ public:
      *
      * @param light The light to edit the properties for.
      */
-    void setLight(std::shared_ptr<gameplay::Light> light);
+    void setLight(std::shared_ptr<rainbow::Light> light);
 
     /**
      * Gets the header name for the properties component editor.
@@ -72,6 +72,6 @@ private:
     void setColor(QColor color);
 
     Ui::PropertiesLight* _ui;
-    std::shared_ptr<gameplay::Light> _light;
+    std::shared_ptr<rainbow::Light> _light;
 };
 

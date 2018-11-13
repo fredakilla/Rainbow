@@ -9,7 +9,7 @@
 #include "Camera.h"
 #include "Light.h"
 
-namespace prana
+namespace rainbow
 {
 
 Serializer::Serializer(Type type, const std::string& path, Stream* stream, uint32_t versionMajor, uint32_t versionMinor) : 

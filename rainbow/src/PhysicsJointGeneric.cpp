@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsJointGeneric.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsJointGeneric::PhysicsJointGeneric() 
@@ -228,7 +228,7 @@ std::shared_ptr<Serializable> PhysicsJointGeneric::createObject()
 
 std::string PhysicsJointGeneric::getClassName()
 {
-    return "prana::PhysicsJointGeneric";
+    return "rainbow::PhysicsJointGeneric";
 }
 
 void PhysicsJointGeneric::onSerialize(Serializer * serializer)

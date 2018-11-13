@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "RenderPass.h"
 
-namespace prana
+namespace rainbow
 {
 
 RenderPass::RenderPass() :

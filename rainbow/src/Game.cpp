@@ -6,7 +6,7 @@
 #include "Graphics.h"
 #include "Light.h"
 
-namespace prana
+namespace rainbow
 {
 #define SPLASH_DURATION     2.0f
 
@@ -338,7 +338,7 @@ std::shared_ptr<Serializable> Game::Config::createObject()
 
 std::string Game::Config::getClassName()
 {
-    return "prana::Game::Config";
+    return "rainbow::Game::Config";
 }
 
 void Game::Config::onSerialize(Serializer* serializer)

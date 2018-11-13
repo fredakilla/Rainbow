@@ -2,7 +2,7 @@
 
 #include "Format.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

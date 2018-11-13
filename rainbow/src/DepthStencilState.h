@@ -2,7 +2,7 @@
 
 #include "Sampler.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "AudioClip.h"
 
-namespace prana
+namespace rainbow
 {
 
 AudioClip::AudioClip()

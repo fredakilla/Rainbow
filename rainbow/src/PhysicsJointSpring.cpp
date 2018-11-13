@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsJointSpring.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsJointSpring::PhysicsJointSpring() 
@@ -74,7 +74,7 @@ std::shared_ptr<Serializable> PhysicsJointSpring::createObject()
 
 std::string PhysicsJointSpring::getClassName()
 {
-    return "prana::PhysicsJointSpring";
+    return "rainbow::PhysicsJointSpring";
 }
 
 void PhysicsJointSpring::onSerialize(Serializer * serializer)

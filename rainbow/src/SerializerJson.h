@@ -4,7 +4,7 @@
 #define JSON_LIBRARY
 #include "libjson/libjson.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

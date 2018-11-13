@@ -1,6 +1,6 @@
 #pragma once
 
-namespace prana
+namespace rainbow
 {
 
     class Vector3;

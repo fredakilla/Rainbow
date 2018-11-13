@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Game.h"
 
-namespace prana
+namespace rainbow
 {
 
 Logger::State Logger::_state[3];
@@ -65,7 +65,7 @@ void Logger::log(Level level, const char* message, ...)
     else
     {
         // Log to the default output
-        prana::print("%s", str);
+        rainbow::print("%s", str);
     }
 }
 

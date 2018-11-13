@@ -38,7 +38,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../gameplay-editor.qrc">:/res/images/logo.png</pixmap>
+       <pixmap resource="../rainbow-editor.qrc">:/res/images/logo.png</pixmap>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -162,7 +162,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../gameplay-editor.qrc">:/res/images/project-new-arrow.png</pixmap>
+       <pixmap resource="../rainbow-editor.qrc">:/res/images/project-new-arrow.png</pixmap>
       </property>
      </widget>
     </widget>
@@ -379,7 +379,7 @@
   <zorder>pushButtonNew</zorder>
  </widget>
  <resources>
-  <include location="../gameplay-editor.qrc"/>
+  <include location="../rainbow-editor.qrc"/>
  </resources>
  <connections/>
 </ui>

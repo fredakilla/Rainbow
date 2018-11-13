@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "AssetLoader.h"
 
-namespace prana
+namespace rainbow
 {
 
 AssetLoader::AssetLoader() 

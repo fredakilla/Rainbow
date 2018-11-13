@@ -2,7 +2,7 @@
 
 #include "Matrix.h"
 
-namespace prana
+namespace rainbow
 {
 
 class Frustum;

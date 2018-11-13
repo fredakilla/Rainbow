@@ -5,8 +5,8 @@
 #include "ui_ProjectWizard.h"
 #include <QtWidgets>
 
-#define PROJECT_SETTINGS_ORGANIZATION "gameplay"
-#define PROJECT_SETTINGS_APPLICATION "GamePlay"
+#define PROJECT_SETTINGS_ORGANIZATION "Rainbow"
+#define PROJECT_SETTINGS_APPLICATION "Rainbow"
 #define PROJECT_SETTINGS_RECENTS_PROECTS "recentProjects"
 #define PROJECT_SETTINGS_LAST_PROJECT_PATH "lastProjectPath"
 #define PROJECT_NEW "NewProject"

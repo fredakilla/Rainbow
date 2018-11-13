@@ -67,8 +67,8 @@ void SceneView::onSceneChanged()
 
 void SceneView::onEditorSelectionChanged()
 {
-    gameplay::Vector2* selectionBegin = _editor->getSelectionBegin();
-    gameplay::Vector2* selectedEnd = _editor->getSelectionEnd();
+    rainbow::Vector2* selectionBegin = _editor->getSelectionBegin();
+    rainbow::Vector2* selectedEnd = _editor->getSelectionEnd();
 
     // TODO:
     // Project the point or region against all the objects in the scene
@@ -97,14 +97,14 @@ void SceneView::onModelSelectionChanged(const QItemSelection& selected, const QI
 void SceneView::onModelDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight)
 {
     QVariant userData = topLeft.data(Qt::UserRole + 1);
-    gameplay::SceneObject* object = (gameplay::SceneObject*)userData.toLongLong();
+    rainbow::SceneObject* object = (rainbow::SceneObject*)userData.toLongLong();
     QVariant displayData = topLeft.data(Qt::DisplayRole);
     object->setName(displayData.toString().toLatin1().constData());
 
     emit selectionChanged();
 }
 
-QStandardItem* SceneView::createSceneItem(std::shared_ptr<gameplay::Scene> scene)
+QStandardItem* SceneView::createSceneItem(std::shared_ptr<rainbow::Scene> scene)
 {
     QString text;
     std::string name = scene->getName();
@@ -125,7 +125,7 @@ QStandardItem* SceneView::createSceneItem(std::shared_ptr<gameplay::Scene> scene
     return item;
 }
 
-QStandardItem* SceneView::createObjectItem(std::shared_ptr<gameplay::SceneObject> object)
+QStandardItem* SceneView::createObjectItem(std::shared_ptr<rainbow::SceneObject> object)
 {
     QString text;
     std::string name = object->getName();
@@ -145,7 +145,7 @@ QStandardItem* SceneView::createObjectItem(std::shared_ptr<gameplay::SceneObject
     return item;
 }
 
-QStandardItem* SceneView::createScene(std::shared_ptr<gameplay::Scene> scene)
+QStandardItem* SceneView::createScene(std::shared_ptr<rainbow::Scene> scene)
 {
     // Clone the object into a item for the model
     QStandardItem* item = createSceneItem(scene);
@@ -155,7 +155,7 @@ QStandardItem* SceneView::createScene(std::shared_ptr<gameplay::Scene> scene)
     return item;
 }
 
-QStandardItem* SceneView::createObjectHierarchy(std::shared_ptr<gameplay::SceneObject> object)
+QStandardItem* SceneView::createObjectHierarchy(std::shared_ptr<rainbow::SceneObject> object)
 {
     // Clone the object into a item for the model
     QStandardItem* item = createObjectItem(object);
@@ -165,7 +165,7 @@ QStandardItem* SceneView::createObjectHierarchy(std::shared_ptr<gameplay::SceneO
     return item;
 }
 
-void SceneView::visitorAddItem(std::shared_ptr<gameplay::Scene> parent, QStandardItem* parentItem)
+void SceneView::visitorAddItem(std::shared_ptr<rainbow::Scene> parent, QStandardItem* parentItem)
 {
     auto children = parent->getChildren();
     for (auto object : children)
@@ -175,7 +175,7 @@ void SceneView::visitorAddItem(std::shared_ptr<gameplay::Scene> parent, QStandar
     }
 }
 
-void SceneView::visitorAddItem(std::shared_ptr<gameplay::SceneObject> parent, QStandardItem* parentItem)
+void SceneView::visitorAddItem(std::shared_ptr<rainbow::SceneObject> parent, QStandardItem* parentItem)
 {
     auto children = parent->getChildren();
     for (auto object : children)
@@ -185,7 +185,7 @@ void SceneView::visitorAddItem(std::shared_ptr<gameplay::SceneObject> parent, QS
     }
 }
 
-void SceneView::addToHiearchy(std::shared_ptr<gameplay::SceneObject> object, QStandardItem* item)
+void SceneView::addToHiearchy(std::shared_ptr<rainbow::SceneObject> object, QStandardItem* item)
 {
     // If there is no object selected the just add to the scene
     if (_selectedItems->size() == 0)
@@ -200,7 +200,7 @@ void SceneView::addToHiearchy(std::shared_ptr<gameplay::SceneObject> object, QSt
         selectedItem->appendRow(item);
         _ui->treeView->setExpanded(_sortFilter->mapFromSource(selectedItem->index()), true);
         QVariant userData = selectedItem->data(Qt::UserRole + 1);
-        gameplay::SceneObject* selectedObject = (gameplay::SceneObject*)userData.toLongLong();
+        rainbow::SceneObject* selectedObject = (rainbow::SceneObject*)userData.toLongLong();
         selectedObject->addChild(object);
     }
     _ui->treeView->selectionModel()->setCurrentIndex(_sortFilter->mapFromSource(item->index()),
@@ -215,7 +215,7 @@ void SceneView::onSearchTextChanged(const QString& text)
 void SceneView::onCreateObject()
 {
     // Create an empty object
-    auto object = std::make_shared<gameplay::SceneObject>();
+    auto object = std::make_shared<rainbow::SceneObject>();
     object->setName(SCENE_OBJECT_NAME);
     // Create an empty item.
     QStandardItem* item = createObjectItem(object);
@@ -233,7 +233,7 @@ void SceneView::onNameChanged()
 
         item->setText(name);
         QVariant userData = item->data(Qt::UserRole + 1);
-        gameplay::SceneObject* selectedObject = (gameplay::SceneObject*)userData.toLongLong();
+        rainbow::SceneObject* selectedObject = (rainbow::SceneObject*)userData.toLongLong();
         selectedObject->setName(name.toStdString().c_str());
     }
 }

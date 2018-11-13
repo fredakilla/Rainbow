@@ -2,7 +2,7 @@
 
 #include "Serializable.h"
 
-namespace prana
+namespace rainbow
 {
 
 /**

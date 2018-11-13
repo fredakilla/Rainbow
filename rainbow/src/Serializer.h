@@ -1,6 +1,6 @@
 #pragma once
 
-namespace prana
+namespace rainbow
 {
     
 class Serializable;
@@ -95,7 +95,7 @@ public:
      * Writes a enumerated value.
      *
      * @param propertyName The property to serialize.
-     * @param enumName The name of the enumeration to write. Ex. "prana::Camera::Type"
+     * @param enumName The name of the enumeration to write. Ex. "rainbow::Camera::Type"
      * @param value The value to serialize.
      * @param defaultValue The default value of the specified property.
      */
@@ -251,7 +251,7 @@ public:
      * Reas a enumerated value.
      *
      * @param propertyName The property to serialize.
-     * @param enumName The enumerations name. Ex. "prana::Camera::Type"
+     * @param enumName The enumerations name. Ex. "rainbow::Camera::Type"
      * @param defaultValue The default value of the specified property.
      * @return The value that is read.
      */

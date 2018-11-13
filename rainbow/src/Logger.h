@@ -1,12 +1,12 @@
 #pragma once
 
-namespace prana
+namespace rainbow
 {
 
 /**
  * Defines a class providing a basic logging system for a game.
  *
- * By default, this class logs messages using the prana::print function, which
+ * By default, this class logs messages using the rainbow::print function, which
  * is implemented in a platform dependent manner and typically prints to stderr
  * as well as to other possibly platform specific locations. Logging behavior
  * can be modified for a specific log level by passing a custom C or Lua logging

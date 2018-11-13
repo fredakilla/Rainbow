@@ -27,7 +27,7 @@ PropertiesLight::~PropertiesLight()
     delete _ui;
 }
 
-void PropertiesLight::setLight(std::shared_ptr<gameplay::Light> light)
+void PropertiesLight::setLight(std::shared_ptr<rainbow::Light> light)
 {
     _light = light;
 
@@ -48,9 +48,9 @@ QString PropertiesLight::getHeaderIcon() const
 
 void PropertiesLight::onTypeChanged(int index)
 {
-    switch (static_cast<gameplay::Light::Type>(index))
+    switch (static_cast<rainbow::Light::Type>(index))
     {
-    case gameplay::Light::Type::eDirectional:
+    case rainbow::Light::Type::eDirectional:
     {
         _ui->labelRange->hide();
         _ui->doubleSpinBoxRange->hide();
@@ -61,7 +61,7 @@ void PropertiesLight::onTypeChanged(int index)
         break;
     }
 
-    case gameplay::Light::Type::ePoint:
+    case rainbow::Light::Type::ePoint:
     {
         _ui->labelRange->show();
         _ui->doubleSpinBoxRange->show();
@@ -72,7 +72,7 @@ void PropertiesLight::onTypeChanged(int index)
         break;
     }
 
-    case gameplay::Light::Type::eSpot:
+    case rainbow::Light::Type::eSpot:
     {
         _ui->labelRange->show();
         _ui->doubleSpinBoxRange->show();
@@ -85,23 +85,23 @@ void PropertiesLight::onTypeChanged(int index)
     default:
         break;
     }
-    _light->setType(static_cast<gameplay::Light::Type>(index));
+    _light->setType(static_cast<rainbow::Light::Type>(index));
 }
 
 void PropertiesLight::onReset(bool)
 {
-    _light->reset(static_cast<gameplay::Light::Type>(_ui->comboBoxType->currentIndex()));
+    _light->reset(static_cast<rainbow::Light::Type>(_ui->comboBoxType->currentIndex()));
     updateProperties();
 }
 
 void PropertiesLight::onLightingChanged(int index)
 {
-    _light->setLighting(static_cast<gameplay::Light::Lighting>(index));
+    _light->setLighting(static_cast<rainbow::Light::Lighting>(index));
 }
 
 void PropertiesLight::onShadowsChanged(int index)
 {
-     _light->setShadows(static_cast<gameplay::Light::Shadows>(index));
+     _light->setShadows(static_cast<rainbow::Light::Shadows>(index));
 }
 
 void PropertiesLight::onColorPressed()

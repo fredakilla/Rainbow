@@ -3,7 +3,7 @@
 #include "Stream.h"
 #include <string>
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -155,4 +155,4 @@ private:
 
 }
 
-GP_ENABLE_BITWISE_OPERATORS(prana::FileSystem::AccessFlags);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::FileSystem::AccessFlags);

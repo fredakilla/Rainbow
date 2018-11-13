@@ -1,16 +1,16 @@
 #pragma once
 
 #include <QFileSystemModel>
-#include "gameplay.h"
+#include "rainbow.h"
 
 /**
  * Defines the file system model of the project for tree view.
  */
-class Project : public QFileSystemModel, public gameplay::Serializable
+class Project : public QFileSystemModel, public rainbow::Serializable
 {
     Q_OBJECT
 
-    friend class gameplay::Activator;
+    friend class rainbow::Activator;
 
 public:
 
@@ -79,7 +79,7 @@ public:
     /**
      * @see Activator::CreateObjectCallback::createObject
      */
-    static std::shared_ptr<gameplay::Serializable> createObject();
+    static std::shared_ptr<rainbow::Serializable> createObject();
 
 protected:
 
@@ -91,12 +91,12 @@ protected:
     /**
      * @see Serializable::onSerialize
      */
-    void onSerialize(gameplay::Serializer* serializer);
+    void onSerialize(rainbow::Serializer* serializer);
 
     /**
      * @see Serializable::onDeserialize
      */
-    void onDeserialize(gameplay::Serializer* serializer);
+    void onDeserialize(rainbow::Serializer* serializer);
 
 private:
 

@@ -2,7 +2,7 @@
 
 #include "Activator.h"
 
-namespace prana
+namespace rainbow
 {
     class SceneObject;
 

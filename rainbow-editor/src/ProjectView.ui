@@ -32,7 +32,7 @@
         <string>Import</string>
        </property>
        <property name="icon">
-        <iconset resource="../gameplay-editor.qrc">
+        <iconset resource="../rainbow-editor.qrc">
          <normaloff>:/res/images/file-import.png</normaloff>:/res/images/file-import.png</iconset>
        </property>
        <property name="iconSize">
@@ -85,7 +85,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../gameplay-editor.qrc"/>
+  <include location="../rainbow-editor.qrc"/>
  </resources>
  <connections/>
  <slots>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gameplay.h"
+#include "rainbow.h"
 #include <QWidget>
 
 namespace Ui
@@ -34,7 +34,7 @@ public:
      *
      * @param camera The camera to edit the properties for.
      */
-    void setCamera(std::shared_ptr<gameplay::Camera> camera);
+    void setCamera(std::shared_ptr<rainbow::Camera> camera);
 
     /**
      * Gets the header name for the properties component editor.
@@ -68,6 +68,6 @@ private:
     void setColor(QColor color);
 
     Ui::PropertiesCamera* _ui;
-    std::shared_ptr<gameplay::Camera> _camera;
+    std::shared_ptr<rainbow::Camera> _camera;
 };
 

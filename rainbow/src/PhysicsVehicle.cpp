@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "PhysicsVehicle.h"
 
-namespace prana
+namespace rainbow
 {
 
 PhysicsVehicle::PhysicsVehicle()
@@ -19,7 +19,7 @@ std::shared_ptr<Serializable> PhysicsVehicle::createObject()
 
 std::string PhysicsVehicle::getClassName()
 {
-    return "prana::PhysicsVehicle";
+    return "rainbow::PhysicsVehicle";
 }
 
 void PhysicsVehicle::onSerialize(Serializer * serializer)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gameplay.h"
+#include "rainbow.h"
 #include <QWidget>
 #include <QLabel>
 
@@ -35,7 +35,7 @@ public:
      *
      * @param component The component to be edited inside this editor.
      */
-    void setComponent(std::shared_ptr<gameplay::Component> component);
+    void setComponent(std::shared_ptr<rainbow::Component> component);
 
 signals:
 
@@ -54,7 +54,7 @@ public slots:
 private:
 
     Ui::PropertiesComponentEditor* _ui;
-    std::shared_ptr<gameplay::Component> _component;
+    std::shared_ptr<rainbow::Component> _component;
     bool _expanded;
     int _expandedHeight;
 };

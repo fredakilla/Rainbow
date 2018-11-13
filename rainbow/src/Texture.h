@@ -4,7 +4,7 @@
 
 #include <vulkan/vulkan.h>
 
-namespace prana
+namespace rainbow
 {
 
 /**
@@ -171,4 +171,4 @@ private:
 
 }
 
-GP_ENABLE_BITWISE_OPERATORS(prana::Texture::Usage);
+GP_ENABLE_BITWISE_OPERATORS(rainbow::Texture::Usage);

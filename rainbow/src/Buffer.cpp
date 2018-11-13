@@ -1,7 +1,7 @@
 #include "Base.h"
 #include "Buffer.h"
 
-namespace prana
+namespace rainbow
 {
 
 Buffer::Buffer() :

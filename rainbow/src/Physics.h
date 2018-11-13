@@ -3,7 +3,7 @@
 #include "Component.h"
 #include "PhysicsCollider.h"
 
-namespace prana
+namespace rainbow
 {
     class Heightfield;
     class Mesh;

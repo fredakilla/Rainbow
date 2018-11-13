@@ -2,7 +2,7 @@
 
 #include "Physics.h"
 
-namespace prana
+namespace rainbow
 {
 
 class PhysicsMaterial
