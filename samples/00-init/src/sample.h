@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rainbow.h"
+#include <rainbow.h>
 
 
 /**

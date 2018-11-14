@@ -82,6 +82,13 @@ void Sample::onUpdate(float elapsedTime)
 
     std::shared_ptr<Graphics> graphics = getGraphics();
 
+
+
+    graphics->beginFrame();
+    graphics->endFrame();
+
+
+
    /* _renderPass = graphics->acquireNextFrame();
     
     std::shared_ptr<CommandBuffer> commandBuffer = graphics->beginCommands();

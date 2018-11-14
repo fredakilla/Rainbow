@@ -4,7 +4,14 @@
 #include "../Core/FileSystem.h"
 #include "../Core/SerializerJson.h"
 #include "../Scene/Light.h"
-#include "../Graphics/Graphics.h"
+
+#ifdef RB_DEF_API_VULKAN
+
+#elif RB_DEF_API_BGFX
+    #include "../Graphics/api/BGFX/GraphicsBgfx.h"
+#else
+    #include "../Graphics/Graphics.h"
+#endif
 
 namespace rainbow
 {
@@ -199,12 +206,15 @@ void Game::onInitialize()
     _config = getConfig();
     FileSystem::setHomePath(_config->homePath);
 
-    _graphics = std::make_shared<Graphics>();
+#ifdef RB_DEF_API_BGFX
+    _graphics = std::make_shared<GraphicsBgfx>();
+#endif
     _graphics->initialize();
 }
 
 void Game::onFinalize()
 {
+    _graphics->finalize();
 }
 
 void Game::onResize(size_t width, size_t height)

@@ -9,7 +9,9 @@ CONFIG(debug, debug|release): DEFINES += _DEBUG
 CONFIG(debug, debug|release): TARGET = rainbow_d
 DESTDIR = $$PWD/../build/lib
 
-#CONFIG += GP_API_VULKAN
+#DEFINES += RB_DEF_API_NONE
+#DEFINES += RB_DEF_API_VULKAN
+DEFINES += RB_DEF_API_BGFX
 
 #-------------------------------------------------------------------
 # files
@@ -137,6 +139,25 @@ HEADERS += \
 #-------------------------------------------------------------------
 # graphics api
 #-------------------------------------------------------------------
+
+contains(DEFINES, RB_DEF_API_BGFX) {
+
+    DEFINES += GP_NO_LUA_BINDINGS
+
+    HEADERS += \
+        src/Graphics/api/BGFX/GraphicsBgfx.h
+
+    SOURCES += \
+        src/Graphics/api/BGFX/GraphicBgfx.cpp
+}
+
+contains(DEFINES, RB_DEF_API_VULKAN) {
+
+    HEADERS += \
+
+    SOURCES += \
+}
+
 
 #GP_API_VULKAN {
 #

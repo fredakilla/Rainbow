@@ -21,7 +21,7 @@ public:
     /**
      * Destructor.
      */
-    ~Graphics();
+    virtual ~Graphics();
 
     /**
      * Gets the width of the graphics sytem swap images.
@@ -38,13 +38,18 @@ public:
     uint32_t getHeight();
 
 
+
+
     virtual void initialize();
+    virtual void finalize() {}
     virtual void resize(size_t width, size_t height);
     virtual void render(float elapsedTime);
-    virtual void createInstance();
+    virtual void createInstance() {}
+    virtual void beginFrame() {}
+    virtual void endFrame() {}
 
 
-private:
+protected:
     bool _initialized;
     bool _resized;
     uint32_t _width;
@@ -53,6 +58,8 @@ private:
     bool _vsync;
     bool _multisampling;
     bool _validation;
+
+
 
 };
 

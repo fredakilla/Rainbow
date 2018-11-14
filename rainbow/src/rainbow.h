@@ -87,6 +87,10 @@
 #include "Graphics/Text.h"
 */
 
+// Graphics new
+#include "Graphics/Graphics.h"
+
+
 
 // Assets
 #include "Assets/Asset.h"

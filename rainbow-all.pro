@@ -8,5 +8,4 @@ SUBDIRS += \
     rainbow/rainbow.pro \
     #rainbow-app/rainbow-app.pro \
     #rainbow-editor/rainbow-editor.pro \
-    samples/samples-all.pro
-
+    samples/rainbow-samples.pro

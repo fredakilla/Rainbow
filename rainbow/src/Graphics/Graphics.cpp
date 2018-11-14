@@ -1,3 +1,5 @@
+#ifdef RB_DEF_API_BGFX
+
 #include "../Core/Base.h"
 #include "../Graphics/Graphics.h"
 #include "../Core/Game.h"
@@ -7,11 +9,6 @@
 
 namespace rainbow
 {
-
-const std::vector<const char*> __validationLayers = 
-{
-    "VK_LAYER_LUNARG_standard_validation"
-};
 
 Graphics::Graphics() :
     _initialized(false),
@@ -53,8 +50,9 @@ void Graphics::initialize()
     _vsync = config->vsync;
     _multisampling = config->multisampling;
     _validation = config->validation;
-    createInstance();
-    /*createDevice();
+
+    /*createInstance();
+    createDevice();
     createSurface();
     createSwapchain();
     createRenderPasses();
@@ -84,9 +82,8 @@ void Graphics::render(float elapsedTime)
     // TODO: Render scene...
 }
 
-void Graphics::createInstance()
-{
-}
 
 
 }
+
+#endif

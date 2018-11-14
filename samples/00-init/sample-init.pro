@@ -60,6 +60,7 @@ linux {
     CONFIG(release, debug|release): LIBS += -L$$BUILD_DIR/lib/ -lrainbow
     LIBS += -L$$EXTERNAL_DEPS_DIR/lib/linux/x86_64/ -lrainbow-deps
     LIBS += -lm -lrt -ldl -lX11 -lpthread -lglib-2.0 -lgobject-2.0 -lxcb -lsndio
+    LIBS += -lGL
     LIBS += -L$$(VULKAN_SDK)/lib/ -lvulkan
     QMAKE_CXXFLAGS += -lstdc++ -pthread -w
 }
@@ -75,7 +76,7 @@ macx {
     LIBS += -F$$(HOME)/vulkansdk-macos-1.0.69.0/MoltenVK/macOS -framework MoltenVK
     LIBS += -F/System/Library/Frameworks -framework Metal
     LIBS += -F/System/Library/Frameworks -framework MetalKit
-    LIBS += -F/System/Library/Frameworks -framework GameKit 
+    LIBS += -F/System/Library/Frameworks -framework GameKit
     LIBS += -F/System/Library/Frameworks -framework IOKit
     LIBS += -F/System/Library/Frameworks -framework IOSurface
     LIBS += -F/System/Library/Frameworks -framework ForceFeedback
