@@ -1,5 +1,5 @@
 QT -= core gui
-TARGET = 00-init
+TARGET = 01-triangle
 TEMPLATE = app
 CONFIG += c++11
 CONFIG -= qt
