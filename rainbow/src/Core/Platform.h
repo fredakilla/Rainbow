@@ -118,6 +118,13 @@ public:
      */
     void unloadPlugin(const std::string& url);
 
+    /**
+     * Set the window title
+     *
+     * @param title The window title.
+     */
+    void setWindowTitle(const char* title);
+
 private:
 
     Platform();

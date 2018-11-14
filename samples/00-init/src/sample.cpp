@@ -15,6 +15,7 @@ Sample::~Sample()
 
 void Sample::onInitialize()
 {
+    Platform::getPlatform()->setWindowTitle("00-Init");
     Game::onInitialize();
 }
 

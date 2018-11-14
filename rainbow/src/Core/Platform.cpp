@@ -700,6 +700,11 @@ Input::GamepadAxis Platform::translateGamepadAxis(uint8_t sdl)
     return Input::GamepadAxis(_translateGamepadAxis[sdl]);
 }
 
+void Platform::setWindowTitle(const char* title)
+{
+    SDL_SetWindowTitle(_window, title);
+}
+
 
 extern void print(const char* format, ...)
 {

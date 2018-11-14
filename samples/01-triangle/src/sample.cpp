@@ -15,6 +15,7 @@ Sample::~Sample()
 
 void Sample::onInitialize()
 {
+    Platform::getPlatform()->setWindowTitle("01-Triangle");
     Game::onInitialize();
     
     // Testing immediate mode rendering
