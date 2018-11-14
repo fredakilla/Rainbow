@@ -9,163 +9,238 @@ CONFIG(debug, debug|release): DEFINES += _DEBUG
 CONFIG(debug, debug|release): TARGET = rainbow_d
 DESTDIR = $$PWD/../build/lib
 
-SOURCES += \
-    src/Activator.cpp \
-    src/Animation.cpp \
-    src/Asset.cpp \
-    src/AssetLoader.cpp \
-    src/AssetManager.cpp \
-    src/Audio.cpp \
-    src/AudioClip.cpp \
-    src/AudioListener.cpp \
-    src/AudioSource.cpp \
-    src/BoundingBox.cpp \
-    src/BoundingSphere.cpp \
-    src/Buffer.cpp \
-    src/Camera.cpp \
-    src/CommandBuffer.cpp \
-    src/Component.cpp \
-    src/Curve.cpp \
-    src/DescriptorSet.cpp \
-    src/FileSystem.cpp \
-    src/Frustum.cpp \
-    src/Game.cpp \
-    src/Graphics.cpp \
-    src/Heightfield.cpp \
-    src/Input.cpp \
-    src/Light.cpp \
-    src/Logger.cpp \
-    src/Material.cpp \
-    src/MathUtil.cpp \
-    src/Matrix.cpp \
-    src/Mesh.cpp \
-    src/MeshInstance.cpp \
-    src/Path.cpp \
-    src/Physics.cpp \
-    src/PhysicsCharacter.cpp \
-    src/PhysicsCloth.cpp \
-    src/PhysicsCollider.cpp \
-    src/PhysicsJoint.cpp \
-    src/PhysicsJointFixed.cpp \
-    src/PhysicsJointGeneric.cpp \
-    src/PhysicsJointHinge.cpp \
-    src/PhysicsJointSocket.cpp \
-    src/PhysicsJointSpring.cpp \
-    src/PhysicsMaterial.cpp \
-    src/PhysicsRigidBody.cpp \
-    src/PhysicsVehicle.cpp \
-    src/Plane.cpp \
-    src/Platform.cpp \
-    src/Quaternion.cpp \
-    src/Ray.cpp \
-    src/Rectangle.cpp \
-    src/Renderer.cpp \
-    src/RenderPass.cpp \
-    src/RenderPipeline.cpp \
-    src/Sampler.cpp \
-    src/Scene.cpp \
-    src/SceneLoader.cpp \
-    src/SceneObject.cpp \
-    src/Script.cpp \
-    src/Semaphore.cpp \
-    src/Serializer.cpp \
-    src/SerializerBinary.cpp \
-    src/SerializerJson.cpp \
-    src/Shader.cpp \
-    src/Sprite.cpp \
-    src/Text.cpp \
-    src/Texture.cpp \
-    src/TextureLoader.cpp \
-    src/Tileset.cpp \
-    src/Vector2.cpp \
-    src/Vector3.cpp \
-    src/Vector4.cpp \
-    src/VertexLayout.cpp
+#CONFIG += GP_API_VULKAN
 
+#-------------------------------------------------------------------
+# files
+#-------------------------------------------------------------------
+
+SOURCES += \
+    src/Animation/Animation.cpp \
+    src/Assets/Asset.cpp \
+    src/Assets/AssetLoader.cpp \
+    src/Assets/AssetManager.cpp \
+    src/Assets/TextureLoader.cpp \
+    src/Audio/Audio.cpp \
+    src/Audio/AudioClip.cpp \
+    src/Audio/AudioListener.cpp \
+    src/Audio/AudioSource.cpp \
+    src/Core/Activator.cpp \
+    src/Core/FileSystem.cpp \
+    src/Core/Game.cpp \
+    src/Core/Input.cpp \
+    src/Core/Logger.cpp \
+    src/Core/Platform.cpp \
+    src/Core/Serializer.cpp \
+    src/Core/SerializerBinary.cpp \
+    src/Core/SerializerJson.cpp \
+    src/Graphics/Buffer.cpp \
+    src/Graphics/CommandBuffer.cpp \
+    src/Graphics/DescriptorSet.cpp \
+    src/Graphics/Graphics.cpp \
+    src/Graphics/Heightfield.cpp \
+    src/Graphics/Material.cpp \
+    src/Graphics/Mesh.cpp \
+    src/Graphics/MeshInstance.cpp \
+    src/Graphics/Renderer.cpp \
+    src/Graphics/RenderPass.cpp \
+    src/Graphics/RenderPipeline.cpp \
+    src/Graphics/Sampler.cpp \
+    src/Graphics/Semaphore.cpp \
+    src/Graphics/Shader.cpp \
+    src/Graphics/Sprite.cpp \
+    src/Graphics/Text.cpp \
+    src/Graphics/Texture.cpp \
+    src/Graphics/VertexLayout.cpp \
+    src/Math/BoundingBox.cpp \
+    src/Math/BoundingSphere.cpp \
+    src/Math/Curve.cpp \
+    src/Math/Frustum.cpp \
+    src/Math/MathUtil.cpp \
+    src/Math/Matrix.cpp \
+    src/Math/Path.cpp \
+    src/Math/Plane.cpp \
+    src/Math/Quaternion.cpp \
+    src/Math/Ray.cpp \
+    src/Math/Rectangle.cpp \
+    src/Math/Vector2.cpp \
+    src/Math/Vector3.cpp \
+    src/Math/Vector4.cpp \
+    src/Physics/Physics.cpp \
+    src/Physics/PhysicsCharacter.cpp \
+    src/Physics/PhysicsCloth.cpp \
+    src/Physics/PhysicsCollider.cpp \
+    src/Physics/PhysicsJoint.cpp \
+    src/Physics/PhysicsJointFixed.cpp \
+    src/Physics/PhysicsJointGeneric.cpp \
+    src/Physics/PhysicsJointHinge.cpp \
+    src/Physics/PhysicsJointSocket.cpp \
+    src/Physics/PhysicsJointSpring.cpp \
+    src/Physics/PhysicsMaterial.cpp \
+    src/Physics/PhysicsRigidBody.cpp \
+    src/Physics/PhysicsVehicle.cpp \
+    src/Scene/Camera.cpp \
+    src/Scene/Component.cpp \
+    src/Scene/Light.cpp \
+    src/Scene/Scene.cpp \
+    src/Scene/SceneLoader.cpp \
+    src/Scene/SceneObject.cpp \
+    src/Scene/Tileset.cpp \
+    src/Script/Script.cpp
 
 HEADERS += \
-    src/Activator.h \
-    src/Animation.h \
-    src/Asset.h \
-    src/AssetLoader.h \
-    src/AssetManager.h \
-    src/Audio.h \
-    src/AudioClip.h \
-    src/AudioListener.h \
-    src/AudioSource.h \
-    src/Base.h \
-    src/BoundingBox.h \
-    src/BoundingSphere.h \
-    src/Buffer.h \
-    src/Camera.h \
-    src/ColorBlendState.h \
-    src/CommandBuffer.h \
-    src/Component.h \
-    src/Curve.h \
-    src/DepthStencilState.h \
-    src/DescriptorSet.h \
-    src/FileSystem.h \
-    src/Format.h \
-    src/Frustum.h \
-    src/Game.h \
-    src/Graphics.h \
-    src/GraphicsUtil.h \
-    src/Heightfield.h \
-    src/Input.h \
-    src/Light.h \
-    src/Logger.h \
-    src/Material.h \
-    src/MathUtil.h \
-    src/Matrix.h \
-    src/Mesh.h \
-    src/MeshInstance.h \
-    src/Path.h \
-    src/Physics.h \
-    src/PhysicsCharacter.h \
-    src/PhysicsCloth.h \
-    src/PhysicsCollider.h \
-    src/PhysicsJoint.h \
-     src/PhysicsJointFixed.h \
-    src/PhysicsJointGeneric.h \
-    src/PhysicsJointHinge.h \
-    src/PhysicsJointSocket.h \
-    src/PhysicsJointSpring.h \
-    src/PhysicsMaterial.h \
-    src/PhysicsRigidBody.h \
-    src/PhysicsVehicle.h \
-    src/Plane.h \
-    src/Platform.h \
-    src/Quaternion.h \
-    src/RasterizerState.h \
-    src/Ray.h \
-    src/Rectangle.h \
-    src/Renderer.h \
-    src/RenderPass.h \
-    src/RenderPipeline.h \
-    src/Sampler.h \
-    src/Scene.h \
-    src/SceneLoader.h \
-    src/SceneObject.h \
-    src/Script.h \
-    src/Semaphore.h \
-    src/Serializable.h \
-    src/Serializer.h \
-    src/SerializerBinary.h \
-    src/SerializerJson.h \
-    src/Shader.h \
-    src/Sprite.h \
-    src/Stream.h \
-    src/Text.h \
-    src/Texture.h \
-    src/TextureLoader.h \
-    src/Tileset.h \
-    src/Vector2.h \
-    src/Vector3.h \
-    src/Vector4.h \
-    src/VertexLayout.h \
+    src/Animation/Animation.h \
+    src/Assets/Asset.h \
+    src/Assets/AssetLoader.h \
+    src/Assets/AssetManager.h \
+    src/Assets/TextureLoader.h \
+    src/Audio/Audio.h \
+    src/Audio/AudioClip.h \
+    src/Audio/AudioListener.h \
+    src/Audio/AudioSource.h \
+    src/Core/Activator.h \
+    src/Core/Base.h \
+    src/Core/FileSystem.h \
+    src/Core/Game.h \
+    src/Core/Input.h \
+    src/Core/Logger.h \
+    src/Core/Platform.h \
+    src/Core/Serializable.h \
+    src/Core/Serializer.h \
+    src/Core/SerializerBinary.h \
+    src/Core/SerializerJson.h \
+    src/Core/Stream.h \
+    src/Graphics/Buffer.h \
+    src/Graphics/ColorBlendState.h \
+    src/Graphics/CommandBuffer.h \
+    src/Graphics/DepthStencilState.h \
+    src/Graphics/DescriptorSet.h \
+    src/Graphics/Format.h \
+    src/Graphics/Graphics.h \
+    src/Graphics/GraphicsUtil.h \
+    src/Graphics/Heightfield.h \
+    src/Graphics/Material.h \
+    src/Graphics/Mesh.h \
+    src/Graphics/MeshInstance.h \
+    src/Graphics/RasterizerState.h \
+    src/Graphics/Renderer.h \
+    src/Graphics/RenderPass.h \
+    src/Graphics/RenderPipeline.h \
+    src/Graphics/Sampler.h \
+    src/Graphics/Semaphore.h \
+    src/Graphics/Shader.h \
+    src/Graphics/Sprite.h \
+    src/Graphics/Text.h \
+    src/Graphics/Texture.h \
+    src/Graphics/VertexLayout.h \
+    src/Math/BoundingBox.h \
+    src/Math/BoundingSphere.h \
+    src/Math/Curve.h \
+    src/Math/Frustum.h \
+    src/Math/MathUtil.h \
+    src/Math/Matrix.h \
+    src/Math/Path.h \
+    src/Math/Plane.h \
+    src/Math/Quaternion.h \
+    src/Math/Ray.h \
+    src/Math/Rectangle.h \
+    src/Math/Vector2.h \
+    src/Math/Vector3.h \
+    src/Math/Vector4.h \
+    src/Physics/Physics.h \
+    src/Physics/PhysicsCharacter.h \
+    src/Physics/PhysicsCloth.h \
+    src/Physics/PhysicsCollider.h \
+    src/Physics/PhysicsJoint.h \
+    src/Physics/PhysicsJointFixed.h \
+    src/Physics/PhysicsJointGeneric.h \
+    src/Physics/PhysicsJointHinge.h \
+    src/Physics/PhysicsJointSocket.h \
+    src/Physics/PhysicsJointSpring.h \
+    src/Physics/PhysicsMaterial.h \
+    src/Physics/PhysicsRigidBody.h \
+    src/Physics/PhysicsVehicle.h \
+    src/Scene/Camera.h \
+    src/Scene/Component.h \
+    src/Scene/Light.h \
+    src/Scene/Scene.h \
+    src/Scene/SceneLoader.h \
+    src/Scene/SceneObject.h \
+    src/Scene/Tileset.h \
+    src/Script/Script.h \
     src/rainbow.h
 
-    
+
+
+
+#-------------------------------------------------------------------
+# graphics api
+#-------------------------------------------------------------------
+
+#GP_API_VULKAN {
+#
+#    message(Building with vulkan)
+#
+#SOURCES += \
+#    src/Graphics/api/VK/Buffer.cpp \
+#    src/Graphics/api/VK/CommandBuffer.cpp \
+#    src/Graphics/api/VK/DescriptorSet.cpp \
+#    src/Graphics/api/VK/Graphics.cpp \
+#    src/Graphics/api/VK/RenderPass.cpp \
+#    src/Graphics/api/VK/RenderPipeline.cpp \
+#    src/Graphics/api/VK/Sampler.cpp \
+#    src/Graphics/api/VK/Semaphore.cpp \
+#    src/Graphics/api/VK/Shader.cpp \
+#    src/Graphics/api/VK/Texture.cpp
+#
+#HEADERS += \
+#    src/Graphics/api/VK/Buffer.h \
+#    src/Graphics/api/VK/CommandBuffer.h \
+#    src/Graphics/api/VK/DescriptorSet.h \
+#    src/Graphics/api/VK/Graphics.h \
+#    src/Graphics/api/VK/GraphicsUtil.h \
+#    src/Graphics/api/VK/RenderPass.h \
+#    src/Graphics/api/VK/RenderPipeline.h \
+#    src/Graphics/api/VK/Sampler.h \
+#    src/Graphics/api/VK/Semaphore.h \
+#    src/Graphics/api/VK/Shader.h \
+#    src/Graphics/api/VK/Texture.h
+#
+#} else {
+#
+#    message(Building with bgfx)
+#
+#SOURCES += \
+#    src/Graphics/api/BGFX/Buffer.cpp \
+#    src/Graphics/api/BGFX/CommandBuffer.cpp \
+#    src/Graphics/api/BGFX/DescriptorSet.cpp \
+#    src/Graphics/api/BGFX/Graphics.cpp \
+#    src/Graphics/api/BGFX/RenderPass.cpp \
+#    src/Graphics/api/BGFX/RenderPipeline.cpp \
+#    src/Graphics/api/BGFX/Sampler.cpp \
+#    src/Graphics/api/BGFX/Semaphore.cpp \
+#    src/Graphics/api/BGFX/Shader.cpp \
+#    src/Graphics/api/BGFX/Texture.cpp
+#
+#HEADERS += \
+#    src/api/BGFX/Buffer.h \
+#    src/Graphics/api/BGFX/CommandBuffer.h \
+#    src/Graphics/api/BGFX/DescriptorSet.h \
+#    src/Graphics/api/BGFX/Graphics.h \
+#    src/Graphics/api/BGFX/GraphicsUtil.h \
+#    src/Graphics/api/BGFX/RenderPass.h \
+#    src/Graphics/api/BGFX/RenderPipeline.h \
+#    src/Graphics/api/BGFX/Sampler.h \
+#    src/Graphics/api/BGFX/Semaphore.h \
+#    src/Graphics/api/BGFX/Shader.h \
+#    src/Graphics/api/BGFX/Texture.h
+#}
+
+
+
+#-------------------------------------------------------------------
+# platform
+#-------------------------------------------------------------------
 
 INCLUDEPATH += $$PWD/../rainbow/src
 INCLUDEPATH += $$PWD/../external-deps/include

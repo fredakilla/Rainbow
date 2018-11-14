@@ -1,0 +1,38 @@
+#pragma once
+
+#include "../Scene/Component.h"
+#include "../Scene/SceneObject.h"
+
+namespace rainbow
+{
+
+/**
+ * Defines an script component.
+ */
+class Script : public Component
+{
+    friend class SceneObject;
+    friend class Activator;
+public:
+
+    /**
+     * Constructor.
+     */
+    Script();
+
+    /**
+     * Destructor
+     */
+    ~Script();    
+
+    virtual void onInitialize();
+
+    virtual void onFinalize();
+
+    virtual void onUpdate(float elapsedTime);
+
+    //virtual void onMessage(std::shared_ptr<SceneObject> sender, std::shared_ptr<Message> message, void* data);
+
+};
+
+}
