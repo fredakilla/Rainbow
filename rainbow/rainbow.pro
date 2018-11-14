@@ -33,25 +33,7 @@ SOURCES += \
     src/Core/Platform.cpp \
     src/Core/Serializer.cpp \
     src/Core/SerializerBinary.cpp \
-    src/Core/SerializerJson.cpp \
-    src/Graphics/Buffer.cpp \
-    src/Graphics/CommandBuffer.cpp \
-    src/Graphics/DescriptorSet.cpp \
-    src/Graphics/Graphics.cpp \
-    src/Graphics/Heightfield.cpp \
-    src/Graphics/Material.cpp \
-    src/Graphics/Mesh.cpp \
-    src/Graphics/MeshInstance.cpp \
-    src/Graphics/Renderer.cpp \
-    src/Graphics/RenderPass.cpp \
-    src/Graphics/RenderPipeline.cpp \
-    src/Graphics/Sampler.cpp \
-    src/Graphics/Semaphore.cpp \
-    src/Graphics/Shader.cpp \
-    src/Graphics/Sprite.cpp \
-    src/Graphics/Text.cpp \
-    src/Graphics/Texture.cpp \
-    src/Graphics/VertexLayout.cpp \
+    src/Core/SerializerJson.cpp \   
     src/Math/BoundingBox.cpp \
     src/Math/BoundingSphere.cpp \
     src/Math/Curve.cpp \
@@ -86,7 +68,8 @@ SOURCES += \
     src/Scene/SceneLoader.cpp \
     src/Scene/SceneObject.cpp \
     src/Scene/Tileset.cpp \
-    src/Script/Script.cpp
+    src/Script/Script.cpp \
+    src/Graphics/Graphics.cpp
 
 HEADERS += \
     src/Animation/Animation.h \
@@ -110,29 +93,6 @@ HEADERS += \
     src/Core/SerializerBinary.h \
     src/Core/SerializerJson.h \
     src/Core/Stream.h \
-    src/Graphics/Buffer.h \
-    src/Graphics/ColorBlendState.h \
-    src/Graphics/CommandBuffer.h \
-    src/Graphics/DepthStencilState.h \
-    src/Graphics/DescriptorSet.h \
-    src/Graphics/Format.h \
-    src/Graphics/Graphics.h \
-    src/Graphics/GraphicsUtil.h \
-    src/Graphics/Heightfield.h \
-    src/Graphics/Material.h \
-    src/Graphics/Mesh.h \
-    src/Graphics/MeshInstance.h \
-    src/Graphics/RasterizerState.h \
-    src/Graphics/Renderer.h \
-    src/Graphics/RenderPass.h \
-    src/Graphics/RenderPipeline.h \
-    src/Graphics/Sampler.h \
-    src/Graphics/Semaphore.h \
-    src/Graphics/Shader.h \
-    src/Graphics/Sprite.h \
-    src/Graphics/Text.h \
-    src/Graphics/Texture.h \
-    src/Graphics/VertexLayout.h \
     src/Math/BoundingBox.h \
     src/Math/BoundingSphere.h \
     src/Math/Curve.h \
@@ -168,7 +128,8 @@ HEADERS += \
     src/Scene/SceneObject.h \
     src/Scene/Tileset.h \
     src/Script/Script.h \
-    src/rainbow.h
+    src/rainbow.h \
+    src/Graphics/Graphics.h
 
 
 

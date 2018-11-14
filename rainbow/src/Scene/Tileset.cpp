@@ -24,12 +24,12 @@ std::string Tileset::getClassName()
 
 void Tileset::onSerialize(Serializer* serializer)
 {
-    Renderer::onSerialize(serializer);
+
 }
 
 void Tileset::onDeserialize(Serializer* serializer)
 {
-    Renderer::onDeserialize(serializer);
+
 }
 
 }

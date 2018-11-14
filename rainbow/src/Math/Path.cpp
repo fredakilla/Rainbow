@@ -24,12 +24,12 @@ std::string Path::getClassName()
 
 void Path::onSerialize(Serializer* serializer)
 {
-    Renderer::onSerialize(serializer);
+
 }
 
 void Path::onDeserialize(Serializer* serializer)
 {
-    Renderer::onDeserialize(serializer);
+
 }
 
 }

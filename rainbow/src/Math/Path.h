@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Graphics/Renderer.h"
+#include "../Core/Serializable.h"
 
 namespace rainbow
 {
@@ -8,11 +8,9 @@ namespace rainbow
 /**
  * Defines a path renderer.
  */
-class Path : public Renderer
+class Path : public Serializable
 {
-    friend class Graphics;
     friend class Activator;
-    friend class SceneObject;
 
 public:
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Graphics/Renderer.h"
+#include "../Core/Serializable.h"
 
 namespace rainbow
 {
@@ -8,11 +8,9 @@ namespace rainbow
 /**
  * Defines a text renderer.
  */
-class Tileset : public Renderer
+class Tileset : public Serializable
 {
-    friend class Graphics;
     friend class Activator;
-    friend class SceneObject;
 
 public:
 

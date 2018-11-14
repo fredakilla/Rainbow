@@ -3,8 +3,8 @@
 #include "../Core/Activator.h"
 #include "../Core/FileSystem.h"
 #include "../Core/SerializerJson.h"
-#include "../Graphics/Graphics.h"
 #include "../Scene/Light.h"
+#include "../Graphics/Graphics.h"
 
 namespace rainbow
 {
