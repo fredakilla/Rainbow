@@ -88,6 +88,7 @@
 */
 
 // Graphics new
+#include "Graphics/GraphicsTypes.h"
 #include "Graphics/Graphics.h"
 
 

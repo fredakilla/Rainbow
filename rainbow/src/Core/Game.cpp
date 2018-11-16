@@ -8,7 +8,7 @@
 #ifdef RB_DEF_API_VULKAN
 
 #elif RB_DEF_API_BGFX
-    #include "../Graphics/api/BGFX/GraphicsBgfx.h"
+    #include "../Graphics/api/BGFX/GraphicsBGFX.h"
 #else
     #include "../Graphics/Graphics.h"
 #endif

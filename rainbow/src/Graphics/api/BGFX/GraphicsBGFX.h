@@ -13,20 +13,14 @@ namespace rainbow
  */
 class GraphicsBgfx : public Graphics
 {
-    friend class Game;
 
 public:
 
-    /**
-     * Constructor.
-     */
+    //! Constructor.
     GraphicsBgfx();
 
-    /**
-     * Destructor.
-     */
+    //! Destructor.
     ~GraphicsBgfx();
-
 
     void initialize() override;
     void finalize() override;
@@ -36,13 +30,17 @@ public:
     void beginFrame() override;
     void endFrame() override;
 
+    bool createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo, std::shared_ptr<Buffer>& pVertexBuffer) override;
+
+    void cmdBindVertexBuffer(std::shared_ptr<Buffer> vertexBuffer) override;
+
 private:
-    bool _createDevice();
+    bool createDevice();
+    std::shared_ptr<Buffer> createBuffer(Buffer::Usage usage, size_t size, size_t stride, bool hostVisible, bool is32bit);
 
 private:    
     uint32_t _resetFlags;   // bgfx reset flags
     uint32_t _debugFlags;   // bgfx debug flags
-
 };
 
 }

@@ -71,7 +71,9 @@ SOURCES += \
     src/Scene/SceneObject.cpp \
     src/Scene/Tileset.cpp \
     src/Script/Script.cpp \
-    src/Graphics/Graphics.cpp
+    src/Graphics/Graphics.cpp \
+    src/Graphics/Buffer.cpp \
+    src/Graphics/GraphicsTypes.cpp
 
 HEADERS += \
     src/Animation/Animation.h \
@@ -131,7 +133,9 @@ HEADERS += \
     src/Scene/Tileset.h \
     src/Script/Script.h \
     src/rainbow.h \
-    src/Graphics/Graphics.h
+    src/Graphics/Graphics.h \
+    src/Graphics/Buffer.h \
+    src/Graphics/GraphicsTypes.h
 
 
 
@@ -145,10 +149,12 @@ contains(DEFINES, RB_DEF_API_BGFX) {
     DEFINES += GP_NO_LUA_BINDINGS
 
     HEADERS += \
-        src/Graphics/api/BGFX/GraphicsBgfx.h
+        src/Graphics/api/BGFX/BufferBGFX.h \
+        src/Graphics/api/BGFX/GraphicsBGFX.h \
 
     SOURCES += \
-        src/Graphics/api/BGFX/GraphicBgfx.cpp
+        src/Graphics/api/BGFX/BufferBGFX.cpp \
+        src/Graphics/api/BGFX/GraphicBGFX.cpp \
 }
 
 contains(DEFINES, RB_DEF_API_VULKAN) {
@@ -242,7 +248,23 @@ linux {
     DEFINES += SDL_VIDEO_DRIVER_X11
     DEFINES += VK_USE_PLATFORM_XLIB_KHR
     INCLUDEPATH += $$(VULKAN_SDK)/include
-    QMAKE_CXXFLAGS += -lstdc++ -pthread -w
+    QMAKE_CXXFLAGS += -lstdc++ -pthread
+
+    QMAKE_CXXFLAGS += -Wall
+    #QMAKE_CXXFLAGS += -Wno-sign-compare
+    #QMAKE_CXXFLAGS += -Wno-extra
+    #QMAKE_CXXFLAGS += -Wno-parentheses
+    #QMAKE_CXXFLAGS += -Wno-ignored-qualifiers
+    #QMAKE_CXXFLAGS += -Wno-unused-function
+    QMAKE_CXXFLAGS += -Wno-unused-parameter
+    #QMAKE_CXXFLAGS += -Wno-unused-variable
+    #QMAKE_CXXFLAGS += -Wno-unused-value
+    #QMAKE_CXXFLAGS += -Wno-unused-but-set-variable
+    #QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
+    #QMAKE_CXXFLAGS += -Wno-reorder
+    #QMAKE_CXXFLAGS += -Wno-switch
+    #QMAKE_CXXFLAGS += -Wno-type-limits
+    #QMAKE_CXXFLAGS += -Wno-maybe-uninitialized
 }
 
 macx {

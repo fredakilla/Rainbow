@@ -42,5 +42,6 @@ public:
 
 private:
 
+    std::shared_ptr<Buffer> _vertexBuffer;
 
 };
