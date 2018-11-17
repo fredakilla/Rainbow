@@ -82,15 +82,15 @@ public:
 
 private:
 
-    //struct BufferObjects
-    //{
-        uint32_t _clearColor;
-        uint16_t _clearFlags;
-        float _depth;
-        uint32_t _stencil;
+    // clear stuff
+    uint32_t _clearColor;
+    uint16_t _clearFlags;
+    float _depth;
+    uint32_t _stencil;
 
-        bgfx::ProgramHandle _program;
-    //}
+    // program
+    bgfx::ProgramHandle _program;
+
 
 };
 
