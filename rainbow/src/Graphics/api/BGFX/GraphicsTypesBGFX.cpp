@@ -30,7 +30,8 @@ void* BufferBGFX::getHostMemory() const
 
 RenderPipelineBGFX::RenderPipelineBGFX() :
     RenderPipeline(),
-    _program(BGFX_INVALID_HANDLE)
+    _program(BGFX_INVALID_HANDLE),
+    _state(0L)
 {
 
 }
@@ -52,6 +53,7 @@ void CommandBufferBGFX::reset()
     _depth = 0.0f;
     _stencil = 0;
     _program = BGFX_INVALID_HANDLE;
+    _state = 0L;
 }
 
 

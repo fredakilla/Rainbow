@@ -463,7 +463,14 @@ void GraphicsBgfx::cmdBindRenderPipeline(std::shared_ptr<CommandBuffer> commandB
     std::shared_ptr<RenderPipelineBGFX> renderPipelineBGFX = std::static_pointer_cast<RenderPipelineBGFX>(renderPipeline);
 
     // bind pipeline stuff to command buffer
+
     commandBufferBGFX->_program = renderPipelineBGFX->_program;
+    commandBufferBGFX->_state = renderPipelineBGFX->_state;
+
+
+
+
+
 }
 
 void GraphicsBgfx::cmdBindDescriptorSet(std::shared_ptr<CommandBuffer> commandBuffer,
@@ -611,6 +618,46 @@ std::shared_ptr<DescriptorSet> GraphicsBgfx::createDescriptorSet(const Descripto
 void GraphicsBgfx::destroyDescriptorSet(std::shared_ptr<DescriptorSet> descriptorSet){}
 
 
+template <typename E>
+constexpr typename std::underlying_type<E>::type to_underlying(E e) noexcept {
+    return static_cast<typename std::underlying_type<E>::type>(e);
+}
+
+
+
+uint64_t TAB_BLEND[] = {
+    BGFX_STATE_BLEND_ZERO,              // eZero,
+    BGFX_STATE_BLEND_ONE,               // eOne,
+    BGFX_STATE_BLEND_SRC_COLOR,         // eSrcColor,
+    BGFX_STATE_BLEND_INV_SRC_COLOR,     // eOneMinusSrcColor,
+    BGFX_STATE_BLEND_DST_COLOR,         // eDstColor,
+    BGFX_STATE_BLEND_INV_DST_COLOR,     // eOneMinusDstColor,
+    BGFX_STATE_BLEND_SRC_ALPHA,         // eSrcAlpha,
+    BGFX_STATE_BLEND_INV_SRC_ALPHA,     // eOneMinuseSrcAlpha,
+    BGFX_STATE_BLEND_DST_ALPHA,         // eDstAlpha,
+    BGFX_STATE_BLEND_INV_DST_ALPHA,     // eOneMinuseDstAlpha,
+    BGFX_STATE_BLEND_SRC_ALPHA_SAT,     // eSrcAlphaSaturate,
+    BGFX_STATE_BLEND_ZERO,              // eSrc1Color,
+    BGFX_STATE_BLEND_ZERO,              // eOneMinusSrc1Color,
+    BGFX_STATE_BLEND_ZERO,              // eSrc1Alpha,
+    BGFX_STATE_BLEND_ZERO,              // eOneMinuseSrc1Alpha
+};
+
+
+
+uint64_t TAB_DEPTH_FUNC[] = {
+    BGFX_STATE_DEPTH_TEST_NEVER,        // DEPTH_NEVER = GL_NEVER,
+    BGFX_STATE_DEPTH_TEST_LESS,         // DEPTH_LESS = GL_LESS,
+    BGFX_STATE_DEPTH_TEST_EQUAL,        // DEPTH_EQUAL = GL_EQUAL,
+    BGFX_STATE_DEPTH_TEST_LEQUAL,       // DEPTH_LEQUAL = GL_LEQUAL,
+    BGFX_STATE_DEPTH_TEST_GREATER,      // DEPTH_GREATER = GL_GREATER,
+    BGFX_STATE_DEPTH_TEST_NOTEQUAL,     // DEPTH_NOTEQUAL = GL_NOTEQUAL,
+    BGFX_STATE_DEPTH_TEST_GEQUAL,       // DEPTH_GEQUAL = GL_GEQUAL,
+    BGFX_STATE_DEPTH_TEST_ALWAYS        // DEPTH_ALWAYS = GL_ALWAYS
+};
+
+
+
 std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
                                                      VertexLayout vertexLayout,
                                                      RasterizerState rasterizerState,
@@ -630,6 +677,58 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
 
 
+    uint64_t state = 0L;
+
+    // Topology
+    switch (primitiveTopology)
+    {
+    case RenderPipeline::PrimitiveTopology::ePointList:
+        state |= BGFX_STATE_PT_POINTS;
+        break;
+    case RenderPipeline::PrimitiveTopology::eLineList:
+        state |= BGFX_STATE_PT_LINES;
+        break;
+    case RenderPipeline::PrimitiveTopology::eLineStrip:
+        state |= BGFX_STATE_PT_LINESTRIP;
+        break;
+    case RenderPipeline::PrimitiveTopology::eTriangleStrip:
+        state |= BGFX_STATE_PT_TRISTRIP;
+        break;
+
+    case RenderPipeline::PrimitiveTopology::eTriangleList:
+    default:
+        // default bgfx topology
+        break;
+    }
+
+    // RasterizerState
+    switch (rasterizerState.cullMode)
+    {
+    case RasterizerState::CullMode::eBack:
+        state |= BGFX_STATE_CULL_CW;
+        break;
+    case RasterizerState::CullMode::eFront:
+        state |= BGFX_STATE_CULL_CCW;
+        break;
+    case RasterizerState::CullMode::eNone:
+    default:
+        break;
+    }
+
+
+    // ColorBlendState
+    if (colorBlendState.blendEnabled)
+    {
+        int indexSrc = to_underlying(colorBlendState.colorBlendSrc);
+        int indexDst = to_underlying(colorBlendState.colorBlendDst);
+        state |= BGFX_STATE_BLEND_FUNC(TAB_BLEND[indexSrc], TAB_BLEND[indexDst]);
+    }
+
+    //colorBlendState.colorWriteMask;
+    // colorBlendState
+
+
+
 
     // compile shaders and create program
 
@@ -643,8 +742,9 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
     GP_ASSERT(bgfx::isValid(program));
 
 
-    renderPipelineBGFX->_program = program;
 
+    renderPipelineBGFX->_program = program;
+    renderPipelineBGFX->_state = state;
     return renderPipelineBGFX;
 }
 

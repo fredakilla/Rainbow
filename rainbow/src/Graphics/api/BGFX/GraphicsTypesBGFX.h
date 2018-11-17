@@ -56,6 +56,7 @@ public:
 private:
 
     bgfx::ProgramHandle _program;
+    uint64_t _state;
 };
 
 
@@ -91,6 +92,8 @@ private:
     // program
     bgfx::ProgramHandle _program;
 
+    // state
+    uint64_t _state;
 
 };
 
