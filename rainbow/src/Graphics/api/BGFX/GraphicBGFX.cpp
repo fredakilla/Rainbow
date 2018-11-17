@@ -428,16 +428,15 @@ void GraphicsBgfx::submit(std::shared_ptr<CommandBuffer> commandBuffer,
                     , commandBufferBGFX->_stencil
     );
 
-    uint64_t state = 0
+    /*uint64_t state = 0
             | BGFX_STATE_WRITE_RGB
             | BGFX_STATE_WRITE_A
             | BGFX_STATE_WRITE_Z
             | BGFX_STATE_DEPTH_TEST_LESS
             | BGFX_STATE_MSAA
-            ;
-    bgfx::setState(state);
+            ;*/
 
-
+    bgfx::setState(commandBufferBGFX->_state);
 
     bgfx::submit(0, commandBufferBGFX->_program);
 }
@@ -625,7 +624,7 @@ constexpr typename std::underlying_type<E>::type to_underlying(E e) noexcept {
 
 
 
-/// maps ColorBlendState::BlendFactor to BGFX_STATE_BLEND
+/// maps ColorBlendState::BlendFactor to BGFX_STATE_BLEND_*
 static const uint64_t LOOKUP_BGFX_BLEND_FACTOR[] = {
     BGFX_STATE_BLEND_ZERO,              // eZero,
     BGFX_STATE_BLEND_ONE,               // eOne,
@@ -646,7 +645,7 @@ static const uint64_t LOOKUP_BGFX_BLEND_FACTOR[] = {
     BGFX_STATE_BLEND_INV_FACTOR,        // eOneMinuseBlendFactor
 };
 
-
+/// maps ColorBlendState::BlendOp to BGFX_STATE_BLEND_EQUATION_*
 static const uint64_t LOOKUP_BGFX_BLEND_OP[] = {
     BGFX_STATE_BLEND_EQUATION_ADD,      // eAdd,
     BGFX_STATE_BLEND_EQUATION_SUB,      // eSubtract,
@@ -655,7 +654,7 @@ static const uint64_t LOOKUP_BGFX_BLEND_OP[] = {
     BGFX_STATE_BLEND_EQUATION_MAX,      // eMax
 };
 
-
+/// maps Sampler::CompareFunc to BGFX_STATE_DEPTH_TEST_*
 static const uint64_t LOOKUP_BGFX_DEPTH_TEST[] = {
     BGFX_STATE_DEPTH_TEST_NEVER,        // eNever,
     BGFX_STATE_DEPTH_TEST_LESS,         // eLess,
@@ -666,10 +665,6 @@ static const uint64_t LOOKUP_BGFX_DEPTH_TEST[] = {
     BGFX_STATE_DEPTH_TEST_GEQUAL,       // eGreaterOrEqual,
     BGFX_STATE_DEPTH_TEST_ALWAYS        // eAlways
 };
-
-
-
-
 
 std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
                                                      VertexLayout vertexLayout,
@@ -753,6 +748,20 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
         state |= BGFX_STATE_BLEND_EQUATION_SEPARATE(equaColor, equaAlpha);
     }
 
+    // R,G,B,A write mask
+    uint32_t redflag = to_underlying(ColorBlendState::WriteMask::eRed);
+    uint32_t greenflag = to_underlying(ColorBlendState::WriteMask::eGreen);
+    uint32_t blueflag = to_underlying(ColorBlendState::WriteMask::eBlue);
+    uint32_t alphaflag = to_underlying(ColorBlendState::WriteMask::eAlpha);
+    if ((colorBlendState.colorWriteMask & redflag) == redflag)
+        state |= BGFX_STATE_WRITE_R;
+    if ((colorBlendState.colorWriteMask & greenflag) == greenflag)
+        state |= BGFX_STATE_WRITE_G;
+    if ((colorBlendState.colorWriteMask & blueflag) == blueflag)
+        state |= BGFX_STATE_WRITE_B;
+    if ((colorBlendState.colorWriteMask & alphaflag) == alphaflag)
+        state |= BGFX_STATE_WRITE_A;
+
 
 
     // DepthStencilState
@@ -767,7 +776,6 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
         int depthTestIndex = to_underlying(depthStencilState.depthFunc);
         state |= LOOKUP_BGFX_DEPTH_TEST[depthTestIndex];
     }
-
 
 
 
