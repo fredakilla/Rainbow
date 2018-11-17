@@ -272,12 +272,12 @@ void Sample::onUpdate(float elapsedTime)
     // graphics->cmdSetViewport(commandBuffer, 0, 0, getWidth(), getHeight(), 0.0f, 1.0f);
     // graphics->cmdSetScissor(commandBuffer, 0, 0, getWidth(), getHeight());
     // graphics->cmdBeginRenderPass(commandBuffer, _renderPass);
-    // graphics->cmdClearColor(commandBuffer, 0.0f, 0.0f, 0.0f, 1.0f, 0);
-    // graphics->cmdClearDepthStencil(commandBuffer, 1.0, 0);
+    graphics->cmdClearColor(commandBuffer, 0.1f, 0.1f, 0.1f, 1.0f, 0);
+    graphics->cmdClearDepthStencil(commandBuffer, 1.0, 0);
     graphics->cmdBindRenderPipeline(commandBuffer, _renderPipeline);
     graphics->cmdBindVertexBuffer(commandBuffer, _vertexBuffer);
-    // graphics->cmdDraw(commandBuffer, 3, 0);
-    // graphics->cmdEndRenderPass(commandBuffer);
+    graphics->cmdDraw(commandBuffer, 3, 0);
+    //graphics->cmdEndRenderPass(commandBuffer);
     graphics->endCommands();
 
     graphics->submit(commandBuffer, graphics->getSemaphorePresentComplete(), graphics->getSemaphoreRenderComplete());

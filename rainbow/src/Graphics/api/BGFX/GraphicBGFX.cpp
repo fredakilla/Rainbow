@@ -6,7 +6,7 @@
 
 // bgfx impl
 #include "GraphicsBGFX.h"
-#include "GraphicsTypesBgfx.h"
+#include "GraphicsTypesBGFX.h"
 
 #include <bgfx/platform.h>
 #include <bgfx/bgfx.h>
@@ -377,6 +377,10 @@ void GraphicsBgfx::presentFrame(std::shared_ptr<Semaphore> waitSemaphore)
 
 std::shared_ptr<CommandBuffer> GraphicsBgfx::beginCommands()
 {
+    std::shared_ptr<CommandBufferBGFX> commandBuffer = std::static_pointer_cast<CommandBufferBGFX>(_commandBuffer);
+
+    commandBuffer->reset();
+
     return _commandBuffer;
 }
 
@@ -416,11 +420,12 @@ void GraphicsBgfx::submit(std::shared_ptr<CommandBuffer> commandBuffer,
 
 
     bgfx::setViewRect(0, 0, 0, _width, _height);
+
     bgfx::setViewClear(0
-                    , BGFX_CLEAR_COLOR|BGFX_CLEAR_DEPTH
-                    , 0x303030ff
-                    , 1.0f
-                    , 0
+                    , commandBufferBGFX->_clearFlags
+                    , commandBufferBGFX->_clearColor
+                    , commandBufferBGFX->_depth
+                    , commandBufferBGFX->_stencil
     );
 
     uint64_t state = 0
@@ -491,17 +496,28 @@ void GraphicsBgfx::cmdClearColor(std::shared_ptr<CommandBuffer> commandBuffer,
                    float red, float green, float blue, float alpha,
                    size_t attachmentIndex)
 {
-    GP_UNUSED(commandBuffer);
+    std::shared_ptr<CommandBufferBGFX> commandBufferBGFX = std::static_pointer_cast<CommandBufferBGFX>(commandBuffer);
+    commandBufferBGFX->_clearColor = Vector4(red, green, blue, alpha).toColor();
+    commandBufferBGFX->_clearFlags |= BGFX_CLEAR_COLOR;
 }
 
 
 void GraphicsBgfx::cmdClearDepthStencil(std::shared_ptr<CommandBuffer> commandBuffer,
-                          float depth, uint32_t stencil){}
+                          float depth, uint32_t stencil)
+{
+    std::shared_ptr<CommandBufferBGFX> commandBufferBGFX = std::static_pointer_cast<CommandBufferBGFX>(commandBuffer);
+    commandBufferBGFX->_depth = depth;
+    commandBufferBGFX->_stencil = stencil;
+    commandBufferBGFX->_clearFlags |= BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL;
+}
 
 
 void GraphicsBgfx::cmdDraw(std::shared_ptr<CommandBuffer> commandBuffer,
             size_t vertexCount,
-            size_t vertexStart){}
+            size_t vertexStart)
+{
+    // not used here
+}
 
 
 void GraphicsBgfx::cmdDrawIndexed(std::shared_ptr<CommandBuffer> commandBuffer,

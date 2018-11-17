@@ -6,6 +6,8 @@
 namespace rainbow
 {
 
+class Vector4;
+
 //------------------------------------------------------------------------------
 // BufferBGFX
 //------------------------------------------------------------------------------
@@ -64,8 +66,8 @@ private:
  * BGFX impl of a CommandBuffer.
  *
  * BGFX manage internally its own command buffer.
- * The CommandBuffer here is not a real command buffer and is
- * used instead as a wrapper for bgfx object to bound for the render pass.
+ * The CommandBuffer here is not a real command buffer.
+ * Use it as a wrapper for bgfx objects to bound for current the render pass.
  *
  */
 class CommandBufferBGFX : public CommandBuffer
@@ -76,9 +78,19 @@ public:
 
     CommandBufferBGFX();
 
+    void reset();
+
 private:
 
-    bgfx::ProgramHandle _program;
+    //struct BufferObjects
+    //{
+        uint32_t _clearColor;
+        uint16_t _clearFlags;
+        float _depth;
+        uint32_t _stencil;
+
+        bgfx::ProgramHandle _program;
+    //}
 
 };
 

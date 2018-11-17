@@ -1,4 +1,4 @@
-#include "GraphicsTypesBgfx.h"
+#include "GraphicsTypesBGFX.h"
 
 namespace rainbow
 {
@@ -41,9 +41,18 @@ RenderPipelineBGFX::RenderPipelineBGFX() :
 
 CommandBufferBGFX::CommandBufferBGFX() :
     CommandBuffer(),
-    _program(BGFX_INVALID_HANDLE)
+    _program(BGFX_INVALID_HANDLE),
+    _clearFlags(BGFX_CLEAR_NONE),
+    _clearColor(0x00000000)
 {
 
+}
+
+void CommandBufferBGFX::reset()
+{
+    _program = BGFX_INVALID_HANDLE;
+    _clearFlags = BGFX_CLEAR_NONE;
+    _clearColor = 0x00000000;
 }
 
 

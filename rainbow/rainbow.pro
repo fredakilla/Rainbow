@@ -135,7 +135,7 @@ HEADERS += \
     src/rainbow.h \
     src/Graphics/Graphics.h \
     src/Graphics/GraphicsTypes.h \
-    src/Graphics/api/BGFX/GraphicsTypesBgfx.h
+    src/Graphics/api/BGFX/GraphicsTypesBGFX.h
 
 
 
