@@ -625,7 +625,8 @@ constexpr typename std::underlying_type<E>::type to_underlying(E e) noexcept {
 
 
 
-uint64_t TAB_BLEND[] = {
+/// maps ColorBlendState::BlendFactor to BGFX_STATE_BLEND
+static const uint64_t LOOKUP_BGFX_BLEND_FACTOR[] = {
     BGFX_STATE_BLEND_ZERO,              // eZero,
     BGFX_STATE_BLEND_ONE,               // eOne,
     BGFX_STATE_BLEND_SRC_COLOR,         // eSrcColor,
@@ -637,24 +638,36 @@ uint64_t TAB_BLEND[] = {
     BGFX_STATE_BLEND_DST_ALPHA,         // eDstAlpha,
     BGFX_STATE_BLEND_INV_DST_ALPHA,     // eOneMinuseDstAlpha,
     BGFX_STATE_BLEND_SRC_ALPHA_SAT,     // eSrcAlphaSaturate,
-    BGFX_STATE_BLEND_ZERO,              // eSrc1Color,
-    BGFX_STATE_BLEND_ZERO,              // eOneMinusSrc1Color,
-    BGFX_STATE_BLEND_ZERO,              // eSrc1Alpha,
-    BGFX_STATE_BLEND_ZERO,              // eOneMinuseSrc1Alpha
+    BGFX_STATE_BLEND_ZERO,              // eSrc1Color,              // not supported in bgfx
+    BGFX_STATE_BLEND_ZERO,              // eOneMinusSrc1Color,      // not supported in bgfx
+    BGFX_STATE_BLEND_ZERO,              // eSrc1Alpha,              // not supported in bgfx
+    BGFX_STATE_BLEND_ZERO,              // eOneMinuseSrc1Alpha      // not supported in bgfx
+    BGFX_STATE_BLEND_FACTOR,            // eBlendFactor,
+    BGFX_STATE_BLEND_INV_FACTOR,        // eOneMinuseBlendFactor
 };
 
 
-
-uint64_t TAB_DEPTH_FUNC[] = {
-    BGFX_STATE_DEPTH_TEST_NEVER,        // DEPTH_NEVER = GL_NEVER,
-    BGFX_STATE_DEPTH_TEST_LESS,         // DEPTH_LESS = GL_LESS,
-    BGFX_STATE_DEPTH_TEST_EQUAL,        // DEPTH_EQUAL = GL_EQUAL,
-    BGFX_STATE_DEPTH_TEST_LEQUAL,       // DEPTH_LEQUAL = GL_LEQUAL,
-    BGFX_STATE_DEPTH_TEST_GREATER,      // DEPTH_GREATER = GL_GREATER,
-    BGFX_STATE_DEPTH_TEST_NOTEQUAL,     // DEPTH_NOTEQUAL = GL_NOTEQUAL,
-    BGFX_STATE_DEPTH_TEST_GEQUAL,       // DEPTH_GEQUAL = GL_GEQUAL,
-    BGFX_STATE_DEPTH_TEST_ALWAYS        // DEPTH_ALWAYS = GL_ALWAYS
+static const uint64_t LOOKUP_BGFX_BLEND_OP[] = {
+    BGFX_STATE_BLEND_EQUATION_ADD,      // eAdd,
+    BGFX_STATE_BLEND_EQUATION_SUB,      // eSubtract,
+    BGFX_STATE_BLEND_EQUATION_REVSUB,   // eReverseSubstact,
+    BGFX_STATE_BLEND_EQUATION_MIN,      // eMin,
+    BGFX_STATE_BLEND_EQUATION_MAX,      // eMax
 };
+
+
+static const uint64_t LOOKUP_BGFX_DEPTH_TEST[] = {
+    BGFX_STATE_DEPTH_TEST_NEVER,        // eNever,
+    BGFX_STATE_DEPTH_TEST_LESS,         // eLess,
+    BGFX_STATE_DEPTH_TEST_EQUAL,        // eEqual,
+    BGFX_STATE_DEPTH_TEST_LEQUAL,       // eLessOrEqual,
+    BGFX_STATE_DEPTH_TEST_GREATER,      // eGreater,
+    BGFX_STATE_DEPTH_TEST_NOTEQUAL,     // eNotEqual,
+    BGFX_STATE_DEPTH_TEST_GEQUAL,       // eGreaterOrEqual,
+    BGFX_STATE_DEPTH_TEST_ALWAYS        // eAlways
+};
+
+
 
 
 
@@ -719,13 +732,41 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
     // ColorBlendState
     if (colorBlendState.blendEnabled)
     {
-        int indexSrc = to_underlying(colorBlendState.colorBlendSrc);
-        int indexDst = to_underlying(colorBlendState.colorBlendDst);
-        state |= BGFX_STATE_BLEND_FUNC(TAB_BLEND[indexSrc], TAB_BLEND[indexDst]);
+        //int indexSrc = to_underlying(colorBlendState.colorBlendSrc);
+        //int indexDst = to_underlying(colorBlendState.colorBlendDst);
+        //state |= BGFX_STATE_BLEND_FUNC(LOOKUP_BGFX_BLEND_FACTOR[indexSrc], LOOKUP_BGFX_BLEND_FACTOR[indexDst]);
+
+        int srcColorIndex = to_underlying(colorBlendState.colorBlendSrc);
+        int dstColorIndex = to_underlying(colorBlendState.colorBlendDst);
+        int srcAlphaIndex = to_underlying(colorBlendState.alphaBlendSrc);
+        int dstAlphaIndex = to_underlying(colorBlendState.alphaBlendDst);
+        uint64_t srcColor = LOOKUP_BGFX_BLEND_FACTOR[srcColorIndex];
+        uint64_t dstColor = LOOKUP_BGFX_BLEND_FACTOR[dstColorIndex];
+        uint64_t srcAlpha = LOOKUP_BGFX_BLEND_FACTOR[srcAlphaIndex];
+        uint64_t dstAlpha = LOOKUP_BGFX_BLEND_FACTOR[dstAlphaIndex];
+        state |= BGFX_STATE_BLEND_FUNC_SEPARATE(srcColor, dstColor, srcAlpha, dstAlpha);
+
+        int colorBlendOpIndex = to_underlying(colorBlendState.colorBlendOp);
+        int alphaBlendOpIndex = to_underlying(colorBlendState.alphaBlendOp);
+        uint64_t equaColor = LOOKUP_BGFX_BLEND_OP[colorBlendOpIndex];
+        uint64_t equaAlpha = LOOKUP_BGFX_BLEND_OP[alphaBlendOpIndex];
+        state |= BGFX_STATE_BLEND_EQUATION_SEPARATE(equaColor, equaAlpha);
     }
 
-    //colorBlendState.colorWriteMask;
-    // colorBlendState
+
+
+    // DepthStencilState
+
+    if(depthStencilState.depthWrite)
+    {
+        state |= BGFX_STATE_WRITE_Z;
+    }
+
+    if(depthStencilState.depthEnabled)
+    {
+        int depthTestIndex = to_underlying(depthStencilState.depthFunc);
+        state |= LOOKUP_BGFX_DEPTH_TEST[depthTestIndex];
+    }
 
 
 

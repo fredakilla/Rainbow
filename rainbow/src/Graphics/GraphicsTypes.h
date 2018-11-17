@@ -748,7 +748,9 @@ public:
         eSrc1Color,
         eOneMinusSrc1Color,
         eSrc1Alpha,
-        eOneMinuseSrc1Alpha
+        eOneMinuseSrc1Alpha,
+        eBlendFactor,
+        eOneMinuseBlendFactor,
     };
 
     /**
