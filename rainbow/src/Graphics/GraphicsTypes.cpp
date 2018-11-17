@@ -24,8 +24,6 @@ int IndexType::byteSize(IndexType::Enum c)
     }
 }
 
-
-
 //------------------------------------------------------------------------------
 // VertexAttr
 //------------------------------------------------------------------------------
@@ -150,7 +148,7 @@ const char* VertexFormat::toString(Enum c)
 
 //------------------------------------------------------------------------------
 // VertexLayout
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 bool VertexLayout::Component::isValid() const
 {
@@ -260,5 +258,430 @@ bool VertexLayout::contains(VertexAttr::Enum attr) const
     return INVALID_INDEX != this->componentIndexByVertexAttr(attr);
 }
 
+//------------------------------------------------------------------------------
+// PrimitiveType
+//------------------------------------------------------------------------------
+
+const char* PrimitiveType::ToString(PrimitiveType::Enum c) {
+    switch (c)
+    {
+        case Points:        return "Points";
+        case Lines:         return "Lines";
+        case LineStrip:     return "LineStrip";
+        case Triangles:     return "Triangles";
+        case TriangleStrip: return "TriangleStrip";
+        default:
+            GP_ERROR("PrimitiveType::ToString(): invalid value!\n");
+            return 0;
+    }
+}
+
+//------------------------------------------------------------------------------
+// Texture
+//------------------------------------------------------------------------------
+
+Texture::Texture() :
+    _type(Type::e2D),
+    _width(0),
+    _height(0),
+    _depth(0),
+    _mipLevels(1),
+    _usage(Usage::eNone),
+    _sampleCount(SampleCount::e1X),
+    _hostVisible(true),
+    _hostMemory(nullptr),
+    _hostOwned(true)
+{
+}
+
+Texture::~Texture()
+{
+}
+
+Texture::Type Texture::getType() const
+{
+    return _type;
+}
+
+size_t Texture::getWidth() const
+{
+    return _width;
+}
+
+size_t Texture::getHeight() const
+{
+    return _height;
+}
+
+size_t Texture::getDepth() const
+{
+    return _depth;
+}
+
+size_t Texture::getMipLevels() const
+{
+    return _mipLevels;
+}
+
+Texture::Usage Texture::getUsage() const
+{
+    return _usage;
+}
+
+PixelFormat Texture::getPixelFormat() const
+{
+    return _pixelFormat;
+}
+
+Texture::SampleCount Texture::getSampleCount() const
+{
+    return _sampleCount;
+}
+
+bool Texture::isHostVisible() const
+{
+    return _hostVisible;
+}
+
+void* Texture::getHostMemory() const
+{
+    return _hostMemory;
+}
+
+bool Texture::isHostOwned() const
+{
+    return _hostOwned;
+}
+
+//------------------------------------------------------------------------------
+// Sampler
+//------------------------------------------------------------------------------
+
+Sampler::Sampler() :
+    _filterMag(Filter::eNearest),
+    _filterMin(Filter::eNearest),
+    _filterMip(Filter::eNearest),
+    _addressModeU(AddressMode::eWrap),
+    _addressModeV(AddressMode::eWrap),
+    _addressModeW(AddressMode::eWrap),
+    _borderColor(BorderColor::eBlackOpaque),
+    _compareEnabled(true),
+    _compareFunc(CompareFunc::eNever),
+    _anisotropyEnabled(false),
+    _anisotropyMax(0.0f),
+    _lodMin(0.0f),
+    _lodMax(0.0f),
+    _lodMipBias(0.0f)
+{
+}
+
+Sampler::~Sampler()
+{
+}
+
+Sampler::Filter Sampler::getFilterMin() const
+{
+    return _filterMin;
+}
+
+Sampler::Filter Sampler::getFilterMag() const
+{
+    return _filterMag;
+}
+
+Sampler::Filter Sampler::getFilterMip() const
+{
+    return _filterMip;
+}
+
+Sampler::AddressMode Sampler::getAddressModeU() const
+{
+    return _addressModeU;
+}
+
+Sampler::AddressMode Sampler::getAddressModeV() const
+{
+    return _addressModeV;
+}
+
+Sampler::AddressMode Sampler::getAddressModeW() const
+{
+    return _addressModeW;
+}
+
+Sampler::BorderColor Sampler::getBorderColor() const
+{
+    return _borderColor;
+}
+
+bool Sampler::isCompareEnabled() const
+{
+    return _compareEnabled;
+}
+
+Sampler::CompareFunc Sampler::getCompareFunc() const
+{
+    return _compareFunc;
+}
+
+bool Sampler::isAnisotropyEnabled() const
+{
+    return _anisotropyEnabled;
+}
+
+float Sampler::getAnisotropyMax() const
+{
+    return _anisotropyMax;
+}
+
+float Sampler::getLodMin() const
+{
+    return _lodMin;
+}
+
+float Sampler::getLodMax() const
+{
+    return _lodMax;
+}
+
+float Sampler::getLodMipBias() const
+{
+    return _lodMipBias;
+}
+
+//------------------------------------------------------------------------------
+// RenderPass
+//------------------------------------------------------------------------------
+
+RenderPass::RenderPass() :
+    _width(0),
+    _height(0),
+    _colorAttachmentCount(0),
+    _depthStencilFormat(PixelFormat::eUndefined),
+    _sampleCount(Texture::SampleCount::e1X)
+{
+}
+
+RenderPass::~RenderPass()
+{
+    _colorFormats.clear();
+    _colorAttachments.clear();
+}
+
+size_t RenderPass::getWidth() const
+{
+    return _width;
+}
+
+size_t RenderPass::getHeight() const
+{
+    return _height;
+}
+
+size_t RenderPass::getColorAttachmentCount() const
+{
+    return _colorAttachmentCount;
+}
+
+PixelFormat RenderPass::getColorFormat(size_t index) const
+{
+    return _colorFormats[index];
+}
+
+PixelFormat RenderPass::getDepthStencilFormat() const
+{
+    return _depthStencilFormat;
+}
+
+Texture::SampleCount RenderPass::getSampleCount() const
+{
+    return _sampleCount;
+}
+
+std::shared_ptr<Texture> RenderPass::getColorAttachment(size_t index)
+{
+    return _colorAttachments[index];
+}
+
+std::shared_ptr<Texture> RenderPass::getColorMultisampleAttachment(size_t index)
+{
+    return _colorMultisampleAttachments[index];
+}
+
+std::shared_ptr<Texture> RenderPass::getDepthStencilAttachment()
+{
+    return _depthStencilAttachment;
+}
+
+
+//------------------------------------------------------------------------------
+// Buffer
+//------------------------------------------------------------------------------
+
+Buffer::Buffer() :
+    _usage(Usage::eVertex),
+    _size(0),
+    _stride(0),
+    _hostVisible(true)
+{
+}
+
+Buffer::~Buffer()
+{
+}
+
+Buffer::Usage Buffer::getUsage() const
+{
+    return _usage;
+}
+
+size_t Buffer::getSize() const
+{
+    return _size;
+}
+
+size_t Buffer::getStride() const
+{
+    return _stride;
+}
+
+bool Buffer::isHostVisible() const
+{
+    return _hostVisible;
+}
+
+//------------------------------------------------------------------------------
+// DescriptorSet
+//------------------------------------------------------------------------------
+
+DescriptorSet::Descriptor::Descriptor()
+{
+}
+
+DescriptorSet::Descriptor::~Descriptor()
+{
+}
+
+DescriptorSet::DescriptorSet()
+{
+}
+
+DescriptorSet::DescriptorSet(const Descriptor* descriptors, size_t descriptorCount)
+{
+    GP_ASSERT(descriptors);
+    GP_ASSERT(descriptorCount < GP_GRAPHICS_VERTEX_ATTRIBUTES_MAX);
+
+    _descriptors.resize(descriptorCount);
+    for (size_t i = 0; i < descriptorCount; ++i)
+    {
+        memcpy(&_descriptors[i], &descriptors[i], sizeof(Descriptor));
+    }
+}
+
+DescriptorSet::~DescriptorSet()
+{
+}
+
+size_t DescriptorSet::getDescriptorCount() const
+{
+    return _descriptors.size();
+}
+
+DescriptorSet::Descriptor DescriptorSet::getDescriptor(size_t index) const
+{
+    GP_ASSERT(index < _descriptors.size());
+    return _descriptors[index];
+}
+
+//------------------------------------------------------------------------------
+// Shader
+//------------------------------------------------------------------------------
+
+Shader::Shader()
+{
+}
+
+Shader::~Shader()
+{
+}
+
+
+//------------------------------------------------------------------------------
+// RenderPipeline
+//------------------------------------------------------------------------------
+
+RenderPipeline::RenderPipeline() :
+    _renderPass(nullptr),
+    _descriptorSet(nullptr),
+    _vertShader(nullptr),
+    _tescShader(nullptr),
+    _geomShader(nullptr),
+    _fragShader(nullptr)
+{
+}
+
+RenderPipeline::~RenderPipeline()
+{
+}
+
+RenderPipeline::PrimitiveTopology RenderPipeline::getPrimitiveTopology() const
+{
+    return _primitiveTopology;
+}
+
+VertexLayout RenderPipeline::getVertexLayout() const
+{
+    return _vertexLayout;
+}
+
+RasterizerState RenderPipeline::getRasterizerState() const
+{
+    return _rasterizerState;
+}
+
+ColorBlendState RenderPipeline::getColorBlendState() const
+{
+    return _colorBlendState;
+}
+
+DepthStencilState RenderPipeline::getDepthStencilState() const
+{
+    return _depthStencilState;
+}
+
+std::shared_ptr<RenderPass> RenderPipeline::getRenderPass() const
+{
+    return _renderPass;
+}
+
+std::shared_ptr<DescriptorSet> RenderPipeline::getDescriptorSet() const
+{
+    return _descriptorSet;
+}
+
+std::shared_ptr<Shader> RenderPipeline::getVertexShader() const
+{
+    return _vertShader;
+}
+
+std::shared_ptr<Shader> RenderPipeline::getTessellationControlShader() const
+{
+    return _tescShader;
+}
+
+std::shared_ptr<Shader> RenderPipeline::getTessellationEvaluationShader() const
+{
+    return _teseShader;
+}
+
+std::shared_ptr<Shader> RenderPipeline::getGeometryShader() const
+{
+    return _geomShader;
+}
+
+std::shared_ptr<Shader> RenderPipeline::getFragmentShader() const
+{
+    return _fragShader;
+}
 
 } // end namespace rainbow

@@ -71,9 +71,9 @@ void Sample::onInitialize()
     // Testing immediate mode rendering
     std::shared_ptr<Graphics> graphics = getGraphics();
     
-    /*// Create the vertex and fragment shaders
-    _vertShader = graphics->createShader("color.vert");
-    _fragShader = graphics->createShader("color.frag");*/
+    // Create the vertex and fragment shaders
+    ///_vertShader = graphics->createShader("color.vert");
+    ///_fragShader = graphics->createShader("color.frag");
 
     // Create the vertex layout // todo: improve stride calculation with special offset value of -1
     ///std::vector<VertexLayout::Attribute> attributes(2);
@@ -97,13 +97,6 @@ void Sample::onInitialize()
 
 
 
-   /* std::vector<VertexLayout::Attribute> attributes2(2);
-    attributes2[0] = { VertexSemantic::ePosition, VertexFormat::eFloat3, 0, 0, 0 };
-    attributes2[1] = { VertexSemantic::eColor, VertexFormat::eFloat4, 0, 1, VertexLayout::toStride(attributes[0].format) };
-    VertexLayout vertexLayout(attributes.data(), attributes.size());*/
-
-
-
     rainbow::VertexLayout vertexLayout =
     {
         { rainbow::VertexAttr::Position, rainbow::VertexFormat::Float3 },
@@ -119,6 +112,41 @@ void Sample::onInitialize()
 
     graphics->createVertexBuffer(&vbInfo, _vertexBuffer);
 
+    //
+
+    RasterizerState rasterizerState;
+    ColorBlendState colorBlendState;
+    DepthStencilState depthStencilState;
+
+
+    _renderPipeline = graphics->createRenderPipeline(RenderPipeline::PrimitiveTopology::eTriangleList, vertexLayout,
+                                                         rasterizerState, colorBlendState, depthStencilState,
+                                                         _renderPass, _descriptorSet,
+                                                        _vertShader, nullptr, nullptr, nullptr, _fragShader);
+
+
+
+
+    /*
+
+
+
+
+    Graphics::PipelineCreateInfo pipelineInfo = {};
+    pipelineInfo.primitiveType = PrimitiveType::Triangles;
+    pipelineInfo.vertexLayout = &vertexLayout;
+    pipelineInfo.rasterizerState = rasterizerState;
+    pipelineInfo.colorBlendState = colorBlendState;
+    pipelineInfo.depthStencilState = depthStencilState;
+    pipelineInfo.renderPass = _renderPass;
+    pipelineInfo.descriptorSet = _descriptorSet;
+    pipelineInfo.vertexShader = _vertShader;
+    pipelineInfo.fragmentShader = _fragShader;
+    graphics->createRenderPipeline(&pipelineInfo, _renderPipeline);
+
+    Graphics::PipelineCreateInfo
+
+*/
 
 
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../Graphics/Buffer.h"
 #include "GraphicsTypes.h"
 
 namespace rainbow
@@ -35,6 +34,14 @@ public:
     } VertexLayoutCreateInfo;
 
 
+
+    typedef struct PipelineCreateInfo {
+        PrimitiveType::Enum       primitiveType;
+        void*               pData;
+        uint32_t            vertexCount;
+        bool                hostVisible;
+        bool                dynamic;
+    } PipelineCreateInfo;
 
 
 
@@ -84,6 +91,39 @@ public:
       */
     virtual bool createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
                                     std::shared_ptr<Buffer>& vertexBuffer) = 0;
+
+
+
+    /**
+     * Creates a render pipeline.
+     *
+     * @param primitiveTopology The primitive topology for how vertices are connected.
+     * @param vertexLayout The layout of vertex attributes being input into the pipeline.
+     * @param rasterizerState The state of how a primitive is converted (rasterized) to a two-dimensional image.
+     * @param colorBlendState The blending state across all color attachments.
+     * @param depthStencilState The depth stencil state.
+     * @param renderPass The render pass to used by the pipeline.
+     * @param descriptorSet The resource descriptor set to be used by the pipeline.
+     * @param vertShader The vertex shader.
+     * @param tescShader The tessellation control shader.
+     * @param teseShader The tessellation evaluation shader.
+     * @param geomShader The geometry shader.
+     * @param fragShader The fragment shader.
+     */
+    virtual std::shared_ptr<RenderPipeline> createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
+                                                                 VertexLayout vertexLayout,
+                                                                 RasterizerState rasterizerState,
+                                                                 ColorBlendState colorBlendState,
+                                                                 DepthStencilState depthStencilState,
+                                                                 std::shared_ptr<RenderPass> renderPass,
+                                                                 std::shared_ptr<DescriptorSet> descriptorSet,
+                                                                 std::shared_ptr<Shader> vertShader,
+                                                                 std::shared_ptr<Shader> tescShader,
+                                                                 std::shared_ptr<Shader> teseShader,
+                                                                 std::shared_ptr<Shader> geomShader,
+                                                                 std::shared_ptr<Shader> fragShader) = 0;
+
+
 
 
     virtual void cmdBindVertexBuffer(std::shared_ptr<Buffer> vertexBuffer) = 0;

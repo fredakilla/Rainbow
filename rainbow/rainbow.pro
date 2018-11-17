@@ -72,7 +72,6 @@ SOURCES += \
     src/Scene/Tileset.cpp \
     src/Script/Script.cpp \
     src/Graphics/Graphics.cpp \
-    src/Graphics/Buffer.cpp \
     src/Graphics/GraphicsTypes.cpp
 
 HEADERS += \
@@ -134,7 +133,6 @@ HEADERS += \
     src/Script/Script.h \
     src/rainbow.h \
     src/Graphics/Graphics.h \
-    src/Graphics/Buffer.h \
     src/Graphics/GraphicsTypes.h
 
 

@@ -124,152 +124,15 @@ void GraphicsBgfx::endFrame()
 }
 
 
-#if 0
-static void getBgfxAttribute(VertexLayout::Semantic sementic, bgfx::Attrib::Enum& attrib)
-{
-    switch(sementic)
-    {
-        case VertexLayout::Semantic::ePosition:     attrib = bgfx::Attrib::Position;    break;
-        case VertexLayout::Semantic::eNormal:       attrib = bgfx::Attrib::Normal;      break;
-        case VertexLayout::Semantic::eColor:        attrib = bgfx::Attrib::Color0;      break;
-        case VertexLayout::Semantic::eColor0:       attrib = bgfx::Attrib::Color0;      break;
-        case VertexLayout::Semantic::eColor1:       attrib = bgfx::Attrib::Color1;      break;
-        case VertexLayout::Semantic::eColor2:       attrib = bgfx::Attrib::Color2;      break;
-        case VertexLayout::Semantic::eColor3:       attrib = bgfx::Attrib::Color3;      break;
-        case VertexLayout::Semantic::eTangent:      attrib = bgfx::Attrib::Tangent;     break;
-        case VertexLayout::Semantic::eBitangent:    attrib = bgfx::Attrib::Bitangent;   break;
-        case VertexLayout::Semantic::eWeight:       attrib = bgfx::Attrib::Weight;      break;
-        case VertexLayout::Semantic::eIndices:      attrib = bgfx::Attrib::Indices;     break;
-        case VertexLayout::Semantic::eTexCoord:     attrib = bgfx::Attrib::TexCoord0;   break;
-        case VertexLayout::Semantic::eTexCoord0:    attrib = bgfx::Attrib::TexCoord0;   break;
-        case VertexLayout::Semantic::eTexCoord1:    attrib = bgfx::Attrib::TexCoord1;   break;
-        case VertexLayout::Semantic::eTexCoord2:    attrib = bgfx::Attrib::TexCoord2;   break;
-        case VertexLayout::Semantic::eTexCoord3:    attrib = bgfx::Attrib::TexCoord3;   break;
-        case VertexLayout::Semantic::eTexCoord4:    attrib = bgfx::Attrib::TexCoord4;   break;
-        case VertexLayout::Semantic::eTexCoord5:    attrib = bgfx::Attrib::TexCoord5;   break;
-        case VertexLayout::Semantic::eTexCoord6:    attrib = bgfx::Attrib::TexCoord6;   break;
-        case VertexLayout::Semantic::eTexCoord7:    attrib = bgfx::Attrib::TexCoord7;   break;
-
-        case VertexLayout::Semantic::eColor4:
-            GP_ERROR("Attribute not supported by BGFX.");
-            break;
-
-        default:
-            attrib = bgfx::Attrib::Count;
-    }
-}
-
-/// vertex attribute mapping from rainbow::Format to BgfxAttributeFormat
-/// if type not supported by bgfx, num is set to 0 and type is set to bgfx::AttribType::Count
-struct BgfxAttributeFormat
-{
-    bgfx::AttribType::Enum type;
-    bool normalized;
-    uint8_t num;
-    bool asInt;
-};
-static BgfxAttributeFormat BGFX_ATTRIBUTE_FORMAT_MAP[] =
-{
-    { bgfx::AttribType::Count,  false,   0,  false   },  // eUndefined,           // undefined
-    { bgfx::AttribType::Uint8,  true,    1,  true    },  // eR8Unorm,
-    { bgfx::AttribType::Int16,  true,    1,  true    },  // eR16Unorm,
-    { bgfx::AttribType::Half,   false,   1,  false   },  // eR16Float,            // availability depends on: `BGFX_CAPS_VERTEX_ATTRIB_HALF`.
-    { bgfx::AttribType::Count,  true,    0,  false   },  // eR32Uint,             // int32 unsuported by bgfx
-    { bgfx::AttribType::Float,  false,   1,  false   },  // eR32Float,
-    { bgfx::AttribType::Uint8,  true,    2,  true    },  // eR8G8Unorm,
-    { bgfx::AttribType::Int16,  true,    2,  true    },  // eR16G16Unorm,
-    { bgfx::AttribType::Half,   false,   2,  false   },  // eR16G16Float,         // availability depends on: `BGFX_CAPS_VERTEX_ATTRIB_HALF`.
-    { bgfx::AttribType::Count,  true,    0,  false   },  // eR32G32Uint,          // int32 unsuported by bgfx
-    { bgfx::AttribType::Float,  false,   2,  true    },  // eR32G32Float,
-    { bgfx::AttribType::Count,  true,    0,  false   },  // eR32G32B32Uint,       // int32 unsuported by bgfx
-    { bgfx::AttribType::Float,  false,   3,  false   },  // eR32G32B32Float,
-    { bgfx::AttribType::Uint8,  true,    4,  true    },  // eB8G8R8A8Unorm,
-    { bgfx::AttribType::Uint8,  true,    4,  true    },  // eR8G8B8A8Unorm,
-    { bgfx::AttribType::Int16,  true,    4,  true    },  // eR16G16B16A16Unorm,
-    { bgfx::AttribType::Half,   false,   4,  false   },  // eR16G16B16A16Float,   // availability depends on: `BGFX_CAPS_VERTEX_ATTRIB_HALF`.
-    { bgfx::AttribType::Count,  true,    0,  false   },  // eR32G32B32A32Uint,    // unsuported by bgfx
-    { bgfx::AttribType::Float,  false,   4,  false   },  // eR32G32B32A32Float,
-
-    // not used by vertex attributes
-    { bgfx::AttribType::Count,  0, 0, 0 }, // eD16Unorm,
-    { bgfx::AttribType::Count,  0, 0, 0 }, // eX8D24UnormPack32,
-    { bgfx::AttribType::Count,  0, 0, 0 }, // eD32Float,
-    { bgfx::AttribType::Count,  0, 0, 0 }, // eS8Uint,
-    { bgfx::AttribType::Count,  0, 0, 0 }, // eD24UnormS8Uint,
-    { bgfx::AttribType::Count,  0, 0, 0 }, // eD32FloatS8Uint
-};
-
-void createVertexDeclFromlayout(const VertexLayout* vertexLayout, bgfx::VertexDecl& vertexDecl)
-{
-    vertexDecl.begin();
-
-    for (size_t i=0; i<vertexLayout->getAttributeCount(); ++i)
-    {
-        const VertexLayout::Attribute attribute = vertexLayout->getAttribute(i);
-
-        bgfx::Attrib::Enum bgfxAttrib;
-        getBgfxAttribute(attribute.semantic, bgfxAttrib);
-
-        uint8_t index = static_cast<uint8_t>(attribute.format);
-        BgfxAttributeFormat af = BGFX_ATTRIBUTE_FORMAT_MAP[index];
-
-        vertexDecl.add(bgfxAttrib, af.num, af.type, af.normalized, af.asInt);
-    }
-
-    vertexDecl.end();
-}
-
-/*
-bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
-                                      std::shared_ptr<Buffer>& pVertexBuffer)
-{
-    GP_ASSERT(pCreateInfo);
-    GP_ASSERT(pCreateInfo->pVertexLayout);
-
-    bgfx::VertexDecl decl;
-    createVertexDeclFromlayout(pCreateInfo->pVertexLayout, decl);
-
-    const bgfx::Memory* mem = bgfx::makeRef(pCreateInfo->pData, pCreateInfo->dataSize);
-
-    std::shared_ptr<BufferBGFX> vertexBuffer = std::make_shared<BufferBGFX>();
-    vertexBuffer->_usage = Buffer::Usage::eVertex;
-    vertexBuffer->_hostVisible = pCreateInfo->hostVisible;
-    vertexBuffer->_stride = pCreateInfo->pVertexLayout->getStride();
-    vertexBuffer->_size = pCreateInfo->dataSize;
-
-    if (pCreateInfo->dynamic)
-    {
-        // todo: create dynamic vertex buffer
-    }
-    else
-    {
-        uint16_t flags = BGFX_BUFFER_NONE;
-        bgfx::VertexBufferHandle vbh = bgfx::createVertexBuffer(mem, decl, flags);
-        vertexBuffer->_staticVertexBufferHandle = vbh;
-    }
-
-    pVertexBuffer = vertexBuffer;
-    return true;
-}
-*/
-
-
-
-#endif
-
-
-
-
-struct BgfxAttributeFormat
-{
-    bgfx::AttribType::Enum type;
-    bool normalized;
-    uint8_t num;
-    bool asInt;
-};
-
 
 /// map rainbow::VertexAttrib <=> bgfx::Attrib::Enum
+struct BgfxAttributeFormat
+{
+    bgfx::AttribType::Enum type;
+    bool normalized;
+    uint8_t num;
+    bool asInt;
+};
 bgfx::Attrib::Enum VERTEX_ATTRIB_MAP[] =
 {
     // bgfx::Attrib::Enum           rainbow::VertexAttrib
@@ -314,8 +177,7 @@ static BgfxAttributeFormat VERTEX_FORMAT_MAP[] =
     { bgfx::AttribType::Uint10,     true ,   4,  true   },  // UInt10_2N,- 4-component packed, normalized 10-bit XYZ, 2-bit W (0.0 .. 1.0)
 };
 
-
-void createVertexDeclFromlayout2(const rainbow::VertexLayout* vertexLayout, bgfx::VertexDecl& vertexDecl)
+static void createVertexDeclFromlayout(const rainbow::VertexLayout* vertexLayout, bgfx::VertexDecl& vertexDecl)
 {
     vertexDecl.begin();
 
@@ -334,9 +196,6 @@ void createVertexDeclFromlayout2(const rainbow::VertexLayout* vertexLayout, bgfx
     vertexDecl.end();
 }
 
-
-
-
 bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
                                       std::shared_ptr<Buffer>& pVertexBuffer)
 {
@@ -344,11 +203,9 @@ bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
     GP_ASSERT(pCreateInfo->pVertexLayout);
 
     bgfx::VertexDecl decl;
-    createVertexDeclFromlayout2(pCreateInfo->pVertexLayout, decl);
+    createVertexDeclFromlayout(pCreateInfo->pVertexLayout, decl);
 
-    size_t dataSize = pCreateInfo->pVertexLayout->byteSize() * pCreateInfo->vertexCount; //pCreateInfo->dataSize;
-    //size_t dataSize2 = pCreateInfo->dataSize;
-
+    size_t dataSize = pCreateInfo->pVertexLayout->byteSize() * pCreateInfo->vertexCount;
     const bgfx::Memory* mem = bgfx::makeRef(pCreateInfo->pData, dataSize);
 
     std::shared_ptr<BufferBGFX> vertexBuffer = std::make_shared<BufferBGFX>();
@@ -374,21 +231,61 @@ bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
 
 
 
+std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
+                                                                   VertexLayout vertexLayout,
+                                                                   RasterizerState rasterizerState,
+                                                                   ColorBlendState colorBlendState,
+                                                                   DepthStencilState depthStencilState,
+                                                                   std::shared_ptr<RenderPass> renderPass,
+                                                                   std::shared_ptr<DescriptorSet> descriptorSet,
+                                                                   std::shared_ptr<Shader> vertShader,
+                                                                   std::shared_ptr<Shader> tescShader,
+                                                                   std::shared_ptr<Shader> teseShader,
+                                                                   std::shared_ptr<Shader> geomShader,
+                                                                   std::shared_ptr<Shader> fragShader)
+{
+
+    uint64_t bgfxState = 0;
+
+    // Topology
+    switch (primitiveTopology)
+    {
+    case RenderPipeline::PrimitiveTopology::ePointList:
+        bgfxState |= BGFX_STATE_PT_POINTS;
+        break;
+    case RenderPipeline::PrimitiveTopology::eLineList:
+        bgfxState |= BGFX_STATE_PT_LINES;
+        break;
+    case RenderPipeline::PrimitiveTopology::eLineStrip:
+        bgfxState |= BGFX_STATE_PT_LINESTRIP;
+        break;
+    case RenderPipeline::PrimitiveTopology::eTriangleStrip:
+        bgfxState |= BGFX_STATE_PT_TRISTRIP;
+        break;
+
+    case RenderPipeline::PrimitiveTopology::eTriangleList:
+    default:
+        // default bgfx topology
+        break;
+    }
 
 
+    // RasterizerState
+    switch(rasterizerState.cullMode)
+    {
+    case RasterizerState::CullMode::eBack:
+        bgfxState |= BGFX_STATE_CULL_CW;
+        break;
+    case RasterizerState::CullMode::eFront:
+        bgfxState |= BGFX_STATE_CULL_CCW;
+        break;
+    case RasterizerState::CullMode::eNone:
+    default:
+        break;
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 

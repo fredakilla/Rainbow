@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../Graphics/Buffer.h"
+#include "../../GraphicsTypes.h"
 #include <bgfx/bgfx.h>
 
 namespace rainbow

@@ -32,6 +32,21 @@ public:
 
     bool createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo, std::shared_ptr<Buffer>& pVertexBuffer) override;
 
+
+    std::shared_ptr<RenderPipeline> createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
+                                                                 VertexLayout vertexLayout,
+                                                                 RasterizerState rasterizerState,
+                                                                 ColorBlendState colorBlendState,
+                                                                 DepthStencilState depthStencilState,
+                                                                 std::shared_ptr<RenderPass> renderPass,
+                                                                 std::shared_ptr<DescriptorSet> descriptorSet,
+                                                                 std::shared_ptr<Shader> vertShader,
+                                                                 std::shared_ptr<Shader> tescShader,
+                                                                 std::shared_ptr<Shader> teseShader,
+                                                                 std::shared_ptr<Shader> geomShader,
+                                                                 std::shared_ptr<Shader> fragShader) override;
+
+
     void cmdBindVertexBuffer(std::shared_ptr<Buffer> vertexBuffer) override;
 
 private:
