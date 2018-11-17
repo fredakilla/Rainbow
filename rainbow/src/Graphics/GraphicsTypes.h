@@ -1394,8 +1394,53 @@ private:
     std::shared_ptr<Shader> _fragShader;
 };
 
+//------------------------------------------------------------------------------
+// Semaphore
+//------------------------------------------------------------------------------
+/**
+ * Defines a synchronization primitive that can be used
+ * to insert a dependency between batches submitted to queues.
+ */
+class Semaphore
+{
+    friend class Graphics;
+
+public:
+
+    /**
+     * Constructor.
+     */
+    Semaphore() {}
+
+    /**
+     * Destructor.
+     */
+    ~Semaphore() {}
+};
 
 
+//------------------------------------------------------------------------------
+// CommandBuffer
+//------------------------------------------------------------------------------
+/**
+ * Defines a command buffer for storing
+ * recorded gpu commands.
+ */
+class CommandBuffer
+{
+    friend class Graphics;
 
+public:
+
+    /**
+     * Constructor.
+     */
+    CommandBuffer() {}
+
+    /**
+     * Destructor.
+     */
+    ~CommandBuffer() {}
+};
 
 } // end namespace rainbow

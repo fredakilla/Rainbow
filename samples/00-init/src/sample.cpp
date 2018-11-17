@@ -35,6 +35,6 @@ void Sample::onUpdate(float elapsedTime)
 
     std::shared_ptr<Graphics> graphics = getGraphics();
 
-    graphics->beginFrame();
-    graphics->endFrame();
+    graphics->acquireNextFrame();
+    graphics->presentFrame(graphics->getSemaphoreRenderComplete());
 }

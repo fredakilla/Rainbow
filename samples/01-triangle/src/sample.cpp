@@ -120,9 +120,9 @@ void Sample::onInitialize()
 
 
     _renderPipeline = graphics->createRenderPipeline(RenderPipeline::PrimitiveTopology::eTriangleList, vertexLayout,
-                                                         rasterizerState, colorBlendState, depthStencilState,
-                                                         _renderPass, _descriptorSet,
-                                                        _vertShader, nullptr, nullptr, nullptr, _fragShader);
+                                                     rasterizerState, colorBlendState, depthStencilState,
+                                                     _renderPass, _descriptorSet,
+                                                     _vertShader, nullptr, nullptr, nullptr, _fragShader);
 
 
 
@@ -228,13 +228,14 @@ void Sample::onUpdate(float elapsedTime)
 
 
 
-    graphics->beginFrame();
+    //graphics->beginFrame();
+    //graphics->cmdBindVertexBuffer(_vertexBuffer);
 
 
-    graphics->cmdBindVertexBuffer(_vertexBuffer);
+  /* {
 
 
-    {
+
         bgfx::setViewRect(0, 0, 0, graphics->getWidth(), graphics->getHeight() );
         bgfx::setViewClear(0
                         , BGFX_CLEAR_COLOR|BGFX_CLEAR_DEPTH
@@ -256,30 +257,44 @@ void Sample::onUpdate(float elapsedTime)
         //bgfx::setVertexBuffer(0, m_vbh);
         //bgfx::setIndexBuffer(m_ibh);
         bgfx::setState(state);
-        bgfx::submit(0, m_program);
+        //bgfx::submit(0, m_program);
     }
 
+     //graphics->endFrame();
+*/
 
 
-    graphics->endFrame();
 
 
+    _renderPass = graphics->acquireNextFrame();
 
-   /* _renderPass = graphics->acquireNextFrame();
-    
+    //
     std::shared_ptr<CommandBuffer> commandBuffer = graphics->beginCommands();
-    graphics->cmdSetViewport(commandBuffer, 0, 0, getWidth(), getHeight(), 0.0f, 1.0f);
-    graphics->cmdSetScissor(commandBuffer, 0, 0, getWidth(), getHeight());
-    graphics->cmdBeginRenderPass(commandBuffer, _renderPass);
-    graphics->cmdClearColor(commandBuffer, 0.0f, 0.0f, 0.0f, 1.0f, 0);
-    graphics->cmdClearDepthStencil(commandBuffer, 1.0, 0);
-    graphics->cmdBindRenderPipeline(commandBuffer, _renderPipeline);
+    // graphics->cmdSetViewport(commandBuffer, 0, 0, getWidth(), getHeight(), 0.0f, 1.0f);
+    // graphics->cmdSetScissor(commandBuffer, 0, 0, getWidth(), getHeight());
+    // graphics->cmdBeginRenderPass(commandBuffer, _renderPass);
+    // graphics->cmdClearColor(commandBuffer, 0.0f, 0.0f, 0.0f, 1.0f, 0);
+    // graphics->cmdClearDepthStencil(commandBuffer, 1.0, 0);
+    // graphics->cmdBindRenderPipeline(commandBuffer, _renderPipeline);
     graphics->cmdBindVertexBuffer(commandBuffer, _vertexBuffer);
-    graphics->cmdDraw(commandBuffer, 3, 0);
-    graphics->cmdEndRenderPass(commandBuffer);
-    graphics->endCommands();
-    
-    graphics->submit(commandBuffer, graphics->getSemaphorePresentComplete(), graphics->getSemaphoreRenderComplete());
+    // graphics->cmdDraw(commandBuffer, 3, 0);
+    // graphics->cmdEndRenderPass(commandBuffer);
+    // graphics->endCommands();
+    //
+    // graphics->submit(commandBuffer, graphics->getSemaphorePresentComplete(), graphics->getSemaphoreRenderComplete());
+    //
+    graphics->presentFrame(graphics->getSemaphoreRenderComplete());
 
-    graphics->presentFrame(graphics->getSemaphoreRenderComplete());*/
+
+
+
+
+
+
+
+
+
+
+
+
 }

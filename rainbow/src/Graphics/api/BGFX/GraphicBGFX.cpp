@@ -111,6 +111,7 @@ void GraphicsBgfx::createInstance()
 
 }
 
+/*
 void GraphicsBgfx::beginFrame()
 {
     // This dummy draw call is here to make sure that view 0 is cleared
@@ -122,7 +123,7 @@ void GraphicsBgfx::endFrame()
 {
     bgfx::frame();
 }
-
+*/
 
 
 /// map rainbow::VertexAttrib <=> bgfx::Attrib::Enum
@@ -230,7 +231,7 @@ bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
 }
 
 
-
+/*
 std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
                                                                    VertexLayout vertexLayout,
                                                                    RasterizerState rasterizerState,
@@ -287,9 +288,9 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
 }
 
+*/
 
-
-
+/*
 void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<Buffer> vertexBuffer)
 {
     GP_ASSERT(vertexBuffer != nullptr);
@@ -301,6 +302,246 @@ void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<Buffer> vertexBuffer)
 
     bgfx::setVertexBuffer(0, bufferBGFX->_staticVertexBufferHandle);
 }
+*/
+
+
+/*
+void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<CommandBuffer> commandBuffer, std::shared_ptr<Buffer> vertexBuffer)
+{
+    GP_UNUSED(commandBuffer);
+    GP_ASSERT(vertexBuffer != nullptr);
+
+    std::shared_ptr<BufferBGFX> bufferBGFX = std::static_pointer_cast<BufferBGFX>(vertexBuffer);
+
+    GP_ASSERT(bufferBGFX->_usage == Buffer::Usage::eVertex);
+    GP_ASSERT(bgfx::isValid(bufferBGFX->_staticVertexBufferHandle));
+
+    bgfx::setVertexBuffer(0, bufferBGFX->_staticVertexBufferHandle);
+}
+*/
+
+
+//--------------------------------------------
+
+
+
+
+std::shared_ptr<RenderPass> GraphicsBgfx::getRenderPass()
+{
+
+}
+
+std::shared_ptr<RenderPass> GraphicsBgfx::acquireNextFrame()
+{
+    // This dummy draw call is here to make sure that view 0 is cleared
+    // if no other draw calls are submitted to view 0.
+    bgfx::touch(0);
+
+    return nullptr;
+}
+
+void GraphicsBgfx::presentFrame(std::shared_ptr<Semaphore> waitSemaphore)
+{
+    GP_UNUSED(waitSemaphore);
+
+    bgfx::frame();
+}
+
+std::shared_ptr<CommandBuffer> GraphicsBgfx::beginCommands()
+{
+    return nullptr;
+}
+
+void GraphicsBgfx::endCommands(){}
+
+std::shared_ptr<Semaphore> GraphicsBgfx::createSemaphore(){}
+
+void GraphicsBgfx::destroySemaphore(std::shared_ptr<Semaphore> semaphore){}
+
+std::shared_ptr<Semaphore> GraphicsBgfx::getSemaphorePresentComplete(){}
+
+std::shared_ptr<Semaphore> GraphicsBgfx::getSemaphoreRenderComplete()
+{
+    return nullptr;
+}
+
+void GraphicsBgfx::submit(std::shared_ptr<CommandBuffer> commandBuffer,
+            std::shared_ptr<Semaphore> waitSemaphore,
+            std::shared_ptr<Semaphore> signalSemaphore){}
+
+void GraphicsBgfx::cmdBeginRenderPass(std::shared_ptr<CommandBuffer> commandBuffer,
+                        std::shared_ptr<RenderPass> renderPass){}
+
+void GraphicsBgfx::cmdEndRenderPass(std::shared_ptr<CommandBuffer> commandBuffer){}
+
+
+void GraphicsBgfx::cmdSetViewport(std::shared_ptr<CommandBuffer> commandBuffer,
+                    float x, float y, float width, float height,
+                    float depthMin, float depthMax){}
+
+void GraphicsBgfx::cmdSetScissor(std::shared_ptr<CommandBuffer> commandBuffer,
+                   size_t x, size_t y, size_t width, size_t height){}
+
+
+void GraphicsBgfx::cmdBindRenderPipeline(std::shared_ptr<CommandBuffer> commandBuffer,
+                           std::shared_ptr<RenderPipeline> renderPipeline){}
+
+void GraphicsBgfx::cmdBindDescriptorSet(std::shared_ptr<CommandBuffer> commandBuffer,
+                          std::shared_ptr<RenderPipeline> renderPipeline,
+                          std::shared_ptr<DescriptorSet> descriptorSet){}
+
+void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<CommandBuffer> commandBuffer,
+                         std::shared_ptr<Buffer> vertexBuffer)
+{
+    GP_UNUSED(commandBuffer);
+    GP_ASSERT(vertexBuffer != nullptr);
+
+    std::shared_ptr<BufferBGFX> bufferBGFX = std::static_pointer_cast<BufferBGFX>(vertexBuffer);
+
+    GP_ASSERT(bufferBGFX->_usage == Buffer::Usage::eVertex);
+    GP_ASSERT(bgfx::isValid(bufferBGFX->_staticVertexBufferHandle));
+
+    bgfx::setVertexBuffer(0, bufferBGFX->_staticVertexBufferHandle);
+}
+
+void GraphicsBgfx::cmdBindVertexBuffers(std::shared_ptr<CommandBuffer> commandBuffer,
+                          std::vector<std::shared_ptr<Buffer>> vertexBuffers){}
+
+
+void GraphicsBgfx::cmdBindIndexBuffer(std::shared_ptr<CommandBuffer> commandBuffer,
+                        std::shared_ptr<Buffer> indexBuffer){}
+
+
+void GraphicsBgfx::cmdClearColor(std::shared_ptr<CommandBuffer> commandBuffer,
+                   float red, float green, float blue, float alpha,
+                   size_t attachmentIndex)
+{
+    GP_UNUSED(commandBuffer);
+}
+
+
+void GraphicsBgfx::cmdClearDepthStencil(std::shared_ptr<CommandBuffer> commandBuffer,
+                          float depth, uint32_t stencil){}
+
+
+void GraphicsBgfx::cmdDraw(std::shared_ptr<CommandBuffer> commandBuffer,
+            size_t vertexCount,
+            size_t vertexStart){}
+
+
+void GraphicsBgfx::cmdDrawIndexed(std::shared_ptr<CommandBuffer> commandBuffer,
+                    size_t indexCount,
+                    size_t indexStart){}
+
+void GraphicsBgfx::cmdTransitionImage(std::shared_ptr<CommandBuffer> commandBuffer,
+                        std::shared_ptr<Texture> texture,
+                        Texture::Usage usageOld,
+                        Texture::Usage usageNew){}
+
+
+std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
+                                           size_t vertexStride,
+                                           bool hostVisible,
+                                           const void* data){}
+
+std::shared_ptr<Buffer> GraphicsBgfx::createIndexBuffer(size_t size,
+                                          size_t indexStride,
+                                          bool hostVisible,
+                                          const void* data){}
+
+std::shared_ptr<Buffer> GraphicsBgfx::createUniformBuffer(size_t size,
+                                            bool hostVisible,
+                                            const void* data){}
+
+void GraphicsBgfx::destroyBuffer(std::shared_ptr<Buffer> buffer){}
+
+
+std::shared_ptr<Texture> GraphicsBgfx::createTexture1d(size_t width,
+                                         PixelFormat pixelFormat,
+                                         Texture::Usage usage,
+                                         Texture::SampleCount sampleCount,
+                                         bool hostVisible,
+                                         const void* data){}
+
+std::shared_ptr<Texture> GraphicsBgfx::createTexture2d(size_t width, size_t height, size_t mipLevels,
+                                         PixelFormat pixelFormat,
+                                         Texture::Usage usage,
+                                         Texture::SampleCount sampleCount,
+                                         bool hostVisible,
+                                         const void* data){}
+
+std::shared_ptr<Texture> GraphicsBgfx::createTexture3d(size_t width, size_t height, size_t depth,
+                                         PixelFormat pixelFormat,
+                                         Texture::Usage usage,
+                                         Texture::SampleCount sampleCount,
+                                         bool hostVisible,
+                                         const void* data){}
+
+void GraphicsBgfx::destroyTexture(std::shared_ptr<Texture> texture){}
+
+
+std::shared_ptr<RenderPass> GraphicsBgfx::createRenderPass(size_t width, size_t height,
+                                             size_t colorAttachmentCount,
+                                             std::vector<PixelFormat> colorFormats,
+                                             PixelFormat depthStencilFormat,
+                                             Texture::SampleCount sampleCount){}
+
+void GraphicsBgfx::destroyRenderPass(std::shared_ptr<RenderPass> renderPass){}
+
+
+std::shared_ptr<Sampler> GraphicsBgfx::createSampler(Sampler::Filter filterMin,
+                                       Sampler::Filter filterMag,
+                                       Sampler::Filter filterMip,
+                                       Sampler::AddressMode addressModeU,
+                                       Sampler::AddressMode addressModeV,
+                                       Sampler::AddressMode addressModeW,
+                                       Sampler::BorderColor borderColor,
+                                       bool compareEnabled,
+                                       Sampler::CompareFunc compareFunc,
+                                       bool anisotropyEnabled,
+                                       float anisotropyMax,
+                                       float lodMin,
+                                       float lodMax,
+                                       float lodMipBias){}
+
+void GraphicsBgfx::destroySampler(std::shared_ptr<Sampler> sampler){}
+
+
+std::shared_ptr<Shader> GraphicsBgfx::createShader(const std::string& url){}
+
+
+void GraphicsBgfx::destroyShader(std::shared_ptr<Shader> shader){}
+
+
+std::shared_ptr<DescriptorSet> GraphicsBgfx::createDescriptorSet(const DescriptorSet::Descriptor* descriptors,
+                                                   size_t descriptorCount){}
+
+
+void GraphicsBgfx::destroyDescriptorSet(std::shared_ptr<DescriptorSet> descriptorSet){}
+
+
+std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
+                                                     VertexLayout vertexLayout,
+                                                     RasterizerState rasterizerState,
+                                                     ColorBlendState colorBlendState,
+                                                     DepthStencilState depthStencilState,
+                                                     std::shared_ptr<RenderPass> renderPass,
+                                                     std::shared_ptr<DescriptorSet> descriptorSet,
+                                                     std::shared_ptr<Shader> vertShader,
+                                                     std::shared_ptr<Shader> tescShader,
+                                                     std::shared_ptr<Shader> teseShader,
+                                                     std::shared_ptr<Shader> geomShader,
+                                                     std::shared_ptr<Shader> fragShader)
+{
+
+}
+
+void GraphicsBgfx::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline){}
+
+
+
+
+
 
 
 
