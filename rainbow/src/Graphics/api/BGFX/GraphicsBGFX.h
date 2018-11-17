@@ -245,11 +245,14 @@ public:
 
 private:
     bool createDevice();
-    std::shared_ptr<Buffer> createBuffer(Buffer::Usage usage, size_t size, size_t stride, bool hostVisible, bool is32bit);
+    void createCommandBuffers();
+    //std::shared_ptr<Buffer> createBuffer(Buffer::Usage usage, size_t size, size_t stride, bool hostVisible, bool is32bit);
 
 private:    
     uint32_t _resetFlags;   // bgfx reset flags
     uint32_t _debugFlags;   // bgfx debug flags
+
+    std::shared_ptr<CommandBuffer> _commandBuffer;
 };
 
 }

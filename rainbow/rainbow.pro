@@ -72,7 +72,8 @@ SOURCES += \
     src/Scene/Tileset.cpp \
     src/Script/Script.cpp \
     src/Graphics/Graphics.cpp \
-    src/Graphics/GraphicsTypes.cpp
+    src/Graphics/GraphicsTypes.cpp \
+    src/Graphics/api/BGFX/GraphicsTypesBGFX.cpp
 
 HEADERS += \
     src/Animation/Animation.h \
@@ -133,7 +134,8 @@ HEADERS += \
     src/Script/Script.h \
     src/rainbow.h \
     src/Graphics/Graphics.h \
-    src/Graphics/GraphicsTypes.h
+    src/Graphics/GraphicsTypes.h \
+    src/Graphics/api/BGFX/GraphicsTypesBgfx.h
 
 
 
@@ -147,11 +149,9 @@ contains(DEFINES, RB_DEF_API_BGFX) {
     DEFINES += GP_NO_LUA_BINDINGS
 
     HEADERS += \
-        src/Graphics/api/BGFX/BufferBGFX.h \
         src/Graphics/api/BGFX/GraphicsBGFX.h \
 
     SOURCES += \
-        src/Graphics/api/BGFX/BufferBGFX.cpp \
         src/Graphics/api/BGFX/GraphicBGFX.cpp \
 }
 

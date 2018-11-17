@@ -6,10 +6,11 @@
 
 // bgfx impl
 #include "GraphicsBGFX.h"
-#include "BufferBGFX.h"
+#include "GraphicsTypesBgfx.h"
 
 #include <bgfx/platform.h>
 #include <bgfx/bgfx.h>
+#include <brtshaderc/brtshaderc.h>
 
 namespace rainbow
 {
@@ -82,9 +83,12 @@ void GraphicsBgfx::initialize()
     if (!createDevice())
         exit(-1);
 
+    createCommandBuffers();
+
+
     // set default view
-    bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0xaa3030ff, 1.0f, 0);
-    bgfx::setViewRect(0, 0, 0, uint16_t(_width), uint16_t(_height));
+    //bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0xaa3030ff, 1.0f, 0);
+    //bgfx::setViewRect(0, 0, 0, uint16_t(_width), uint16_t(_height));
 }
 
 void GraphicsBgfx::finalize()
@@ -111,6 +115,24 @@ void GraphicsBgfx::createInstance()
 
 }
 
+void GraphicsBgfx::createCommandBuffers()
+{
+    std::shared_ptr<CommandBufferBGFX> commandBuffer = std::make_shared<CommandBufferBGFX>();
+    _commandBuffer = commandBuffer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 void GraphicsBgfx::beginFrame()
 {
@@ -124,6 +146,12 @@ void GraphicsBgfx::endFrame()
     bgfx::frame();
 }
 */
+
+
+
+
+
+
 
 
 /// map rainbow::VertexAttrib <=> bgfx::Attrib::Enum
@@ -349,16 +377,28 @@ void GraphicsBgfx::presentFrame(std::shared_ptr<Semaphore> waitSemaphore)
 
 std::shared_ptr<CommandBuffer> GraphicsBgfx::beginCommands()
 {
+    return _commandBuffer;
+}
+
+void GraphicsBgfx::endCommands()
+{
+
+}
+
+std::shared_ptr<Semaphore> GraphicsBgfx::createSemaphore()
+{
     return nullptr;
 }
 
-void GraphicsBgfx::endCommands(){}
+void GraphicsBgfx::destroySemaphore(std::shared_ptr<Semaphore> semaphore)
+{
 
-std::shared_ptr<Semaphore> GraphicsBgfx::createSemaphore(){}
+}
 
-void GraphicsBgfx::destroySemaphore(std::shared_ptr<Semaphore> semaphore){}
-
-std::shared_ptr<Semaphore> GraphicsBgfx::getSemaphorePresentComplete(){}
+std::shared_ptr<Semaphore> GraphicsBgfx::getSemaphorePresentComplete()
+{
+    return nullptr;
+}
 
 std::shared_ptr<Semaphore> GraphicsBgfx::getSemaphoreRenderComplete()
 {
@@ -367,7 +407,35 @@ std::shared_ptr<Semaphore> GraphicsBgfx::getSemaphoreRenderComplete()
 
 void GraphicsBgfx::submit(std::shared_ptr<CommandBuffer> commandBuffer,
             std::shared_ptr<Semaphore> waitSemaphore,
-            std::shared_ptr<Semaphore> signalSemaphore){}
+            std::shared_ptr<Semaphore> signalSemaphore)
+{
+    GP_UNUSED(waitSemaphore, signalSemaphore);
+
+    std::shared_ptr<CommandBufferBGFX> commandBufferBGFX = std::static_pointer_cast<CommandBufferBGFX>(commandBuffer);
+
+
+
+    bgfx::setViewRect(0, 0, 0, _width, _height);
+    bgfx::setViewClear(0
+                    , BGFX_CLEAR_COLOR|BGFX_CLEAR_DEPTH
+                    , 0x303030ff
+                    , 1.0f
+                    , 0
+    );
+
+    uint64_t state = 0
+            | BGFX_STATE_WRITE_RGB
+            | BGFX_STATE_WRITE_A
+            | BGFX_STATE_WRITE_Z
+            | BGFX_STATE_DEPTH_TEST_LESS
+            | BGFX_STATE_MSAA
+            ;
+    bgfx::setState(state);
+
+
+
+    bgfx::submit(0, commandBufferBGFX->_program);
+}
 
 void GraphicsBgfx::cmdBeginRenderPass(std::shared_ptr<CommandBuffer> commandBuffer,
                         std::shared_ptr<RenderPass> renderPass){}
@@ -384,7 +452,14 @@ void GraphicsBgfx::cmdSetScissor(std::shared_ptr<CommandBuffer> commandBuffer,
 
 
 void GraphicsBgfx::cmdBindRenderPipeline(std::shared_ptr<CommandBuffer> commandBuffer,
-                           std::shared_ptr<RenderPipeline> renderPipeline){}
+                           std::shared_ptr<RenderPipeline> renderPipeline)
+{
+    std::shared_ptr<CommandBufferBGFX> commandBufferBGFX = std::static_pointer_cast<CommandBufferBGFX>(commandBuffer);
+    std::shared_ptr<RenderPipelineBGFX> renderPipelineBGFX = std::static_pointer_cast<RenderPipelineBGFX>(renderPipeline);
+
+    // bind pipeline stuff to command buffer
+    commandBufferBGFX->_program = renderPipelineBGFX->_program;
+}
 
 void GraphicsBgfx::cmdBindDescriptorSet(std::shared_ptr<CommandBuffer> commandBuffer,
                           std::shared_ptr<RenderPipeline> renderPipeline,
@@ -534,6 +609,27 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
                                                      std::shared_ptr<Shader> fragShader)
 {
 
+
+    std::shared_ptr<RenderPipelineBGFX> renderPipelineBGFX = std::make_shared<RenderPipelineBGFX>();
+
+
+
+
+    // compile shaders and create program
+
+    const bgfx::Memory* memVsh =  shaderc::compileShader(shaderc::ST_VERTEX, "color.vert");
+    bgfx::ShaderHandle vsh = bgfx::createShader(memVsh);
+
+    const bgfx::Memory* memFsh =  shaderc::compileShader(shaderc::ST_FRAGMENT, "color.frag");
+    bgfx::ShaderHandle fsh = bgfx::createShader(memFsh);
+
+    bgfx::ProgramHandle program = bgfx::createProgram(vsh, fsh, true);
+    GP_ASSERT(bgfx::isValid(program));
+
+
+    renderPipelineBGFX->_program = program;
+
+    return renderPipelineBGFX;
 }
 
 void GraphicsBgfx::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline){}

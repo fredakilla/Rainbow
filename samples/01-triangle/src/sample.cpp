@@ -112,13 +112,13 @@ void Sample::onInitialize()
 
     graphics->createVertexBuffer(&vbInfo, _vertexBuffer);
 
+
     //
 
+    // Create the render pipeline
     RasterizerState rasterizerState;
     ColorBlendState colorBlendState;
     DepthStencilState depthStencilState;
-
-
     _renderPipeline = graphics->createRenderPipeline(RenderPipeline::PrimitiveTopology::eTriangleList, vertexLayout,
                                                      rasterizerState, colorBlendState, depthStencilState,
                                                      _renderPass, _descriptorSet,
@@ -170,7 +170,7 @@ void Sample::onInitialize()
 
     ///------------
 
-
+/*
     // compile vertex shader, with default arguments.
     const bgfx::Memory* memVsh =  shaderc::compileShader(shaderc::ST_VERTEX, "color.vert");
     bgfx::ShaderHandle vsh = bgfx::createShader(memVsh);
@@ -199,7 +199,7 @@ void Sample::onInitialize()
                 bgfx::makeRef(s_cubeTriList, sizeof(s_cubeTriList) )
     );
 
-
+*/
 }
 
 void Sample::onFinalize()
@@ -268,33 +268,21 @@ void Sample::onUpdate(float elapsedTime)
 
     _renderPass = graphics->acquireNextFrame();
 
-    //
     std::shared_ptr<CommandBuffer> commandBuffer = graphics->beginCommands();
     // graphics->cmdSetViewport(commandBuffer, 0, 0, getWidth(), getHeight(), 0.0f, 1.0f);
     // graphics->cmdSetScissor(commandBuffer, 0, 0, getWidth(), getHeight());
     // graphics->cmdBeginRenderPass(commandBuffer, _renderPass);
     // graphics->cmdClearColor(commandBuffer, 0.0f, 0.0f, 0.0f, 1.0f, 0);
     // graphics->cmdClearDepthStencil(commandBuffer, 1.0, 0);
-    // graphics->cmdBindRenderPipeline(commandBuffer, _renderPipeline);
+    graphics->cmdBindRenderPipeline(commandBuffer, _renderPipeline);
     graphics->cmdBindVertexBuffer(commandBuffer, _vertexBuffer);
     // graphics->cmdDraw(commandBuffer, 3, 0);
     // graphics->cmdEndRenderPass(commandBuffer);
-    // graphics->endCommands();
-    //
-    // graphics->submit(commandBuffer, graphics->getSemaphorePresentComplete(), graphics->getSemaphoreRenderComplete());
-    //
+    graphics->endCommands();
+
+    graphics->submit(commandBuffer, graphics->getSemaphorePresentComplete(), graphics->getSemaphoreRenderComplete());
+
     graphics->presentFrame(graphics->getSemaphoreRenderComplete());
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
