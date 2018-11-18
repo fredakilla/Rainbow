@@ -83,7 +83,6 @@ void GraphicsVK::presentFrame(std::shared_ptr<Semaphore> waitSemaphore)
     if (waitSemaphore != nullptr)
     {
         presentInfo.waitSemaphoreCount = 1;
-        //@@presentInfo.pWaitSemaphores = &waitSemaphore->_semaphore;
         presentInfo.pWaitSemaphores = &std::static_pointer_cast<SemaphoreVK>(waitSemaphore)->_semaphore;
     }
     presentInfo.swapchainCount = 1;
@@ -119,7 +118,6 @@ std::shared_ptr<CommandBuffer> GraphicsVK::beginCommands()
     beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
     beginInfo.pInheritanceInfo = nullptr;
 
-    //@@VK_CHECK_RESULT(vkBeginCommandBuffer(_std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer, &beginInfo));
     VK_CHECK_RESULT(vkBeginCommandBuffer(std::static_pointer_cast<CommandBufferVK>(_commandBuffer)->_commandBuffer, &beginInfo));
 
     return _commandBuffer;
@@ -127,8 +125,7 @@ std::shared_ptr<CommandBuffer> GraphicsVK::beginCommands()
 
 void GraphicsVK::endCommands()
 {
-    GP_ASSERT(_commandBuffer != nullptr);
-    //@@VK_CHECK_RESULT(vkEndCommandBuffer(_std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer));
+    GP_ASSERT(_commandBuffer != nullptr);    
     VK_CHECK_RESULT(vkEndCommandBuffer(std::static_pointer_cast<CommandBufferVK>(_commandBuffer)->_commandBuffer));
 }
 
@@ -140,7 +137,6 @@ std::shared_ptr<Semaphore> GraphicsVK::createSemaphore()
     VkSemaphore semaphoreVK;
     VK_CHECK_RESULT(vkCreateSemaphore(_device, &semaphoreCreateInfo, nullptr, &semaphoreVK));
 
-    //@@std::shared_ptr<Semaphore> semaphore = std::make_shared<Semaphore>();
     std::shared_ptr<SemaphoreVK> semaphore = std::make_shared<SemaphoreVK>();
     semaphore->_semaphore = semaphoreVK;
 
@@ -149,7 +145,6 @@ std::shared_ptr<Semaphore> GraphicsVK::createSemaphore()
 
 void GraphicsVK::destroySemaphore(std::shared_ptr<Semaphore> semaphore)
 {
-    //@@vkDestroySemaphore(_device, semaphore->_semaphore, nullptr);
     vkDestroySemaphore(_device, std::static_pointer_cast<SemaphoreVK>(semaphore)->_semaphore, nullptr);
     semaphore.reset();
 }
@@ -174,16 +169,15 @@ void GraphicsVK::submit(std::shared_ptr<CommandBuffer> commandBuffer,
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     submitInfo.pNext = nullptr;
     submitInfo.waitSemaphoreCount = 1;
-    submitInfo.pWaitSemaphores = &std::static_pointer_cast<SemaphoreVK>(waitSemaphore)->_semaphore; //@@&waitSemaphore->_semaphore;
+    submitInfo.pWaitSemaphores = &std::static_pointer_cast<SemaphoreVK>(waitSemaphore)->_semaphore;
     submitInfo.pWaitDstStageMask = &waitMasks;
     submitInfo.commandBufferCount = 1;
-    submitInfo.pCommandBuffers = &std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer;  //@@&std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer;
+    submitInfo.pCommandBuffers = &std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer;
     submitInfo.signalSemaphoreCount = 1;
-    submitInfo.pSignalSemaphores = &std::static_pointer_cast<SemaphoreVK>(signalSemaphore)->_semaphore; //@@ &signalSemaphore->_semaphore;
+    submitInfo.pSignalSemaphores = &std::static_pointer_cast<SemaphoreVK>(signalSemaphore)->_semaphore;
 
     VK_CHECK_RESULT(vkQueueSubmit(_queue, 1, &submitInfo, _waitFences[_swapchainImageIndex]));
 }
-
 
 void GraphicsVK::cmdSetViewport(std::shared_ptr<CommandBuffer> commandBuffer,
                               float x, float y, float width, float height, 
@@ -199,7 +193,6 @@ void GraphicsVK::cmdSetViewport(std::shared_ptr<CommandBuffer> commandBuffer,
     viewport.minDepth = depthMin;
     viewport.maxDepth = depthMax;
 
-    //@@vkCmdSetViewport(std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer, 0, 1, &viewport);
     vkCmdSetViewport(std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer, 0, 1, &viewport);
 }
 
@@ -214,7 +207,6 @@ void GraphicsVK::cmdSetScissor(std::shared_ptr<CommandBuffer> commandBuffer,
     rect.extent.width = width;
     rect.extent.height = height;
 
-    //@@vkCmdSetScissor(std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer, 0, 1, &rect);
     vkCmdSetScissor(std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer, 0, 1, &rect);
 }
 
@@ -328,7 +320,7 @@ void GraphicsVK::cmdBindVertexBuffers(std::shared_ptr<CommandBuffer> commandBuff
     VkDeviceSize offsets[64] = {};
     for (uint32_t i = 0; i < buffersMaxCapped; ++i) 
     {
-        buffers[i] = std::static_pointer_cast<BufferVK>(vertexBuffers[i])->_buffer;//@@ vertexBuffers[i]->_buffer;
+        buffers[i] = std::static_pointer_cast<BufferVK>(vertexBuffers[i])->_buffer;
     }
     vkCmdBindVertexBuffers(std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer, 0, buffersMaxCapped, buffers, offsets);
 }
@@ -531,7 +523,6 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         VK_CHECK_RESULT(vkAllocateMemory(_device, &memAlloc, nullptr, &deviceMemory));
         VK_CHECK_RESULT(vkBindBufferMemory(_device, bufferVK, deviceMemory, 0));
 
-        //@@std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>();
         std::shared_ptr<BufferVK> buffer = std::make_shared<BufferVK>();
         if (data)
         {
@@ -604,7 +595,6 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         vkDestroyBuffer(_device, stagingBuffer, nullptr);
         vkFreeMemory(_device, stagingMemory, nullptr);
 
-        //@@std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>();
         std::shared_ptr<BufferVK> buffer = std::make_shared<BufferVK>();
         buffer->_usage = usage;
         buffer->_size = size;
@@ -619,7 +609,6 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         return buffer;
     }
 }
-
 
 std::shared_ptr<Buffer> GraphicsVK::createVertexBuffer(size_t size,
                                                      size_t vertexStride, 
@@ -769,7 +758,6 @@ std::shared_ptr<Texture> GraphicsVK::createTexture(Texture::Type type, size_t wi
         hostOwned = false;
     }
 
-    //@@std::shared_ptr<Texture> texture = std::make_shared<Texture>();
     std::shared_ptr<TextureVK> texture = std::make_shared<TextureVK>();
     texture->_type = type;
     texture->_width = width;
@@ -872,17 +860,6 @@ void GraphicsVK::destroyTexture(std::shared_ptr<Texture> texture)
     }
     texture.reset();
 }
-
-/*//@@std::shared_ptr<RenderPass> GraphicsVK::createRenderPass(size_t width, size_t height,
-                                                       size_t colorAttachmentCount,
-                                                       std::vector<VkFormat> colorFormatsVK,
-                                                       VkFormat depthStencilFormatVK,
-                                                       VkSampleCountFlagBits sampleCountVK,
-                                                       std::vector<std::shared_ptr<Texture>> colorAttachments,
-                                                       std::vector<std::shared_ptr<Texture>> colorMultisampleAttachments,
-                                                       std::shared_ptr<Texture> depthStencilAttachment)
-*/
-
 
 std::shared_ptr<RenderPass> GraphicsVK::createRenderPassInternal(size_t width,  size_t height,
                                              size_t colorAttachmentCount,
@@ -1119,7 +1096,6 @@ std::shared_ptr<RenderPass> GraphicsVK::createRenderPassInternal(size_t width,  
         GP_SAFE_FREE(imageViews);
     }
 
-    //@@std::shared_ptr<RenderPass> renderPass = std::make_shared<RenderPass>();
     std::shared_ptr<RenderPassVK> renderPass = std::make_shared<RenderPassVK>();
     renderPass->_width = width;
     renderPass->_height = height;
@@ -1414,7 +1390,6 @@ std::shared_ptr<DescriptorSet> GraphicsVK::createDescriptorSet(const DescriptorS
     }
 
     std::shared_ptr<DescriptorSetVK> descriptorSet = std::make_shared<DescriptorSetVK>();
-   //@@ std::shared_ptr<DescriptorSet> descriptorSet = std::make_shared<DescriptorSet>();
     descriptorSet->_descriptors.resize(descriptorCount);
     for (size_t i = 0; i < descriptorCount; ++i)
     {
@@ -1676,7 +1651,7 @@ std::shared_ptr<RenderPipeline> GraphicsVK::createRenderPipeline(RenderPipeline:
     pipelineLayoutCreateInfo.pNext = nullptr;
     pipelineLayoutCreateInfo.flags = 0;
     pipelineLayoutCreateInfo.setLayoutCount = (descriptorSet != nullptr) ? 1 : 0;
-    pipelineLayoutCreateInfo.pSetLayouts = (descriptorSet != nullptr) ? &(std::static_pointer_cast<DescriptorSetVK>(descriptorSet)->_descriptorSetLayout) : nullptr;//@@(descriptorSet != nullptr) ? &(descriptorSet->_descriptorSetLayout) : nullptr;
+    pipelineLayoutCreateInfo.pSetLayouts = (descriptorSet != nullptr) ? &(std::static_pointer_cast<DescriptorSetVK>(descriptorSet)->_descriptorSetLayout) : nullptr;
     pipelineLayoutCreateInfo.pushConstantRangeCount = 0;
     pipelineLayoutCreateInfo.pPushConstantRanges = nullptr;
 
@@ -1708,7 +1683,6 @@ std::shared_ptr<RenderPipeline> GraphicsVK::createRenderPipeline(RenderPipeline:
     VkPipeline pipeline;
     VK_CHECK_RESULT(vkCreateGraphicsPipelines(_device, VK_NULL_HANDLE, 1, &pipelineCreateInfo, nullptr, &pipeline));
 
-    //@@std::shared_ptr<RenderPipeline> renderPipeline = std::make_shared<RenderPipeline>();
     std::shared_ptr<RenderPipelineVK> renderPipeline = std::make_shared<RenderPipelineVK>();
     renderPipeline->_primitiveTopology = primitiveTopology;
     renderPipeline->_vertexLayout = vertexLayout;
@@ -1744,19 +1718,6 @@ void GraphicsVK::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPip
 void GraphicsVK::initialize()
 {
     Graphics::initialize();
-
-    /*if (_initialized)
-        return;
-
-    std::shared_ptr<Game::Config> config = Game::getInstance()->getConfig();
-    _width = config->width;
-    _height = config->height;
-    _fullscreen = config->fullscreen;
-    _vsync = config->vsync;
-    _multisampling = config->multisampling;
-    _validation = config->validation;*/
-
-
     createInstance();
     createDevice();
     createSurface();
@@ -1764,13 +1725,11 @@ void GraphicsVK::initialize()
     createRenderPasses();
     createCommandBuffers();
     createSynchronizationObjects();
-
-    _initialized = true;
-    _resized = true;
 }
 
 void GraphicsVK::resize(size_t width, size_t height)
-{   // Graphics::resize();
+{
+    // Graphics::resize();
 
     if (!_resized)
         return;
@@ -2286,14 +2245,10 @@ void GraphicsVK::createCommandBuffers()
 
 void GraphicsVK::destroyCommandBuffers()
 {
-
     for (size_t i = 0; i < _swapchainImageCount; i++)
     {
-        //@@vkFreeCommandBuffers(_device, _commandPool, 1, &_commandBuffers[i]->_commandBuffer);
         std::shared_ptr<CommandBufferVK> commandBufferVK = std::static_pointer_cast<CommandBufferVK>(_commandBuffers[i]);
         vkFreeCommandBuffers(_device, _commandPool, 1, &commandBufferVK->_commandBuffer);
-
-
     }
 }
 
