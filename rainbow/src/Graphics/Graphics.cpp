@@ -1,5 +1,3 @@
-#ifdef RB_DEF_API_BGFX
-
 #include "../Core/Base.h"
 #include "../Graphics/Graphics.h"
 #include "../Core/Game.h"
@@ -82,8 +80,4 @@ void Graphics::render(float elapsedTime)
     // TODO: Render scene...
 }
 
-
-
 }
-
-#endif

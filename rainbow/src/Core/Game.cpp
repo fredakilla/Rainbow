@@ -5,8 +5,9 @@
 #include "../Core/SerializerJson.h"
 #include "../Scene/Light.h"
 
-#ifdef RB_DEF_API_VULKAN
 
+#ifdef RB_DEF_API_VULKAN
+    #include "../Graphics/api/VK/GraphicsVK.h"
 #elif RB_DEF_API_BGFX
     #include "../Graphics/api/BGFX/GraphicsBGFX.h"
 #else
@@ -208,6 +209,8 @@ void Game::onInitialize()
 
 #ifdef RB_DEF_API_BGFX
     _graphics = std::make_shared<GraphicsBgfx>();
+#elif RB_DEF_API_VULKAN
+    _graphics = std::make_shared<GraphicsVK>();
 #endif
     _graphics->initialize();
 }

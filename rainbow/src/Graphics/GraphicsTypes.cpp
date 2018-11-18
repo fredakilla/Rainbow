@@ -400,7 +400,6 @@ size_t VertexLayout::toStride(VertexFormat format)
         case VertexFormat::eUByte4N:
         case VertexFormat::eShort2:
         case VertexFormat::eShort2N:
-        case VertexFormat::eUInt10_2N:
             return 4;
         case VertexFormat::eShort4:
         case VertexFormat::eShort4N:

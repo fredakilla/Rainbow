@@ -10,8 +10,8 @@ CONFIG(debug, debug|release): TARGET = rainbow_d
 DESTDIR = $$PWD/../build/lib
 
 #DEFINES += RB_DEF_API_NONE
-#DEFINES += RB_DEF_API_VULKAN
-DEFINES += RB_DEF_API_BGFX
+DEFINES += RB_DEF_API_VULKAN
+#DEFINES += RB_DEF_API_BGFX
 
 #-------------------------------------------------------------------
 # files
@@ -73,7 +73,9 @@ SOURCES += \
     src/Script/Script.cpp \
     src/Graphics/Graphics.cpp \
     src/Graphics/GraphicsTypes.cpp \
-    src/Graphics/api/BGFX/GraphicsTypesBGFX.cpp
+    src/Graphics/api/BGFX/GraphicsTypesBGFX.cpp \
+    src/Graphics/api/VK/GraphicsTypesVK.cpp \
+    src/Graphics/api/VK/GraphicsVK.cpp
 
 HEADERS += \
     src/Animation/Animation.h \
@@ -135,7 +137,9 @@ HEADERS += \
     src/rainbow.h \
     src/Graphics/Graphics.h \
     src/Graphics/GraphicsTypes.h \
-    src/Graphics/api/BGFX/GraphicsTypesBGFX.h
+    src/Graphics/api/BGFX/GraphicsTypesBGFX.h \
+    src/Graphics/api/VK/GraphicsTypesVK.h \
+    src/Graphics/api/VK/GraphicsVK.h
 
 
 

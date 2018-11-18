@@ -203,7 +203,6 @@ static BgfxAttributeFormat LOOKUP_BGFX_ATTRIB_TYPE[] =
     { bgfx::AttribType::Int16,      true ,   2,  true   },  // Short2N,  - 2-component float (-1.0f..+1.0f) mapped to short (-32768..+32767)
     { bgfx::AttribType::Int16,      false,   4,  true   },  // Short4,   - 4-component float (-32768.0f..+32767.0f) mapped to short (-32768..+32767)
     { bgfx::AttribType::Int16,      true ,   4,  true   },  // Short4N,  - 4-component float (-1.0f..+1.0f) mapped to short (-32768..+32767)
-    { bgfx::AttribType::Uint10,     true ,   4,  true   },  // UInt10_2N,- 4-component packed, normalized 10-bit XYZ, 2-bit W (0.0 .. 1.0)
 };
 
 static void createVertexDeclFromlayout(const rainbow::VertexLayout* vertexLayout, bgfx::VertexDecl& vertexDecl)
@@ -225,6 +224,7 @@ static void createVertexDeclFromlayout(const rainbow::VertexLayout* vertexLayout
 
     vertexDecl.end();
 }
+
 
 bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
                                       std::shared_ptr<Buffer>& pVertexBuffer)
@@ -540,7 +540,9 @@ void GraphicsBgfx::cmdTransitionImage(std::shared_ptr<CommandBuffer> commandBuff
 std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
                                            size_t vertexStride,
                                            bool hostVisible,
-                                           const void* data){}
+                                           const void* data)
+{
+}
 
 std::shared_ptr<Buffer> GraphicsBgfx::createIndexBuffer(size_t size,
                                           size_t indexStride,
@@ -769,10 +771,10 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
     // compile shaders and create program
 
-    const bgfx::Memory* memVsh =  shaderc::compileShader(shaderc::ST_VERTEX, "color.vert");
+    const bgfx::Memory* memVsh =  shaderc::compileShader(shaderc::ST_VERTEX, "color_bgfx.vert");
     bgfx::ShaderHandle vsh = bgfx::createShader(memVsh);
 
-    const bgfx::Memory* memFsh =  shaderc::compileShader(shaderc::ST_FRAGMENT, "color.frag");
+    const bgfx::Memory* memFsh =  shaderc::compileShader(shaderc::ST_FRAGMENT, "color_bgfx.frag");
     bgfx::ShaderHandle fsh = bgfx::createShader(memFsh);
 
     bgfx::ProgramHandle program = bgfx::createProgram(vsh, fsh, true);

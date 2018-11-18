@@ -321,7 +321,6 @@ public:
         eShort2N,       ///< 2-component float (-1.0f..+1.0f) mapped to short (-32768..+32767)
         eShort4,        ///< 4-component float (-32768.0f..+32767.0f) mapped to short (-32768..+32767)
         eShort4N,       ///< 4-component float (-1.0f..+1.0f) mapped to short (-32768..+32767)
-        eUInt10_2N,     ///< 4-component packed, normalized 10-bit XYZ, 2-bit W (0.0 .. 1.0)
 
         eCount,         ///< number of vertex formats
         eUndefined,     ///< the invalid vertex format value
@@ -522,6 +521,8 @@ class Texture
 {
     friend class Graphics;
     friend class Activator;
+    friend class GraphicsBGFX;
+    friend class GraphicsVK;
 
 public:
 
@@ -668,6 +669,8 @@ private:
 class Sampler
 {
     friend class Graphics;
+    friend class GraphicsBGFX;
+    friend class GraphicsVK;
 
 public:
 
@@ -1146,6 +1149,8 @@ public:
 class RenderPass
 {
     friend class Graphics;
+    friend class GraphicsBGFX;
+    friend class GraphicsVK;
 
 public:
 
@@ -1337,6 +1342,7 @@ protected:
 class DescriptorSet
 {
     friend class Graphics;
+    friend class GraphicsVK;
 
 public:
 
@@ -1345,6 +1351,8 @@ public:
      */
     class Descriptor
     {
+        friend class GraphicsVK;
+
     public:
 
         /**
@@ -1478,6 +1486,7 @@ public:
 class RenderPipeline
 {
     friend class Graphics;
+    friend class GraphicsVK;
 
 public:
 
@@ -1670,4 +1679,5 @@ public:
 
 } // end namespace rainbow
 
+GP_ENABLE_BITWISE_OPERATORS(rainbow::Texture::Usage)
 GP_ENABLE_BITWISE_OPERATORS(rainbow::ColorBlendState::WriteMask)
