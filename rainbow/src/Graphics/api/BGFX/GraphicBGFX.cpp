@@ -617,13 +617,6 @@ std::shared_ptr<DescriptorSet> GraphicsBgfx::createDescriptorSet(const Descripto
 void GraphicsBgfx::destroyDescriptorSet(std::shared_ptr<DescriptorSet> descriptorSet){}
 
 
-template <typename E>
-constexpr typename std::underlying_type<E>::type to_underlying(E e) noexcept {
-    return static_cast<typename std::underlying_type<E>::type>(e);
-}
-
-
-
 /// maps ColorBlendState::BlendFactor to BGFX_STATE_BLEND_*
 static const uint64_t LOOKUP_BGFX_BLEND_FACTOR[] = {
     BGFX_STATE_BLEND_ZERO,              // eZero,
@@ -710,6 +703,7 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
     }
 
     // RasterizerState
+
     switch (rasterizerState.cullMode)
     {
     case RasterizerState::CullMode::eBack:
@@ -725,41 +719,34 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
 
     // ColorBlendState
+
     if (colorBlendState.blendEnabled)
     {
-        //int indexSrc = to_underlying(colorBlendState.colorBlendSrc);
-        //int indexDst = to_underlying(colorBlendState.colorBlendDst);
-        //state |= BGFX_STATE_BLEND_FUNC(LOOKUP_BGFX_BLEND_FACTOR[indexSrc], LOOKUP_BGFX_BLEND_FACTOR[indexDst]);
-
-        int srcColorIndex = to_underlying(colorBlendState.colorBlendSrc);
-        int dstColorIndex = to_underlying(colorBlendState.colorBlendDst);
-        int srcAlphaIndex = to_underlying(colorBlendState.alphaBlendSrc);
-        int dstAlphaIndex = to_underlying(colorBlendState.alphaBlendDst);
+        uint32_t srcColorIndex = static_cast<uint32_t>(colorBlendState.colorBlendSrc);
+        uint32_t dstColorIndex = static_cast<uint32_t>(colorBlendState.colorBlendDst);
+        uint32_t srcAlphaIndex = static_cast<uint32_t>(colorBlendState.alphaBlendSrc);
+        uint32_t dstAlphaIndex = static_cast<uint32_t>(colorBlendState.alphaBlendDst);
         uint64_t srcColor = LOOKUP_BGFX_BLEND_FACTOR[srcColorIndex];
         uint64_t dstColor = LOOKUP_BGFX_BLEND_FACTOR[dstColorIndex];
         uint64_t srcAlpha = LOOKUP_BGFX_BLEND_FACTOR[srcAlphaIndex];
         uint64_t dstAlpha = LOOKUP_BGFX_BLEND_FACTOR[dstAlphaIndex];
         state |= BGFX_STATE_BLEND_FUNC_SEPARATE(srcColor, dstColor, srcAlpha, dstAlpha);
 
-        int colorBlendOpIndex = to_underlying(colorBlendState.colorBlendOp);
-        int alphaBlendOpIndex = to_underlying(colorBlendState.alphaBlendOp);
+        uint32_t colorBlendOpIndex = static_cast<uint32_t>(colorBlendState.colorBlendOp);
+        uint32_t alphaBlendOpIndex = static_cast<uint32_t>(colorBlendState.alphaBlendOp);
         uint64_t equaColor = LOOKUP_BGFX_BLEND_OP[colorBlendOpIndex];
         uint64_t equaAlpha = LOOKUP_BGFX_BLEND_OP[alphaBlendOpIndex];
         state |= BGFX_STATE_BLEND_EQUATION_SEPARATE(equaColor, equaAlpha);
     }
 
-    // R,G,B,A write mask
-    uint32_t redflag = to_underlying(ColorBlendState::WriteMask::eRed);
-    uint32_t greenflag = to_underlying(ColorBlendState::WriteMask::eGreen);
-    uint32_t blueflag = to_underlying(ColorBlendState::WriteMask::eBlue);
-    uint32_t alphaflag = to_underlying(ColorBlendState::WriteMask::eAlpha);
-    if ((colorBlendState.colorWriteMask & redflag) == redflag)
+    ColorBlendState::WriteMask writeMask = static_cast<ColorBlendState::WriteMask>(colorBlendState.colorWriteMask);
+    if (bool(writeMask & ColorBlendState::WriteMask::eRed))
         state |= BGFX_STATE_WRITE_R;
-    if ((colorBlendState.colorWriteMask & greenflag) == greenflag)
+    if (bool(writeMask & ColorBlendState::WriteMask::eGreen))
         state |= BGFX_STATE_WRITE_G;
-    if ((colorBlendState.colorWriteMask & blueflag) == blueflag)
+    if (bool(writeMask & ColorBlendState::WriteMask::eBlue))
         state |= BGFX_STATE_WRITE_B;
-    if ((colorBlendState.colorWriteMask & alphaflag) == alphaflag)
+    if (bool(writeMask & ColorBlendState::WriteMask::eAlpha))
         state |= BGFX_STATE_WRITE_A;
 
 
@@ -773,7 +760,7 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
     if(depthStencilState.depthEnabled)
     {
-        int depthTestIndex = to_underlying(depthStencilState.depthFunc);
+        uint32_t depthTestIndex = static_cast<uint32_t>(depthStencilState.depthFunc);
         state |= LOOKUP_BGFX_DEPTH_TEST[depthTestIndex];
     }
 

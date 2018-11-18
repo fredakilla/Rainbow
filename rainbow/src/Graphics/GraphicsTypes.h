@@ -1448,3 +1448,5 @@ public:
 };
 
 } // end namespace rainbow
+
+GP_ENABLE_BITWISE_OPERATORS(rainbow::ColorBlendState::WriteMask)
