@@ -88,9 +88,9 @@ void Sample::onInitialize()
     {
         // position            // color
 
-        0.0f,  0.5f, 0.0f,     1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f ,
-       -0.5f, -0.5f, 0.0f,     0.0f, 0.0f, 1.0f,
+        0.25f,  0.25f,  0.0f,    1.0f, 0.0f, 0.0f,
+        -0.25f,  0.25f,  0.0f,    0.0f, 1.0f, 0.0f,
+        0.0f,  -0.25f,  0.0f,    0.0f, 0.0f, 1.0f
     };
     ///size_t vertexDataSize = sizeof(float) * vertices.size();
     ///size_t vertexStride = sizeof(float) * 6;

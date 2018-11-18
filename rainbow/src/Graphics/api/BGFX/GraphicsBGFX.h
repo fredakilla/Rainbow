@@ -1,4 +1,3 @@
-#ifdef RB_DEF_API_BGFX
 #pragma once
 
 #include "../../../Core/Base.h"
@@ -257,4 +256,3 @@ private:
 
 }
 
-#endif // RB_DEF_API_BGFX

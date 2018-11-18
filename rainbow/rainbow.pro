@@ -10,8 +10,8 @@ CONFIG(debug, debug|release): TARGET = rainbow_d
 DESTDIR = $$PWD/../build/lib
 
 #DEFINES += RB_DEF_API_NONE
-DEFINES += RB_DEF_API_VULKAN
-#DEFINES += RB_DEF_API_BGFX
+#DEFINES += RB_DEF_API_VULKAN
+DEFINES += RB_DEF_API_BGFX
 
 #-------------------------------------------------------------------
 # files
@@ -74,6 +74,7 @@ SOURCES += \
     src/Graphics/Graphics.cpp \
     src/Graphics/GraphicsTypes.cpp \
     src/Graphics/api/BGFX/GraphicsTypesBGFX.cpp \
+    src/Graphics/api/BGFX/GraphicBGFX.cpp \
     src/Graphics/api/VK/GraphicsTypesVK.cpp \
     src/Graphics/api/VK/GraphicsVK.cpp
 
@@ -138,8 +139,11 @@ HEADERS += \
     src/Graphics/Graphics.h \
     src/Graphics/GraphicsTypes.h \
     src/Graphics/api/BGFX/GraphicsTypesBGFX.h \
+    src/Graphics/api/BGFX/GraphicsBGFX.h \
     src/Graphics/api/VK/GraphicsTypesVK.h \
-    src/Graphics/api/VK/GraphicsVK.h
+    src/Graphics/api/VK/GraphicsVK.h \
+    src/Graphics/api/VK/GraphicsVkUtil.h \
+    src/Graphics/api/BGFX/GraphicsBGFXUtils.h
 
 
 
@@ -153,10 +157,10 @@ contains(DEFINES, RB_DEF_API_BGFX) {
     DEFINES += GP_NO_LUA_BINDINGS
 
     HEADERS += \
-        src/Graphics/api/BGFX/GraphicsBGFX.h \
+
 
     SOURCES += \
-        src/Graphics/api/BGFX/GraphicBGFX.cpp \
+
 }
 
 contains(DEFINES, RB_DEF_API_VULKAN) {
