@@ -136,7 +136,8 @@ public:
     std::shared_ptr<Buffer> createVertexBuffer(size_t size,
                                                size_t vertexStride,
                                                bool hostVisible,
-                                               const void* data) override;
+                                               const void* data,
+                                               const VertexLayout& layout) override;
 
     std::shared_ptr<Buffer> createIndexBuffer(size_t size,
                                               size_t indexStride,

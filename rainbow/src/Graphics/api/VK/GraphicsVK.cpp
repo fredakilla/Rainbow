@@ -633,7 +633,8 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
 std::shared_ptr<Buffer> GraphicsVK::createVertexBuffer(size_t size,
                                                      size_t vertexStride, 
                                                      bool hostVisible,
-                                                     const void* data)
+                                                     const void* data,
+                                                     const VertexLayout& layout)
 {
     return createBuffer(Buffer::Usage::eVertex, size, vertexStride, hostVisible, data);
 }

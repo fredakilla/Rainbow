@@ -381,7 +381,8 @@ public:
     virtual std::shared_ptr<Buffer> createVertexBuffer(size_t size,
                                                size_t vertexStride,
                                                bool hostVisible,
-                                               const void* data) = 0;
+                                               const void* data,
+                                               const VertexLayout& layout) = 0;
 
     /**
      * Creates a index buffer.

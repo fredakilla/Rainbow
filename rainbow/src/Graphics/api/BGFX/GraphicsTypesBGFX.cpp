@@ -9,7 +9,8 @@ namespace rainbow
 
 BufferBGFX::BufferBGFX() :
     Buffer(),
-    _hostMemory(nullptr)
+    _hostMemory(nullptr),
+    _mem(nullptr)
 {
 }
 

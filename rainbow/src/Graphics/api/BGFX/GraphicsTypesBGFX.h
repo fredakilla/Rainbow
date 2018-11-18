@@ -36,6 +36,8 @@ protected:
         bgfx::DynamicIndexBufferHandle      _dynamicIndexBufferHandle;
         bgfx::UniformHandle                 _uiformHandle;
     };
+
+    const bgfx::Memory* _mem;
 };
 
 

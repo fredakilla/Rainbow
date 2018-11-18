@@ -492,8 +492,39 @@ void GraphicsBgfx::cmdTransitionImage(std::shared_ptr<CommandBuffer> commandBuff
 std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
                                            size_t vertexStride,
                                            bool hostVisible,
-                                           const void* data)
+                                           const void* data,
+                                           const VertexLayout& layout)
 {
+
+    bgfx::VertexDecl decl;
+    createVertexDeclFromlayout(&layout, decl);
+
+
+    size_t dataSize = size;
+    //size_t dataSize = layout.getStride() * 3;
+    //const bgfx::Memory* mem = bgfx::makeRef(data, dataSize);
+    const bgfx::Memory* mem = bgfx::copy(data, dataSize);
+
+    std::shared_ptr<BufferBGFX> vertexBuffer = std::make_shared<BufferBGFX>();
+    vertexBuffer->_usage = Buffer::Usage::eVertex;
+    vertexBuffer->_hostVisible = hostVisible;
+    vertexBuffer->_stride = layout.getStride();
+    vertexBuffer->_size = dataSize;
+    vertexBuffer->_mem = mem;
+
+    //if (pCreateInfo->dynamic)
+    {
+        // todo: create dynamic vertex buffer
+    }
+    //else
+    {
+        uint16_t flags = BGFX_BUFFER_NONE;
+        bgfx::VertexBufferHandle vbh = bgfx::createVertexBuffer(mem, decl, flags);
+        vertexBuffer->_staticVertexBufferHandle = vbh;
+    }
+
+    return vertexBuffer;
+
 }
 
 std::shared_ptr<Buffer> GraphicsBgfx::createIndexBuffer(size_t size,
