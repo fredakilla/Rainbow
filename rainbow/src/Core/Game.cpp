@@ -201,8 +201,8 @@ void Game::onInitialize()
     _config = getConfig();
     FileSystem::setHomePath(_config->homePath);
 
-    //Graphics::Api api =  Graphics::API_BGFX;
-    Graphics::Api api =  Graphics::API_VULKAN;
+    Graphics::Api api =  Graphics::API_BGFX;
+    //Graphics::Api api =  Graphics::API_VULKAN;
 
     if (api == Graphics::API_BGFX)
     {
