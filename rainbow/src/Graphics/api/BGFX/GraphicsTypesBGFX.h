@@ -99,5 +99,32 @@ private:
 
 };
 
+
+//------------------------------------------------------------------------------
+// ShaderVK
+//-----------------------------------------------------------------------------
+/**
+ * BGFX impl of a Shader.
+ */
+class ShaderBGFX : public Shader
+{
+    friend class GraphicsBgfx;
+
+public:
+
+    /**
+     * Constructor.
+     */
+    ShaderBGFX();
+
+    /**
+     * Destructor.
+     */
+    ~ShaderBGFX();
+
+private:
+    bgfx::ShaderHandle _shaderHandle;
+};
+
 } // end namespace rainbow
 

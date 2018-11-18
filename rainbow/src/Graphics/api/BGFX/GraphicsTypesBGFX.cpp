@@ -58,4 +58,20 @@ void CommandBufferBGFX::reset()
 }
 
 
+//------------------------------------------------------------------------------
+// ShaderBGFX
+//-----------------------------------------------------------------------------
+
+ShaderBGFX::ShaderBGFX() :
+    Shader(),
+    _shaderHandle(BGFX_INVALID_HANDLE)
+{
+
+}
+
+ShaderBGFX::~ShaderBGFX()
+{
+
+}
+
 }

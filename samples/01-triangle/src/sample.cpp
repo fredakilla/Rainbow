@@ -28,8 +28,11 @@ void Sample::onInitialize()
     std::shared_ptr<Graphics> graphics = getGraphics();
 
     // Create the vertex and fragment shaders
-    _vertShader = graphics->createShader("color.vert");
-    _fragShader = graphics->createShader("color.frag");
+    //_vertShader = graphics->createShader("color.vert");
+    // _fragShader = graphics->createShader("color.frag");
+    _vertShader = graphics->createShader("color_bgfx.vert");
+    _fragShader = graphics->createShader("color_bgfx.frag");
+
 
     // Create the vertex layout // todo: improve stride calculation with special offset value of -1
     std::vector<VertexLayout::Attribute> attributes(2);

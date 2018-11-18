@@ -10,8 +10,8 @@ CONFIG(debug, debug|release): TARGET = rainbow_d
 DESTDIR = $$PWD/../build/lib
 
 #DEFINES += RB_DEF_API_NONE
-DEFINES += RB_DEF_API_VULKAN
-#DEFINES += RB_DEF_API_BGFX
+#DEFINES += RB_DEF_API_VULKAN
+DEFINES += RB_DEF_API_BGFX
 
 #-------------------------------------------------------------------
 # files

@@ -309,7 +309,7 @@ void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<CommandBuffer> commandBuf
 
 std::shared_ptr<RenderPass> GraphicsBgfx::getRenderPass()
 {
-
+    return nullptr;
 }
 
 std::shared_ptr<RenderPass> GraphicsBgfx::acquireNextFrame()
@@ -590,7 +590,28 @@ std::shared_ptr<Sampler> GraphicsBgfx::createSampler(Sampler::Filter filterMin,
 void GraphicsBgfx::destroySampler(std::shared_ptr<Sampler> sampler){}
 
 
-std::shared_ptr<Shader> GraphicsBgfx::createShader(const std::string& url){}
+std::shared_ptr<Shader> GraphicsBgfx::createShader(const std::string& url)
+{
+    std::string extension = FileSystem::getExtension(url);
+
+    bgfx::ShaderHandle shaderHandle = BGFX_INVALID_HANDLE;
+    if (extension == "VERT")
+    {
+        const bgfx::Memory* memVsh =  shaderc::compileShader(shaderc::ST_VERTEX, url.c_str());
+        shaderHandle = bgfx::createShader(memVsh);
+    }
+    else if (extension == "FRAG")
+    {
+        const bgfx::Memory* memFsh =  shaderc::compileShader(shaderc::ST_FRAGMENT, url.c_str());
+        shaderHandle = bgfx::createShader(memFsh);
+    }
+
+    GP_ASSERT(bgfx::isValid(shaderHandle));
+
+    std::shared_ptr<ShaderBGFX> shader = std::make_shared<ShaderBGFX>();
+    shader->_shaderHandle = shaderHandle;
+    return shader;
+}
 
 
 void GraphicsBgfx::destroyShader(std::shared_ptr<Shader> shader){}
@@ -713,15 +734,23 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
     // compile shaders and create program
 
-    const bgfx::Memory* memVsh =  shaderc::compileShader(shaderc::ST_VERTEX, "color_bgfx.vert");
+    /*const bgfx::Memory* memVsh =  shaderc::compileShader(shaderc::ST_VERTEX, "color_bgfx.vert");
     bgfx::ShaderHandle vsh = bgfx::createShader(memVsh);
 
     const bgfx::Memory* memFsh =  shaderc::compileShader(shaderc::ST_FRAGMENT, "color_bgfx.frag");
-    bgfx::ShaderHandle fsh = bgfx::createShader(memFsh);
+    bgfx::ShaderHandle fsh = bgfx::createShader(memFsh);*/
 
-    bgfx::ProgramHandle program = bgfx::createProgram(vsh, fsh, true);
+    bgfx::ProgramHandle program = BGFX_INVALID_HANDLE;
+
+    if (vertShader != nullptr && fragShader != nullptr)
+    {
+        bgfx::ShaderHandle vsh = std::static_pointer_cast<ShaderBGFX>(vertShader)->_shaderHandle;
+        bgfx::ShaderHandle fsh = std::static_pointer_cast<ShaderBGFX>(fragShader)->_shaderHandle;
+
+        program = bgfx::createProgram(vsh, fsh, true);
+    }
+
     GP_ASSERT(bgfx::isValid(program));
-
 
 
     renderPipelineBGFX->_program = program;
