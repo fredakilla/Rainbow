@@ -8,14 +8,14 @@ namespace rainbow
 
 std::string toErrorString(VkResult result);
 
-#define VK_CHECK_RESULT(f)                                                                              \
-{                                                                                                       \
-    VkResult res = (f);                                                                                 \
-    if (res != VK_SUCCESS)                                                                              \
-    {                                                                                                   \
+#define VK_CHECK_RESULT(f) \
+{ \
+    VkResult res = (f); \
+    if (res != VK_SUCCESS) \
+    { \
         std::cout << "Fatal: VkResult is \"" << toErrorString(res) << "\" in " << __FILE__ << " at line " << __LINE__ << std::endl; \
-        GP_ASSERT(res == VK_SUCCESS);                                                                   \
-    }                                                                                                   \
+        GP_ASSERT(res == VK_SUCCESS); \
+    } \
 }
 
 
@@ -40,7 +40,6 @@ static const VkFormat lookupVkVertexFormat[] =
     VK_FORMAT_UNDEFINED                // eUndefined,
 
 };
-
 
 /**
  * Maps rainbow::PixelFormat to VkFormat

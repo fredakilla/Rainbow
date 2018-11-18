@@ -5,14 +5,8 @@
 #include "../Core/SerializerJson.h"
 #include "../Scene/Light.h"
 
-
-#ifdef RB_DEF_API_VULKAN
-    #include "../Graphics/api/VK/GraphicsVK.h"
-#elif RB_DEF_API_BGFX
-    #include "../Graphics/api/BGFX/GraphicsBGFX.h"
-#else
-    #include "../Graphics/Graphics.h"
-#endif
+#include "../Graphics/api/VK/GraphicsVK.h"
+#include "../Graphics/api/BGFX/GraphicsBGFX.h"
 
 namespace rainbow
 {
@@ -207,11 +201,18 @@ void Game::onInitialize()
     _config = getConfig();
     FileSystem::setHomePath(_config->homePath);
 
-#ifdef RB_DEF_API_BGFX
-    _graphics = std::make_shared<GraphicsBgfx>();
-#elif RB_DEF_API_VULKAN
-    _graphics = std::make_shared<GraphicsVK>();
-#endif
+    //Graphics::Api api =  Graphics::API_BGFX;
+    Graphics::Api api =  Graphics::API_VULKAN;
+
+    if (api == Graphics::API_BGFX)
+    {
+        _graphics = std::make_shared<GraphicsBgfx>();
+    }
+    else if (api == Graphics::API_VULKAN)
+    {
+        _graphics = std::make_shared<GraphicsVK>();
+    }
+
     _graphics->initialize();
 }
 

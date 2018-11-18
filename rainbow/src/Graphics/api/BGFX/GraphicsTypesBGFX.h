@@ -6,8 +6,6 @@
 namespace rainbow
 {
 
-class Vector4;
-
 //------------------------------------------------------------------------------
 // BufferBGFX
 //------------------------------------------------------------------------------
@@ -56,7 +54,6 @@ public:
     RenderPipelineBGFX();
 
 private:
-
     bgfx::ProgramHandle _program;
     uint64_t _state;
 };
@@ -78,9 +75,7 @@ class CommandBufferBGFX : public CommandBuffer
     friend class GraphicsBgfx;
 
 public:
-
     CommandBufferBGFX();
-
     void reset();
 
 private:
@@ -96,7 +91,6 @@ private:
 
     // state
     uint64_t _state;
-
 };
 
 

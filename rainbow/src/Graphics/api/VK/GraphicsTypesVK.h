@@ -31,7 +31,6 @@ protected:
     VkDescriptorBufferInfo _bufferView;
 };
 
-
 //------------------------------------------------------------------------------
 // RenderPipelineVK
 //------------------------------------------------------------------------------
@@ -51,7 +50,6 @@ private:
     VkPipeline _pipeline;
 };
 
-
 //------------------------------------------------------------------------------
 // CommandBufferVK
 //------------------------------------------------------------------------------
@@ -69,8 +67,6 @@ private:
     VkCommandBuffer _commandBuffer;
 };
 
-
-
 //------------------------------------------------------------------------------
 // SemaphoreVK
 //-----------------------------------------------------------------------------
@@ -85,8 +81,6 @@ public:
 private:
     VkSemaphore _semaphore;
 };
-
-
 
 //------------------------------------------------------------------------------
 // RenderPassVK
@@ -104,33 +98,16 @@ public:
      * Constructor.
      */
     RenderPassVK();
-
-    /**
-     * Constructor.
-     */
-    /*RenderPassVK(size_t width, size_t height,
-                 size_t colorAttachmentCount,
-                 PixelFormat colorFormat,
-                 PixelFormat depthStencilFormat,
-                 Texture::SampleCount sampleCount,
-                 std::vector<std::shared_ptr<Texture>> colorAttachments,
-                 std::vector<std::shared_ptr<Texture>> colorMultisampleAttachments,
-                 std::shared_ptr<Texture> depthStencilAttachment,
-                 VkDevice device,
-                 VkRenderPass renderPass,
-                 VkFramebuffer framebuffer);*/
-
     /**
      * Destructor.
      */
     ~RenderPassVK();
 
+private:
     VkDevice _device;
     VkRenderPass _renderPass;
     VkFramebuffer _framebuffer;
 };
-
-
 
 //------------------------------------------------------------------------------
 // DescriptorSetVK
@@ -140,6 +117,8 @@ public:
  */
 class DescriptorSetVK : public DescriptorSet
 {
+    friend class GraphicsVK;
+
 public:
 
     /**
@@ -148,27 +127,16 @@ public:
     DescriptorSetVK();
 
     /**
-     * Constructor.
-     */
-   /* DescriptorSetVK(const Descriptor* descriptors,
-                    size_t descriptorCount,
-                    VkDevice device,
-                    VkDescriptorPool descriptorPool,
-                    VkDescriptorSetLayout descriptorSetLayout,
-                    VkDescriptorSet descriptorSet);*/
-    /**
      * Destructor.
      */
     ~DescriptorSetVK();
 
+private:
     VkDevice _device;
     VkDescriptorPool _descriptorPool;
     VkDescriptorSetLayout _descriptorSetLayout;
     VkDescriptorSet _descriptorSet;
 };
-
-
-
 
 //------------------------------------------------------------------------------
 // TextureVK
@@ -185,20 +153,7 @@ public:
     /**
      * Constructor.
      */
-    TextureVK();
-
-    /**
-     * Constructor.
-     */
-    /*TextureVK(Type type, size_t width, size_t height, size_t depth, size_t mipLevels,
-              PixelFormat pixelFormat,
-              Usage usage,
-              SampleCount sampleCount,
-              bool hostVisible,
-              bool hostOwned,
-              VkDevice device,
-              VkImage image,
-              VkDeviceMemory deviceMemory);*/
+    TextureVK();    
 
     /**
      * Destructor.
@@ -210,6 +165,7 @@ public:
      */
     void* getHostMemory() const;
 
+private:
     VkDevice _device;
     VkImage _image;
     VkImageView  _imageView;
@@ -218,8 +174,6 @@ public:
     VkImageAspectFlags  _imageAspectFlags;
     VkDescriptorImageInfo _imageViewInfo;
 };
-
-
 
 //------------------------------------------------------------------------------
 // SamplerVK
@@ -230,6 +184,8 @@ public:
  */
 class SamplerVK : public Sampler
 {
+    friend class GraphicsVK;
+
 public:
 
     /**
@@ -238,35 +194,14 @@ public:
     SamplerVK();
 
     /**
-     * Constructor.
-     */
-    /*SamplerVK(Filter filterMin,
-              Filter filterMag,
-              Filter filterMip,
-              AddressMode addressModeU,
-              AddressMode addressModeV,
-              AddressMode addressModeW,
-              BorderColor borderColor,
-              bool compareEnabled,
-              CompareFunc compareFunc,
-              bool anisotropyEnabled,
-              float anisotropyMax,
-              float lodMin,
-              float lodMax,
-              float lodMipBias,
-              VkDevice device,
-              VkSampler sampler);*/
-
-    /**
      * Destructor.
      */
     ~SamplerVK();
 
+private:
     VkDevice _device;
     VkSampler _sampler;
 };
-
-
 
 //------------------------------------------------------------------------------
 // ShaderVK
@@ -276,6 +211,8 @@ public:
  */
 class ShaderVK : public Shader
 {
+    friend class GraphicsVK;
+
 public:
 
     /**
@@ -293,11 +230,10 @@ public:
      */
     ~ShaderVK();
 
+private:
     VkDevice _device;
     VkShaderModule _shaderModule;
 };
-
-
 
 } // end namespace rainbow
 

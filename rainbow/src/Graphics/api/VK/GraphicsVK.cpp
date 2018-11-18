@@ -1,12 +1,3 @@
-/*#include "../Core/Base.h"
-#include "../Graphics/Graphics.h"
-#include "../Graphics/GraphicsUtil.h"
-#include "../Core/Game.h"
-#include "../Core/Platform.h"
-#include "../Scene/SceneObject.h"
-#include "../Core/FileSystem.h"*/
-
-
 #include "../../../Core/Base.h"
 #include "../../../Core/Game.h"
 #include "../../../Core/Platform.h"

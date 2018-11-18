@@ -7,7 +7,7 @@
 // bgfx impl
 #include "GraphicsBGFX.h"
 #include "GraphicsTypesBGFX.h"
-#include "GraphicsBGFXUtils.h".h"
+#include "GraphicsBGFXUtils.h"
 
 #include <bgfx/platform.h>
 #include <bgfx/bgfx.h>
@@ -85,11 +85,6 @@ void GraphicsBgfx::initialize()
         exit(-1);
 
     createCommandBuffers();
-
-
-    // set default view
-    //bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0xaa3030ff, 1.0f, 0);
-    //bgfx::setViewRect(0, 0, 0, uint16_t(_width), uint16_t(_height));
 }
 
 void GraphicsBgfx::finalize()
@@ -122,41 +117,6 @@ void GraphicsBgfx::createCommandBuffers()
     _commandBuffer = commandBuffer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-void GraphicsBgfx::beginFrame()
-{
-    // This dummy draw call is here to make sure that view 0 is cleared
-    // if no other draw calls are submitted to view 0.
-    bgfx::touch(0);
-}
-
-void GraphicsBgfx::endFrame()
-{
-    bgfx::frame();
-}
-*/
-
-
-
-
-
-
-
-
-
-
 static void createVertexDeclFromlayout(const rainbow::VertexLayout* vertexLayout, bgfx::VertexDecl& vertexDecl)
 {
     vertexDecl.begin();
@@ -176,136 +136,6 @@ static void createVertexDeclFromlayout(const rainbow::VertexLayout* vertexLayout
 
     vertexDecl.end();
 }
-
-
-bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
-                                      std::shared_ptr<Buffer>& pVertexBuffer)
-{
-    GP_ASSERT(pCreateInfo);
-    GP_ASSERT(pCreateInfo->pVertexLayout);
-
-    bgfx::VertexDecl decl;
-    createVertexDeclFromlayout(pCreateInfo->pVertexLayout, decl);
-
-    size_t dataSize = pCreateInfo->pVertexLayout->getStride() * pCreateInfo->vertexCount;
-    const bgfx::Memory* mem = bgfx::makeRef(pCreateInfo->pData, dataSize);
-
-    std::shared_ptr<BufferBGFX> vertexBuffer = std::make_shared<BufferBGFX>();
-    vertexBuffer->_usage = Buffer::Usage::eVertex;
-    vertexBuffer->_hostVisible = pCreateInfo->hostVisible;
-    vertexBuffer->_stride = pCreateInfo->pVertexLayout->getStride();
-    vertexBuffer->_size = dataSize;
-
-    if (pCreateInfo->dynamic)
-    {
-        // todo: create dynamic vertex buffer
-    }
-    else
-    {
-        uint16_t flags = BGFX_BUFFER_NONE;
-        bgfx::VertexBufferHandle vbh = bgfx::createVertexBuffer(mem, decl, flags);
-        vertexBuffer->_staticVertexBufferHandle = vbh;
-    }
-
-    pVertexBuffer = vertexBuffer;
-    return true;
-}
-
-
-/*
-std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
-                                                                   VertexLayout vertexLayout,
-                                                                   RasterizerState rasterizerState,
-                                                                   ColorBlendState colorBlendState,
-                                                                   DepthStencilState depthStencilState,
-                                                                   std::shared_ptr<RenderPass> renderPass,
-                                                                   std::shared_ptr<DescriptorSet> descriptorSet,
-                                                                   std::shared_ptr<Shader> vertShader,
-                                                                   std::shared_ptr<Shader> tescShader,
-                                                                   std::shared_ptr<Shader> teseShader,
-                                                                   std::shared_ptr<Shader> geomShader,
-                                                                   std::shared_ptr<Shader> fragShader)
-{
-
-    uint64_t bgfxState = 0;
-
-    // Topology
-    switch (primitiveTopology)
-    {
-    case RenderPipeline::PrimitiveTopology::ePointList:
-        bgfxState |= BGFX_STATE_PT_POINTS;
-        break;
-    case RenderPipeline::PrimitiveTopology::eLineList:
-        bgfxState |= BGFX_STATE_PT_LINES;
-        break;
-    case RenderPipeline::PrimitiveTopology::eLineStrip:
-        bgfxState |= BGFX_STATE_PT_LINESTRIP;
-        break;
-    case RenderPipeline::PrimitiveTopology::eTriangleStrip:
-        bgfxState |= BGFX_STATE_PT_TRISTRIP;
-        break;
-
-    case RenderPipeline::PrimitiveTopology::eTriangleList:
-    default:
-        // default bgfx topology
-        break;
-    }
-
-
-    // RasterizerState
-    switch(rasterizerState.cullMode)
-    {
-    case RasterizerState::CullMode::eBack:
-        bgfxState |= BGFX_STATE_CULL_CW;
-        break;
-    case RasterizerState::CullMode::eFront:
-        bgfxState |= BGFX_STATE_CULL_CCW;
-        break;
-    case RasterizerState::CullMode::eNone:
-    default:
-        break;
-    }
-
-
-}
-
-*/
-
-/*
-void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<Buffer> vertexBuffer)
-{
-    GP_ASSERT(vertexBuffer != nullptr);
-
-    std::shared_ptr<BufferBGFX> bufferBGFX = std::static_pointer_cast<BufferBGFX>(vertexBuffer);
-
-    GP_ASSERT(bufferBGFX->_usage == Buffer::Usage::eVertex);
-    GP_ASSERT(bgfx::isValid(bufferBGFX->_staticVertexBufferHandle));
-
-    bgfx::setVertexBuffer(0, bufferBGFX->_staticVertexBufferHandle);
-}
-*/
-
-
-/*
-void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<CommandBuffer> commandBuffer, std::shared_ptr<Buffer> vertexBuffer)
-{
-    GP_UNUSED(commandBuffer);
-    GP_ASSERT(vertexBuffer != nullptr);
-
-    std::shared_ptr<BufferBGFX> bufferBGFX = std::static_pointer_cast<BufferBGFX>(vertexBuffer);
-
-    GP_ASSERT(bufferBGFX->_usage == Buffer::Usage::eVertex);
-    GP_ASSERT(bgfx::isValid(bufferBGFX->_staticVertexBufferHandle));
-
-    bgfx::setVertexBuffer(0, bufferBGFX->_staticVertexBufferHandle);
-}
-*/
-
-
-//--------------------------------------------
-
-
-
 
 std::shared_ptr<RenderPass> GraphicsBgfx::getRenderPass()
 {
@@ -370,27 +200,15 @@ void GraphicsBgfx::submit(std::shared_ptr<CommandBuffer> commandBuffer,
 
     std::shared_ptr<CommandBufferBGFX> commandBufferBGFX = std::static_pointer_cast<CommandBufferBGFX>(commandBuffer);
 
-
-
     bgfx::setViewRect(0, 0, 0, _width, _height);
-
     bgfx::setViewClear(0
                     , commandBufferBGFX->_clearFlags
                     , commandBufferBGFX->_clearColor
                     , commandBufferBGFX->_depth
                     , commandBufferBGFX->_stencil
-    );
-
-    /*uint64_t state = 0
-            | BGFX_STATE_WRITE_RGB
-            | BGFX_STATE_WRITE_A
-            | BGFX_STATE_WRITE_Z
-            | BGFX_STATE_DEPTH_TEST_LESS
-            | BGFX_STATE_MSAA
-            ;*/
+    ); 
 
     bgfx::setState(commandBufferBGFX->_state);
-
     bgfx::submit(0, commandBufferBGFX->_program);
 }
 
@@ -418,11 +236,6 @@ void GraphicsBgfx::cmdBindRenderPipeline(std::shared_ptr<CommandBuffer> commandB
 
     commandBufferBGFX->_program = renderPipelineBGFX->_program;
     commandBufferBGFX->_state = renderPipelineBGFX->_state;
-
-
-
-
-
 }
 
 void GraphicsBgfx::cmdBindDescriptorSet(std::shared_ptr<CommandBuffer> commandBuffer,
@@ -470,14 +283,12 @@ void GraphicsBgfx::cmdClearDepthStencil(std::shared_ptr<CommandBuffer> commandBu
     commandBufferBGFX->_clearFlags |= BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL;
 }
 
-
 void GraphicsBgfx::cmdDraw(std::shared_ptr<CommandBuffer> commandBuffer,
             size_t vertexCount,
             size_t vertexStart)
 {
     // not used here
 }
-
 
 void GraphicsBgfx::cmdDrawIndexed(std::shared_ptr<CommandBuffer> commandBuffer,
                     size_t indexCount,
@@ -488,7 +299,6 @@ void GraphicsBgfx::cmdTransitionImage(std::shared_ptr<CommandBuffer> commandBuff
                         Texture::Usage usageOld,
                         Texture::Usage usageNew){}
 
-
 std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
                                            size_t vertexStride,
                                            bool hostVisible,
@@ -498,7 +308,6 @@ std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
 
     bgfx::VertexDecl decl;
     createVertexDeclFromlayout(&layout, decl);
-
 
     size_t dataSize = size;
     //size_t dataSize = layout.getStride() * 3;
@@ -530,47 +339,71 @@ std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
 std::shared_ptr<Buffer> GraphicsBgfx::createIndexBuffer(size_t size,
                                           size_t indexStride,
                                           bool hostVisible,
-                                          const void* data){}
+                                          const void* data)
+{
+    return nullptr;
+}
 
 std::shared_ptr<Buffer> GraphicsBgfx::createUniformBuffer(size_t size,
                                             bool hostVisible,
-                                            const void* data){}
+                                            const void* data)
+{
+    return nullptr;
+}
 
-void GraphicsBgfx::destroyBuffer(std::shared_ptr<Buffer> buffer){}
+void GraphicsBgfx::destroyBuffer(std::shared_ptr<Buffer> buffer)
+{
 
+}
 
 std::shared_ptr<Texture> GraphicsBgfx::createTexture1d(size_t width,
                                          PixelFormat pixelFormat,
                                          Texture::Usage usage,
                                          Texture::SampleCount sampleCount,
                                          bool hostVisible,
-                                         const void* data){}
+                                         const void* data)
+{
+    return nullptr;
+}
 
 std::shared_ptr<Texture> GraphicsBgfx::createTexture2d(size_t width, size_t height, size_t mipLevels,
                                          PixelFormat pixelFormat,
                                          Texture::Usage usage,
                                          Texture::SampleCount sampleCount,
                                          bool hostVisible,
-                                         const void* data){}
+                                         const void* data)
+{
+    return nullptr;
+}
 
 std::shared_ptr<Texture> GraphicsBgfx::createTexture3d(size_t width, size_t height, size_t depth,
                                          PixelFormat pixelFormat,
                                          Texture::Usage usage,
                                          Texture::SampleCount sampleCount,
                                          bool hostVisible,
-                                         const void* data){}
+                                         const void* data)
+{
+    return nullptr;
+}
 
-void GraphicsBgfx::destroyTexture(std::shared_ptr<Texture> texture){}
+void GraphicsBgfx::destroyTexture(std::shared_ptr<Texture> texture)
+{
 
+}
 
 std::shared_ptr<RenderPass> GraphicsBgfx::createRenderPass(size_t width, size_t height,
                                              size_t colorAttachmentCount,
                                              std::vector<PixelFormat> colorFormats,
                                              PixelFormat depthStencilFormat,
-                                             Texture::SampleCount sampleCount){}
+                                             Texture::SampleCount sampleCount)
+{
+    return nullptr;
+}
 
-void GraphicsBgfx::destroyRenderPass(std::shared_ptr<RenderPass> renderPass){}
+void GraphicsBgfx::destroyRenderPass(std::shared_ptr<RenderPass> renderPass)
+{
 
+}
 
 std::shared_ptr<Sampler> GraphicsBgfx::createSampler(Sampler::Filter filterMin,
                                        Sampler::Filter filterMag,
@@ -585,10 +418,15 @@ std::shared_ptr<Sampler> GraphicsBgfx::createSampler(Sampler::Filter filterMin,
                                        float anisotropyMax,
                                        float lodMin,
                                        float lodMax,
-                                       float lodMipBias){}
+                                       float lodMipBias)
+{
+    return nullptr;
+}
 
-void GraphicsBgfx::destroySampler(std::shared_ptr<Sampler> sampler){}
+void GraphicsBgfx::destroySampler(std::shared_ptr<Sampler> sampler)
+{
 
+}
 
 std::shared_ptr<Shader> GraphicsBgfx::createShader(const std::string& url)
 {
@@ -614,16 +452,21 @@ std::shared_ptr<Shader> GraphicsBgfx::createShader(const std::string& url)
 }
 
 
-void GraphicsBgfx::destroyShader(std::shared_ptr<Shader> shader){}
+void GraphicsBgfx::destroyShader(std::shared_ptr<Shader> shader)
+{
 
+}
 
 std::shared_ptr<DescriptorSet> GraphicsBgfx::createDescriptorSet(const DescriptorSet::Descriptor* descriptors,
-                                                   size_t descriptorCount){}
+                                                   size_t descriptorCount)
+{
+    return nullptr;
+}
 
+void GraphicsBgfx::destroyDescriptorSet(std::shared_ptr<DescriptorSet> descriptorSet)
+{
 
-void GraphicsBgfx::destroyDescriptorSet(std::shared_ptr<DescriptorSet> descriptorSet){}
-
-
+}
 
 std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipeline::PrimitiveTopology primitiveTopology,
                                                      VertexLayout vertexLayout,
@@ -638,8 +481,6 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
                                                      std::shared_ptr<Shader> geomShader,
                                                      std::shared_ptr<Shader> fragShader)
 {
-
-
     std::shared_ptr<RenderPipelineBGFX> renderPipelineBGFX = std::make_shared<RenderPipelineBGFX>();
 
 
@@ -758,13 +599,9 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
     return renderPipelineBGFX;
 }
 
-void GraphicsBgfx::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline){}
+void GraphicsBgfx::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline)
+{
 
-
-
-
-
-
-
+}
 
 }
