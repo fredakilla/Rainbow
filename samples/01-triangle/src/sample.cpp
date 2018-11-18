@@ -76,10 +76,10 @@ void Sample::onInitialize()
     ///_fragShader = graphics->createShader("color.frag");
 
     // Create the vertex layout // todo: improve stride calculation with special offset value of -1
-    ///std::vector<VertexLayout::Attribute> attributes(2);
-    ///attributes[0] = VertexLayout::Attribute(VertexLayout::Semantic::ePosition, Format::eR32G32B32Float, 0, 0, 0);
-    ///attributes[1] = VertexLayout::Attribute(VertexLayout::Semantic::eColor, Format::eR32G32B32Float, 0, 1, VertexLayout::toStride(attributes[0].format));
-    ///VertexLayout vertexLayout(attributes.data(), attributes.size());
+    std::vector<VertexLayout::Attribute> attributes(2);
+    attributes[0] = VertexLayout::Attribute(VertexLayout::Semantic::ePosition, VertexLayout::VertexFormat::eFloat3, 0, 0, 0);
+    attributes[1] = VertexLayout::Attribute(VertexLayout::Semantic::eColor, VertexLayout::VertexFormat::eFloat3, 0, 1, VertexLayout::toStride(attributes[0].format));
+    VertexLayout vertexLayout(attributes.data(), attributes.size());
 
     // Create the vertex buffer
     static std::vector<float> vertices =
@@ -97,11 +97,11 @@ void Sample::onInitialize()
 
 
 
-    rainbow::VertexLayout vertexLayout =
-    {
-        { rainbow::VertexAttr::Position, rainbow::VertexFormat::Float3 },
-        { rainbow::VertexAttr::Color0, rainbow::VertexFormat::Float3 }
-    };
+    //rainbow::VertexLayout vertexLayout =
+    //{
+    //    { rainbow::VertexAttr::Position, rainbow::VertexFormat::Float3 },
+    //    { rainbow::VertexAttr::Color0, rainbow::VertexFormat::Float3 }
+    //};
 
 
     Graphics::VertexBufferCreateInfo vbInfo = {};
@@ -119,6 +119,7 @@ void Sample::onInitialize()
     RasterizerState rasterizerState;
     ColorBlendState colorBlendState;
     DepthStencilState depthStencilState;
+
     _renderPipeline = graphics->createRenderPipeline(RenderPipeline::PrimitiveTopology::eTriangleList, vertexLayout,
                                                      rasterizerState, colorBlendState, depthStencilState,
                                                      _renderPass, _descriptorSet,
@@ -262,7 +263,6 @@ void Sample::onUpdate(float elapsedTime)
 
      //graphics->endFrame();
 */
-
 
 
 

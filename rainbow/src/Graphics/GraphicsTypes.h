@@ -5,6 +5,8 @@
 namespace rainbow
 {
 
+#if 0
+
 //------------------------------------------------------------------------------
 // GraphicsConfig
 //------------------------------------------------------------------------------
@@ -39,6 +41,8 @@ public:
     /// get byte size of index type
     static int byteSize(IndexType::Enum c);
 };
+
+
 
 
 //------------------------------------------------------------------------------
@@ -251,6 +255,223 @@ public:
     /// convert primitive type to string
     static const char* ToString(Enum c);
 };
+
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Defines a layout of vertex attributes.
+ */
+class VertexLayout
+{
+public:
+
+    /**
+     * Defines semantics for vertex attributes.
+     */
+    enum class Semantic
+    {
+        ePosition,
+        eNormal,
+        eColor,
+        eColor0,
+        eColor1,
+        eColor2,
+        eColor3,
+        eTangent,
+        eBitangent,
+        eTexCoord,
+        eTexCoord0,
+        eTexCoord1,
+        eTexCoord2,
+        eTexCoord3,
+        eTexCoord4,
+        eTexCoord5,
+        eTexCoord6,
+        eTexCoord7
+    };
+
+    /**
+     * Defines vertex format for semantics.
+     */
+    enum class VertexFormat
+    {
+        eFloat,         ///< single component float, expanded to (x, 0, 0, 1)
+        eFloat2,        ///< 2-component float, expanded to (x, y, 0, 1)
+        eFloat3,        ///< 3-component float, expanded to (x, y, z, 1)
+        eFloat4,        ///< 4-component float
+        eByte4,         ///< 4-component float (-128.0f..+127.0f) mapped to byte (-128..+127)
+        eByte4N,        ///< 4-component float (-1.0f..+1.0f) mapped to byte (-128..+127)
+        eUByte4,        ///< 4-component float (0.0f..255.0f) mapped to byte (0..255)
+        eUByte4N,       ///< 4-component float (0.0f..+1.0) mapped to byte (-128..+127)
+        eShort2,        ///< 2-component float (-32768.0f..+32767.0f) mapped to short (-32768..+32767)
+        eShort2N,       ///< 2-component float (-1.0f..+1.0f) mapped to short (-32768..+32767)
+        eShort4,        ///< 4-component float (-32768.0f..+32767.0f) mapped to short (-32768..+32767)
+        eShort4N,       ///< 4-component float (-1.0f..+1.0f) mapped to short (-32768..+32767)
+        eUInt10_2N,     ///< 4-component packed, normalized 10-bit XYZ, 2-bit W (0.0 .. 1.0)
+
+        eCount,         ///< number of vertex formats
+        eUndefined,     ///< the invalid vertex format value
+    };
+
+    /**
+     * Defines a single vertex attribute a within a vertex layout.
+     */
+    class Attribute
+    {
+    public:
+
+        Semantic semantic = Semantic::ePosition;
+        VertexFormat format = VertexFormat::eUndefined;
+        uint32_t binding = 0;
+        uint32_t location = 0;
+        uint32_t offset = 0;
+
+        /**
+         * Constructor.
+         */
+        Attribute();
+
+        /**
+         * Constructor.
+         *
+         * @param semantic The semantic.
+         * @param format The format of the attribute
+         * @param binding The attribute binding
+         * @param location The attibute location
+         * @param offset The attribute offset
+         */
+        Attribute(Semantic semantic,
+                  VertexFormat format,
+                  uint32_t binding,
+                  uint32_t location,
+                  uint32_t offset);
+
+        /**
+         * Destructor.
+         */
+        ~Attribute();
+
+        /**
+         * Compares two vertex attributes for equality.
+         *
+         * @param attr The vertex attribute to compare.
+         * @return true if this attribute matches the specified one, false otherwise.
+         */
+        bool operator == (const Attribute& attr) const;
+
+        /**
+         * Compares to vertex attributes for inequality.
+         *
+         * @param attr The vertex attribute to compare.
+         * @return true if this attribute does not match the specified one, false otherwise.
+         */
+        bool operator != (const Attribute& attr) const;
+    };
+
+    /**
+     * Constructor.
+     */
+    VertexLayout();
+
+    /**
+     * Constructor.
+     *
+     * The passed in vertex attribute array is copied into the new VertexLayout.
+     *
+     * @param attributes The array of vertex attributes defining the vertex layout.
+     * @param count The number of items in the attributes array.
+     */
+    VertexLayout(const Attribute* attributes, size_t count);
+
+    /**
+     * Destructor.
+     */
+    ~VertexLayout();
+
+    /**
+     * Gets the vertex attribute at the specified index.
+     *
+     * @param index The index of the attribute to retrieve.
+     */
+    const Attribute& getAttribute(size_t index) const;
+
+    /**
+     * Gets the number of vertex attributes in this VertexLayout.
+     *
+     * @return The number of attribute in the array.
+     */
+    size_t getAttributeCount() const;
+
+    /**
+     * Gets the stride (size in bytes) of the layout destribing a vertex.
+     */
+    size_t getStride() const;
+
+    /**
+     * Gets the vertex stride for a specified format.
+     *
+     * @param format The format to get the stride for.
+     * @return The vertex stride for a specified format.
+     */
+    static size_t toStride(VertexFormat format);
+
+    /**
+     * Compares two vertex layouts for equality.
+     *
+     * @param layout The vertex layout to compare.
+     * @return true if the attributes in this VertexLayout matches the specified one, false otherwise.
+     */
+    bool operator == (const VertexLayout& layout) const;
+
+    /**
+     * Compares to vertex layouts for inequality.
+     *
+     * @param layout The vertex layout to compare.
+     * @return true if the attributes in this VertexLayout are not equal to the specified one, false otherwise.
+     */
+    bool operator != (const VertexLayout& layout) const;
+
+private:
+
+    std::vector<Attribute> _attributes;
+    size_t _stride;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //------------------------------------------------------------------------------
 // PixelFormat

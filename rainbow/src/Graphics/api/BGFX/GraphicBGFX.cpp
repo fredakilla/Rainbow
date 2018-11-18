@@ -154,7 +154,30 @@ void GraphicsBgfx::endFrame()
 
 
 
-/// map rainbow::VertexAttrib <=> bgfx::Attrib::Enum
+/// map rainbow::VertexLayout::Semantic <=> bgfx::Attrib::Enum
+bgfx::Attrib::Enum LOOKUP_BGFX_VERTEX_ATTRIB[] =
+{
+    bgfx::Attrib::Enum::Position,   //  ePosition,
+    bgfx::Attrib::Enum::Normal,     //  eNormal,
+    bgfx::Attrib::Enum::Color0,     //  eColor,
+    bgfx::Attrib::Enum::Color0,     //  eColor0,
+    bgfx::Attrib::Enum::Color1,     //  eColor1,
+    bgfx::Attrib::Enum::Color2,     //  eColor2,
+    bgfx::Attrib::Enum::Color3,     //  eColor3,
+    bgfx::Attrib::Enum::Tangent,    //  eTangent,
+    bgfx::Attrib::Enum::Bitangent,  //  eBitangent,
+    bgfx::Attrib::Enum::TexCoord0,  //  eTexCoord,
+    bgfx::Attrib::Enum::TexCoord0,  //  eTexCoord0,
+    bgfx::Attrib::Enum::TexCoord1,  //  eTexCoord1,
+    bgfx::Attrib::Enum::TexCoord2,  //  eTexCoord2,
+    bgfx::Attrib::Enum::TexCoord3,  //  eTexCoord3,
+    bgfx::Attrib::Enum::TexCoord4,  //  eTexCoord4,
+    bgfx::Attrib::Enum::TexCoord5,  //  eTexCoord5,
+    bgfx::Attrib::Enum::TexCoord6,  //  eTexCoord6,
+    bgfx::Attrib::Enum::TexCoord7,  //  eTexCoord7
+};
+
+
 struct BgfxAttributeFormat
 {
     bgfx::AttribType::Enum type;
@@ -162,32 +185,9 @@ struct BgfxAttributeFormat
     uint8_t num;
     bool asInt;
 };
-bgfx::Attrib::Enum VERTEX_ATTRIB_MAP[] =
-{
-    // bgfx::Attrib::Enum           rainbow::VertexAttrib
 
-    bgfx::Attrib::Enum::Position,   // Position,
-    bgfx::Attrib::Enum::Normal,     // Normal,
-    bgfx::Attrib::Enum::Color0,     // Color0,
-    bgfx::Attrib::Enum::Color1,     // Color1,
-    bgfx::Attrib::Enum::Color2,     // Color2,
-    bgfx::Attrib::Enum::Color3,     // Color3,
-    bgfx::Attrib::Enum::Tangent,    // Tangent,
-    bgfx::Attrib::Enum::Bitangent,  // Bitangent,
-    bgfx::Attrib::Enum::Indices,    // Indices,
-    bgfx::Attrib::Enum::Weight,     // Weight,
-    bgfx::Attrib::Enum::TexCoord0,  // TexCoord0,
-    bgfx::Attrib::Enum::TexCoord1,  // TexCoord1,
-    bgfx::Attrib::Enum::TexCoord2,  // TexCoord2,
-    bgfx::Attrib::Enum::TexCoord3,  // TexCoord3,
-    bgfx::Attrib::Enum::TexCoord4,  // TexCoord4,
-    bgfx::Attrib::Enum::TexCoord5,  // TexCoord5,
-    bgfx::Attrib::Enum::TexCoord6,  // TexCoord6,
-    bgfx::Attrib::Enum::TexCoord7,  // TexCoord7,
-};
-
-/// map rainbow::VertexFormat <=> BgfxAttributeFormat
-static BgfxAttributeFormat VERTEX_FORMAT_MAP[] =
+/// map rainbow::VertexLayout::VertexFormat <=> BgfxAttributeFormat
+static BgfxAttributeFormat LOOKUP_BGFX_ATTRIB_TYPE[] =
 {
     //        AttribType        normalized  num  asInt
 
@@ -210,14 +210,15 @@ static void createVertexDeclFromlayout(const rainbow::VertexLayout* vertexLayout
 {
     vertexDecl.begin();
 
-    for (size_t i=0; i<vertexLayout->getComponentCount(); ++i)
+    for (size_t i=0; i<vertexLayout->getAttributeCount(); ++i)
     {
-        const rainbow::VertexLayout::Component component = vertexLayout->getComponent(i);
+        const rainbow::VertexLayout::Attribute attribute = vertexLayout->getAttribute(i);
 
-        bgfx::Attrib::Enum bgfxAttrib = VERTEX_ATTRIB_MAP[component.attr];
+        uint32_t semanticEnumIndex = static_cast<uint32_t>(attribute.semantic);
+        bgfx::Attrib::Enum bgfxAttrib = LOOKUP_BGFX_VERTEX_ATTRIB[semanticEnumIndex];
 
-        uint8_t index = static_cast<uint8_t>(component.format);
-        BgfxAttributeFormat af = VERTEX_FORMAT_MAP[index];
+        uint8_t index = static_cast<uint8_t>(attribute.format);
+        BgfxAttributeFormat af = LOOKUP_BGFX_ATTRIB_TYPE[index];
 
         vertexDecl.add(bgfxAttrib, af.num, af.type, af.normalized, af.asInt);
     }
@@ -234,13 +235,13 @@ bool GraphicsBgfx::createVertexBuffer(const VertexBufferCreateInfo* pCreateInfo,
     bgfx::VertexDecl decl;
     createVertexDeclFromlayout(pCreateInfo->pVertexLayout, decl);
 
-    size_t dataSize = pCreateInfo->pVertexLayout->byteSize() * pCreateInfo->vertexCount;
+    size_t dataSize = pCreateInfo->pVertexLayout->getStride() * pCreateInfo->vertexCount;
     const bgfx::Memory* mem = bgfx::makeRef(pCreateInfo->pData, dataSize);
 
     std::shared_ptr<BufferBGFX> vertexBuffer = std::make_shared<BufferBGFX>();
     vertexBuffer->_usage = Buffer::Usage::eVertex;
     vertexBuffer->_hostVisible = pCreateInfo->hostVisible;
-    vertexBuffer->_stride = pCreateInfo->pVertexLayout->byteSize();
+    vertexBuffer->_stride = pCreateInfo->pVertexLayout->getStride();
     vertexBuffer->_size = dataSize;
 
     if (pCreateInfo->dynamic)
