@@ -353,7 +353,19 @@ std::shared_ptr<Buffer> GraphicsBgfx::createUniformBuffer(size_t size,
 
 void GraphicsBgfx::destroyBuffer(std::shared_ptr<Buffer> buffer)
 {
+    std::shared_ptr<BufferBGFX> bufferBgfx = std::static_pointer_cast<BufferBGFX>(buffer);
 
+    switch (bufferBgfx->_usage)
+    {
+    case Buffer::Usage::eVertex:
+        bgfx::destroy(bufferBgfx->_staticVertexBufferHandle);
+        break;
+    case Buffer::Usage::eUniform:
+        bgfx::destroy(bufferBgfx->_uiformHandle);
+        break;
+    }
+
+    buffer.reset();
 }
 
 std::shared_ptr<Texture> GraphicsBgfx::createTexture1d(size_t width,
@@ -454,7 +466,9 @@ std::shared_ptr<Shader> GraphicsBgfx::createShader(const std::string& url)
 
 void GraphicsBgfx::destroyShader(std::shared_ptr<Shader> shader)
 {
-
+    std::shared_ptr<ShaderBGFX> shaderBgfx = std::static_pointer_cast<ShaderBGFX>(shader);
+    bgfx::destroy(shaderBgfx->_shaderHandle);
+    shader.reset();
 }
 
 std::shared_ptr<DescriptorSet> GraphicsBgfx::createDescriptorSet(const DescriptorSet::Descriptor* descriptors,
@@ -588,7 +602,7 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
         bgfx::ShaderHandle vsh = std::static_pointer_cast<ShaderBGFX>(vertShader)->_shaderHandle;
         bgfx::ShaderHandle fsh = std::static_pointer_cast<ShaderBGFX>(fragShader)->_shaderHandle;
 
-        program = bgfx::createProgram(vsh, fsh, true);
+        program = bgfx::createProgram(vsh, fsh, false);
     }
 
     GP_ASSERT(bgfx::isValid(program));
@@ -601,7 +615,9 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
 void GraphicsBgfx::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline)
 {
-
+    std::shared_ptr<RenderPipelineBGFX> renderPipelineBgfx = std::static_pointer_cast<RenderPipelineBGFX>(renderPipeline);
+    bgfx::destroy(renderPipelineBgfx->_program);
+    renderPipeline.reset();
 }
 
 }
