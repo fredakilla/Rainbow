@@ -19,7 +19,7 @@ namespace rainbow
 GraphicsBgfx::GraphicsBgfx() :
     Graphics()
 {
-    print("Create GraphicsBgfx\n");
+    _api = Api::eBGFX;
 }
 
 GraphicsBgfx::~GraphicsBgfx()
@@ -289,8 +289,7 @@ void GraphicsBgfx::cmdTransitionImage(std::shared_ptr<CommandBuffer> commandBuff
                         Texture::Usage usageOld,
                         Texture::Usage usageNew){}
 
-std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
-                                           size_t vertexStride,
+std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(uint32_t vertexCount,
                                            bool hostVisible,
                                            const void* data,
                                            const VertexLayout& layout)
@@ -299,8 +298,9 @@ std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(size_t size,
     bgfx::VertexDecl decl;
     createVertexDeclFromlayout(&layout, decl);
 
-    size_t dataSize = size;
-    //size_t dataSize = layout.getStride() * 3;
+    //size_t dataSize = size;
+    size_t dataSize = layout.getStride() * vertexCount;
+
     //const bgfx::Memory* mem = bgfx::makeRef(data, dataSize);
     const bgfx::Memory* mem = bgfx::copy(data, dataSize);
 

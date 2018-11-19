@@ -268,10 +268,10 @@ public:
      * @param data The vertex data to initialize the buffer with.
      * @return The created vertex buffer.
      */
-    std::shared_ptr<Buffer> createVertexBuffer(size_t size,
-                                               size_t vertexStride,
+    std::shared_ptr<Buffer> createVertexBuffer(uint32_t vertexCount,
                                                bool hostVisible,
-                                               const void* data, const VertexLayout &layout);
+                                               const void* data,
+                                               const VertexLayout &layout);
 
     /**
      * Creates a index buffer.

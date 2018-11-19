@@ -16,7 +16,8 @@ Graphics::Graphics() :
     _fullscreen(false),
     _vsync(false),
     _multisampling(false),
-    _validation(false)
+    _validation(false),
+    _api(eNOAPI)
 {
 
 }
@@ -24,6 +25,11 @@ Graphics::Graphics() :
 Graphics::~Graphics()
 {
 
+}
+
+Graphics::Api Graphics::getApi() const
+{
+    return _api;
 }
 
 uint32_t Graphics::getWidth()

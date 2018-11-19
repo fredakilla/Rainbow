@@ -14,21 +14,25 @@ class Graphics
 
 public:
 
+    /**
+     * Defines the low-level graphics api.
+     */
+    enum Api
+    {
+        eNOAPI,
+        eVULKAN,
+        eBGFX
+    };
+
+
+    Api getApi() const;
+
     virtual void initialize();
     virtual void finalize() {}
     virtual void resize(size_t width, size_t height);
     virtual void render(float elapsedTime);
     virtual void createInstance() {}
 
-
-    /**
-     * Defines the low-level graphics api.
-     */
-    enum Api
-    {
-        API_VULKAN,
-        API_BGFX
-    };
 
     /**
      * Constructor.
@@ -279,8 +283,7 @@ public:
      * @param data The vertex data to initialize the buffer with.
      * @return The created vertex buffer.
      */
-    virtual std::shared_ptr<Buffer> createVertexBuffer(size_t size,
-                                               size_t vertexStride,
+    virtual std::shared_ptr<Buffer> createVertexBuffer(uint32_t vertexCount,
                                                bool hostVisible,
                                                const void* data,
                                                const VertexLayout& layout) = 0;
@@ -527,6 +530,7 @@ protected:
     bool _vsync;
     bool _multisampling;
     bool _validation;
+    Graphics::Api _api;
 };
 
 } // end namespace rainbow

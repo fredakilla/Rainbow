@@ -28,10 +28,16 @@ void Sample::onInitialize()
     std::shared_ptr<Graphics> graphics = getGraphics();
 
     // Create the vertex and fragment shaders
-    //_vertShader = graphics->createShader("color.vert");
-    //_fragShader = graphics->createShader("color.frag");
-    _vertShader = graphics->createShader("color_bgfx.vert");
-    _fragShader = graphics->createShader("color_bgfx.frag");
+    if(graphics->getApi() == Graphics::eVULKAN)
+    {
+        _vertShader = graphics->createShader("color.vert");
+        _fragShader = graphics->createShader("color.frag");
+    }
+    else
+    {
+        _vertShader = graphics->createShader("color_bgfx.vert");
+        _fragShader = graphics->createShader("color_bgfx.frag");
+    }
 
 
     // Create the vertex layout // todo: improve stride calculation with special offset value of -1
@@ -51,7 +57,10 @@ void Sample::onInitialize()
     };
     size_t vertexDataSize = sizeof(float) * vertices.size();
     size_t vertexStride = sizeof(float) * 6;
-    _vertexBuffer = graphics->createVertexBuffer(vertexDataSize, vertexStride, false, vertices.data(), vertexLayout);
+    uint32_t vertexCount = 3;
+     size_t ss = vertexLayout.getStride() * vertexCount;
+     size_t stride = vertexLayout.getStride();
+    _vertexBuffer = graphics->createVertexBuffer(vertexCount, false, vertices.data(), vertexLayout);
 
     // Gets the initial render pass.
     _renderPass = graphics->getRenderPass();

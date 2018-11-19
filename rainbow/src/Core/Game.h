@@ -267,6 +267,7 @@ public:
         std::string homePath;
         std::vector<SplashScreen> splashScreens;
         std::string mainScene;
+        std::string api;
     };
 
     /**

@@ -201,16 +201,14 @@ void Game::onInitialize()
     _config = getConfig();
     FileSystem::setHomePath(_config->homePath);
 
-    Graphics::Api api =  Graphics::API_BGFX;
-    //Graphics::Api api =  Graphics::API_VULKAN;
-
-    if (api == Graphics::API_BGFX)
-    {
-        _graphics = std::make_shared<GraphicsBgfx>();
-    }
-    else if (api == Graphics::API_VULKAN)
+    if (_config->api == GP_ENGINE_API_VULKAN)
     {
         _graphics = std::make_shared<GraphicsVK>();
+    }
+    else
+    {
+        // use bgfx as default is vulkan not specified
+        _graphics = std::make_shared<GraphicsBgfx>();
     }
 
     _graphics->initialize();
@@ -337,7 +335,8 @@ Game::Config::Config() :
     multisampling(GP_GRAPHICS_MULTISAMPLING),
     validation(GP_GRAPHICS_VALIDATION),
     homePath(GP_ENGINE_HOME_PATH),
-    mainScene("main.scene")
+    mainScene("main.scene"),
+    api(GP_ENGINE_API_BGFX)
 {
 }
 
@@ -358,6 +357,7 @@ std::string Game::Config::getClassName()
 void Game::Config::onSerialize(Serializer* serializer)
 {
     serializer->writeString("title", title.c_str(), "");
+    serializer->writeString("api", api.c_str(), "");
     serializer->writeInt("width", width, 0);
     serializer->writeInt("height", height, 0);
     serializer->writeBool("fullscreen", fullscreen, false);
@@ -377,6 +377,7 @@ void Game::Config::onSerialize(Serializer* serializer)
 void Game::Config::onDeserialize(Serializer* serializer)
 {
     serializer->readString("title", title, "");
+    serializer->readString("api", api, "");
     width = serializer->readInt("width", 0);
     height = serializer->readInt("height", 0);
     fullscreen = serializer->readBool("fullscreen", false);

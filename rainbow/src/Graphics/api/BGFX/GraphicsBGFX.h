@@ -106,8 +106,7 @@ public:
                             Texture::Usage usageNew) override;
 
 
-    std::shared_ptr<Buffer> createVertexBuffer(size_t size,
-                                               size_t vertexStride,
+    std::shared_ptr<Buffer> createVertexBuffer(uint32_t vertexCount,
                                                bool hostVisible,
                                                const void* data,
                                                const VertexLayout& layout) override;

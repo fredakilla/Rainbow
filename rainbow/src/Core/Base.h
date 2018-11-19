@@ -212,6 +212,8 @@ operator^=(E& lhs,E rhs){
 #define GP_ENGINE_CONFIG                "game.config"
 #define GP_ENGINE_INPUT                 "game.input"
 #define GP_ENGINE_MAGIC_NUMBER          { '\xAB', 'G', 'P', 'B', '\xBB', '\r', '\n', '\x1A', '\n' }
+#define GP_ENGINE_API_BGFX              "bgfx"
+#define GP_ENGINE_API_VULKAN            "vulkan"
 
 // Math
 #define GP_MATH_RANDOM()                ((float)rand()/RAND_MAX)

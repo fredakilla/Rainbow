@@ -39,6 +39,7 @@ GraphicsVK::GraphicsVK() :
     _depthStencilFormat(VK_FORMAT_UNDEFINED),
     _commandPool(VK_NULL_HANDLE)
 {
+    _api = Api::eVULKAN;
     _queueFamilyIndices.graphics = VK_NULL_HANDLE;
     _queueFamilyIndices.compute = VK_NULL_HANDLE;
     _queueFamilyIndices.transfer = VK_NULL_HANDLE;
@@ -610,12 +611,14 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
     }
 }
 
-std::shared_ptr<Buffer> GraphicsVK::createVertexBuffer(size_t size,
-                                                     size_t vertexStride, 
+std::shared_ptr<Buffer> GraphicsVK::createVertexBuffer(uint32_t vertexCount,
                                                      bool hostVisible,
                                                      const void* data,
                                                      const VertexLayout& layout)
 {
+    size_t size = layout.getStride() * vertexCount;
+    size_t vertexStride = layout.getStride();
+
     return createBuffer(Buffer::Usage::eVertex, size, vertexStride, hostVisible, data);
 }
 
