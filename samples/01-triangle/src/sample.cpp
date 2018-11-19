@@ -35,8 +35,8 @@ void Sample::onInitialize()
     }
     else
     {
-        _vertShader = graphics->createShader("color_bgfx.vert");
-        _fragShader = graphics->createShader("color_bgfx.frag");
+        _vertShader = graphics->createShader("assets/shaders/bgfx/color.vert");
+        _fragShader = graphics->createShader("assets/shaders/bgfx/color.frag");
     }
 
 
