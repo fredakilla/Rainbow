@@ -94,17 +94,16 @@ void GraphicsBgfx::finalize()
 
 void GraphicsBgfx::resize(size_t width, size_t height)
 {
-    Graphics::initialize();
-
+    Graphics::resize(width, height);
     bgfx::reset(width, height, _resetFlags);
 }
 
-void GraphicsBgfx::render(float elapsedTime)
+/*void GraphicsBgfx::render(float elapsedTime)
 {
     Game* game = Game::getInstance();
 
     // TODO: Render scene...
-}
+}*/
 
 void GraphicsBgfx::createInstance()
 {
@@ -151,19 +150,15 @@ std::shared_ptr<RenderPass> GraphicsBgfx::acquireNextFrame()
     return nullptr;
 }
 
-void GraphicsBgfx::presentFrame(std::shared_ptr<Semaphore> waitSemaphore)
+void GraphicsBgfx::presentFrame(std::shared_ptr<Semaphore> /*waitSemaphore*/)
 {
-    GP_UNUSED(waitSemaphore);
-
     bgfx::frame();
 }
 
 std::shared_ptr<CommandBuffer> GraphicsBgfx::beginCommands()
 {
     std::shared_ptr<CommandBufferBGFX> commandBuffer = std::static_pointer_cast<CommandBufferBGFX>(_commandBuffer);
-
     commandBuffer->reset();
-
     return _commandBuffer;
 }
 
@@ -193,11 +188,9 @@ std::shared_ptr<Semaphore> GraphicsBgfx::getSemaphoreRenderComplete()
 }
 
 void GraphicsBgfx::submit(std::shared_ptr<CommandBuffer> commandBuffer,
-            std::shared_ptr<Semaphore> waitSemaphore,
-            std::shared_ptr<Semaphore> signalSemaphore)
+            std::shared_ptr<Semaphore> /*waitSemaphore*/,
+            std::shared_ptr<Semaphore> /*signalSemaphore*/)
 {
-    GP_UNUSED(waitSemaphore, signalSemaphore);
-
     std::shared_ptr<CommandBufferBGFX> commandBufferBGFX = std::static_pointer_cast<CommandBufferBGFX>(commandBuffer);
 
     bgfx::setViewRect(0, 0, 0, _width, _height);
@@ -245,15 +238,13 @@ void GraphicsBgfx::cmdBindDescriptorSet(std::shared_ptr<CommandBuffer> commandBu
 void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<CommandBuffer> commandBuffer,
                          std::shared_ptr<Buffer> vertexBuffer)
 {
-    GP_UNUSED(commandBuffer);
     GP_ASSERT(vertexBuffer != nullptr);
 
-    std::shared_ptr<BufferBGFX> bufferBGFX = std::static_pointer_cast<BufferBGFX>(vertexBuffer);
+    std::shared_ptr<BufferBGFX> bufferBgfx = std::static_pointer_cast<BufferBGFX>(vertexBuffer);
+    GP_ASSERT(bufferBgfx->_usage == Buffer::Usage::eVertex);
+    GP_ASSERT(bgfx::isValid(bufferBgfx->_staticVertexBufferHandle));
 
-    GP_ASSERT(bufferBGFX->_usage == Buffer::Usage::eVertex);
-    GP_ASSERT(bgfx::isValid(bufferBGFX->_staticVertexBufferHandle));
-
-    bgfx::setVertexBuffer(0, bufferBGFX->_staticVertexBufferHandle);
+    bgfx::setVertexBuffer(0, bufferBgfx->_staticVertexBufferHandle);
 }
 
 void GraphicsBgfx::cmdBindVertexBuffers(std::shared_ptr<CommandBuffer> commandBuffer,
@@ -283,11 +274,10 @@ void GraphicsBgfx::cmdClearDepthStencil(std::shared_ptr<CommandBuffer> commandBu
     commandBufferBGFX->_clearFlags |= BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL;
 }
 
-void GraphicsBgfx::cmdDraw(std::shared_ptr<CommandBuffer> commandBuffer,
-            size_t vertexCount,
-            size_t vertexStart)
+void GraphicsBgfx::cmdDraw(std::shared_ptr<CommandBuffer> /*commandBuffer*/,
+            size_t /*vertexCount*/,
+            size_t /*vertexStart*/)
 {
-    // not used here
 }
 
 void GraphicsBgfx::cmdDrawIndexed(std::shared_ptr<CommandBuffer> commandBuffer,
@@ -359,6 +349,9 @@ void GraphicsBgfx::destroyBuffer(std::shared_ptr<Buffer> buffer)
     {
     case Buffer::Usage::eVertex:
         bgfx::destroy(bufferBgfx->_staticVertexBufferHandle);
+        break;
+    case Buffer::Usage::eIndex:
+        bgfx::destroy(bufferBgfx->_staticIndexBufferHandle);
         break;
     case Buffer::Usage::eUniform:
         bgfx::destroy(bufferBgfx->_uiformHandle);

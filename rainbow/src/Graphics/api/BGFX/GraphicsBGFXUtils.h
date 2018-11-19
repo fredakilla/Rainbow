@@ -49,18 +49,19 @@ static BgfxAttributeFormat LOOKUP_BGFX_ATTRIB_TYPE[] =
 {
     //        AttribType        normalized  num  asInt
 
-    { bgfx::AttribType::Float,      false,   1,  false  },  // Float,
-    { bgfx::AttribType::Float,      false,   2,  false  },  // Float2,
-    { bgfx::AttribType::Float,      false,   3,  false  },  // Float3,
-    { bgfx::AttribType::Float,      false,   4,  false  },  // Float4,
-    { bgfx::AttribType::Uint8,      false,   4,  true   },  // Byte4,
-    { bgfx::AttribType::Uint8,      true ,   4,  true   },  // Byte4N,
-    { bgfx::AttribType::Uint8,      false,   4,  true   },  // UByte4,
-    { bgfx::AttribType::Uint8,      true ,   4,  true   },  // UByte4N,
-    { bgfx::AttribType::Int16,      false,   2,  true   },  // Short2,
-    { bgfx::AttribType::Int16,      true ,   2,  true   },  // Short2N,
-    { bgfx::AttribType::Int16,      false,   4,  true   },  // Short4,
-    { bgfx::AttribType::Int16,      true ,   4,  true   },  // Short4N,
+    { bgfx::AttribType::Float,      false,   1,  false  },  // eFloat,
+    { bgfx::AttribType::Float,      false,   2,  false  },  // eFloat2,
+    { bgfx::AttribType::Float,      false,   3,  false  },  // eFloat3,
+    { bgfx::AttribType::Float,      false,   4,  false  },  // eFloat4,
+    { bgfx::AttribType::Uint8,      false,   4,  true   },  // eByte4,
+    { bgfx::AttribType::Uint8,      true ,   4,  true   },  // eByte4N,
+    { bgfx::AttribType::Uint8,      false,   4,  true   },  // eUByte4,
+    { bgfx::AttribType::Uint8,      true ,   4,  true   },  // eUByte4N,
+    { bgfx::AttribType::Int16,      false,   2,  true   },  // eShort2,
+    { bgfx::AttribType::Int16,      true ,   2,  true   },  // eShort2N,
+    { bgfx::AttribType::Int16,      false,   4,  true   },  // eShort4,
+    { bgfx::AttribType::Int16,      true ,   4,  true   },  // eShort4N,
+    { bgfx::AttribType::Count,      false ,  0,  false  },  // eUndefined,
 };
 
 /**

@@ -114,8 +114,8 @@ DescriptorSetVK::DescriptorSetVK() :
     DescriptorSet(),
     _device(nullptr),
     _descriptorPool(nullptr),
-    _descriptorSet(nullptr),
-    _descriptorSetLayout(nullptr)
+    _descriptorSetLayout(nullptr),
+    _descriptorSet(nullptr)
 {
 }
 

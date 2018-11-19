@@ -289,5 +289,3 @@ extern void print(const char* format, ...);
 #pragma warning( disable : 4800 )
 #pragma warning( disable : 4996 )
 #endif
-
-template <typename... Args> inline void GP_UNUSED(Args&&...) {}

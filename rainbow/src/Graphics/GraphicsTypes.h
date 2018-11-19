@@ -58,7 +58,6 @@ public:
         eShort4,        ///< 4-component float (-32768.0f..+32767.0f) mapped to short (-32768..+32767)
         eShort4N,       ///< 4-component float (-1.0f..+1.0f) mapped to short (-32768..+32767)
 
-        eCount,         ///< number of vertex formats
         eUndefined,     ///< the invalid vertex format value
     };
 

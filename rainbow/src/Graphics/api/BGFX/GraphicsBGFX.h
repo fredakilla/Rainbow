@@ -24,7 +24,7 @@ public:
     void initialize() override;
     void finalize() override;
     void resize(size_t width, size_t height) override;
-    void render(float elapsedTime) override;
+    //void render(float elapsedTime) override;
     void createInstance() override;
 
 
