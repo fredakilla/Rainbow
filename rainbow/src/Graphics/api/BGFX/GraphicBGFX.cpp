@@ -290,9 +290,9 @@ void GraphicsBgfx::cmdTransitionImage(std::shared_ptr<CommandBuffer> commandBuff
                         Texture::Usage usageNew){}
 
 std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(uint32_t vertexCount,
-                                           bool hostVisible,
-                                           const void* data,
-                                           const VertexLayout& layout)
+                                                         const void* data,
+                                                         const VertexLayout& layout,
+                                                         bool hostVisible)
 {
 
     bgfx::VertexDecl decl;

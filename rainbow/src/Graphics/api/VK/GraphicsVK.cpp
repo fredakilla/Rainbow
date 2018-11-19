@@ -612,9 +612,9 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
 }
 
 std::shared_ptr<Buffer> GraphicsVK::createVertexBuffer(uint32_t vertexCount,
-                                                     bool hostVisible,
-                                                     const void* data,
-                                                     const VertexLayout& layout)
+                                           const void* data,
+                                           const VertexLayout& layout,
+                                           bool hostVisible)
 {
     size_t size = layout.getStride() * vertexCount;
     size_t vertexStride = layout.getStride();

@@ -55,12 +55,9 @@ void Sample::onInitialize()
        -0.25f,  0.25f,  0.0f,    0.0f, 1.0f, 0.0f,
         0.0f,  -0.25f,  0.0f,    0.0f, 0.0f, 1.0f
     };
-    size_t vertexDataSize = sizeof(float) * vertices.size();
-    size_t vertexStride = sizeof(float) * 6;
+
     uint32_t vertexCount = 3;
-     size_t ss = vertexLayout.getStride() * vertexCount;
-     size_t stride = vertexLayout.getStride();
-    _vertexBuffer = graphics->createVertexBuffer(vertexCount, false, vertices.data(), vertexLayout);
+    _vertexBuffer = graphics->createVertexBuffer(vertexCount, vertices.data(), vertexLayout, false);
 
     // Gets the initial render pass.
     _renderPass = graphics->getRenderPass();

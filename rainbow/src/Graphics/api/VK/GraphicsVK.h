@@ -260,18 +260,12 @@ public:
                             Texture::Usage usageNew);
 
     /**
-     * Creates a vertex buffer.
-     *
-     * @param size The size of the vertex buffer (in bytes).
-     * @param vertexStride The vertex stride.
-     * @param hostVisible true if this buffer memory can be access from the client, false if not.
-     * @param data The vertex data to initialize the buffer with.
-     * @return The created vertex buffer.
+     * @see Graphics::createVertexBuffer.
      */
     std::shared_ptr<Buffer> createVertexBuffer(uint32_t vertexCount,
-                                               bool hostVisible,
                                                const void* data,
-                                               const VertexLayout &layout);
+                                               const VertexLayout& layout,
+                                               bool hostVisible) override;
 
     /**
      * Creates a index buffer.
