@@ -508,16 +508,18 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
     bufferCreateInfo.queueFamilyIndexCount = 0;
     bufferCreateInfo.pQueueFamilyIndices = nullptr;
     bufferCreateInfo.usage = 0;
+
+    VkBufferUsageFlags bufferUsage = 0;
     switch (usage)
     {
     case Buffer::Usage::eVertex:
-        bufferCreateInfo.usage |= VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+        bufferUsage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
         break;
     case Buffer::Usage::eIndex:
-        bufferCreateInfo.usage |= VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
+        bufferUsage = VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
         break;
     case Buffer::Usage::eUniform:
-        bufferCreateInfo.usage |= VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
+        bufferUsage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
         break;
     }
 
@@ -529,6 +531,7 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
     {
         // Create the host visible buffer
         VkBuffer bufferVK;
+        bufferCreateInfo.usage = bufferUsage;
         VK_CHECK_RESULT(vkCreateBuffer(_device, &bufferCreateInfo, nullptr, &bufferVK));
         vkGetBufferMemoryRequirements(_device, bufferVK, &memReqs);
         memAlloc.allocationSize = memReqs.size;
@@ -567,7 +570,7 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         // Create a host-visible staging buffer to temp copy the vertex data to
         VkBuffer stagingBuffer;
         void* stagingData;
-        bufferCreateInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
+        bufferCreateInfo.usage = bufferUsage | VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
         VK_CHECK_RESULT(vkCreateBuffer(_device, &bufferCreateInfo, nullptr, &stagingBuffer));
         vkGetBufferMemoryRequirements(_device, stagingBuffer, &memReqs);
         memAlloc.allocationSize = memReqs.size;
@@ -587,8 +590,7 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
 
         // Create a device local buffer to copied into
         VkBuffer bufferVK;
-        //@@bufferCreateInfo.usage |= VK_BUFFER_USAGE_TRANSFER_DST_BIT;
-        bufferCreateInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+        bufferCreateInfo.usage = bufferUsage | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
         VK_CHECK_RESULT(vkCreateBuffer(_device, &bufferCreateInfo, nullptr, &bufferVK));
         vkGetBufferMemoryRequirements(_device, bufferVK, &memReqs);
         memAlloc.allocationSize = memReqs.size;
