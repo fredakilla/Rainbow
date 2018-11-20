@@ -231,9 +231,48 @@ void GraphicsBgfx::cmdBindRenderPipeline(std::shared_ptr<CommandBuffer> commandB
     commandBufferBGFX->_state = renderPipelineBGFX->_state;
 }
 
+
+void GraphicsBgfx::_bindUniform(const DescriptorSet::Descriptor& descriptor)
+{
+    for (size_t i=0; i<descriptor.count; ++i)
+    {
+        std::shared_ptr<UniformBGFX> uniformBuffer = std::static_pointer_cast<UniformBGFX>(descriptor.uniforms[i]);
+
+        GP_ASSERT(uniformBuffer->_usage == Buffer::Usage::eUniform);
+        GP_ASSERT(bgfx::isValid(uniformBuffer->_handle));
+        GP_ASSERT(uniformBuffer->_memBuffer.size() > 0);
+        GP_ASSERT(uniformBuffer->_memBuffer.data() != nullptr);
+        GP_ASSERT(uniformBuffer->_num > 0);
+
+        const void* pdata = uniformBuffer->_memBuffer.data();
+        bgfx::setUniform(uniformBuffer->_handle, pdata, uniformBuffer->_num);
+    }
+}
+
 void GraphicsBgfx::cmdBindDescriptorSet(std::shared_ptr<CommandBuffer> commandBuffer,
-                          std::shared_ptr<RenderPipeline> renderPipeline,
-                          std::shared_ptr<DescriptorSet> descriptorSet){}
+                                        std::shared_ptr<RenderPipeline> renderPipeline,
+                                        std::shared_ptr<DescriptorSet> descriptorSet)
+{
+    GP_ASSERT(descriptorSet);
+
+    for (size_t i=0; i<descriptorSet->getDescriptorCount(); ++i)
+    {
+        DescriptorSet::Descriptor descriptor = descriptorSet->getDescriptor(i);
+
+        switch (descriptor.type)
+        {
+        case DescriptorSet::Descriptor::Type::eUniform:
+            _bindUniform(descriptor);
+            break;
+
+        case DescriptorSet::Descriptor::Type::eSampler:
+        case DescriptorSet::Descriptor::Type::eTexture:
+        case DescriptorSet::Descriptor::Type::eUndefined:
+        default:
+            break;
+        }
+    }
+}
 
 void GraphicsBgfx::cmdBindVertexBuffer(std::shared_ptr<CommandBuffer> commandBuffer,
                          std::shared_ptr<Buffer> vertexBuffer)
@@ -338,7 +377,17 @@ std::shared_ptr<Buffer> GraphicsBgfx::createUniformBuffer(size_t size,
                                             bool hostVisible,
                                             const void* data)
 {
-    return nullptr;
+
+    bgfx::UniformHandle uniformHandle = bgfx::createUniform("u_color", bgfx::UniformType::Vec4, 1);
+
+    std::shared_ptr<UniformBGFX> uniformBuffer = std::make_shared<UniformBGFX>();
+    uniformBuffer->_usage = Buffer::Usage::eUniform;
+    uniformBuffer->_handle = uniformHandle;
+    uniformBuffer->_num = 1;
+    uniformBuffer->_memBuffer.assign(data, size);
+    uniformBuffer->_size = size;
+    uniformBuffer->_hostVisible = hostVisible;
+    return uniformBuffer;
 }
 
 void GraphicsBgfx::destroyBuffer(std::shared_ptr<Buffer> buffer)
@@ -465,9 +514,19 @@ void GraphicsBgfx::destroyShader(std::shared_ptr<Shader> shader)
 }
 
 std::shared_ptr<DescriptorSet> GraphicsBgfx::createDescriptorSet(const DescriptorSet::Descriptor* descriptors,
-                                                   size_t descriptorCount)
+                                                                 size_t descriptorCount)
 {
-    return nullptr;
+    // create a new descriptor set
+    std::shared_ptr<DescriptorSet> descriptorSet = std::make_shared<DescriptorSet>();
+    descriptorSet->_descriptors.resize(descriptorCount);
+
+    // copy all given descriptors into the new descriptor set
+    for (size_t i = 0; i < descriptorCount; ++i)
+    {
+        memcpy(&descriptorSet->_descriptors[i], &descriptors[i], sizeof(DescriptorSet::Descriptor));
+    }
+
+    return descriptorSet;
 }
 
 void GraphicsBgfx::destroyDescriptorSet(std::shared_ptr<DescriptorSet> descriptorSet)
@@ -600,7 +659,7 @@ std::shared_ptr<RenderPipeline> GraphicsBgfx::createRenderPipeline(RenderPipelin
 
     GP_ASSERT(bgfx::isValid(program));
 
-
+    //renderPipelineBGFX->_descriptorSet = descriptorSet;
     renderPipelineBGFX->_program = program;
     renderPipelineBGFX->_state = state;
     return renderPipelineBGFX;

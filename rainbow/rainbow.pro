@@ -140,7 +140,8 @@ HEADERS += \
     src/Graphics/api/VK/GraphicsTypesVK.h \
     src/Graphics/api/VK/GraphicsVK.h \
     src/Graphics/api/VK/GraphicsVkUtil.h \
-    src/Graphics/api/BGFX/GraphicsBGFXUtils.h
+    src/Graphics/api/BGFX/GraphicsBGFXUtils.h \
+    src/Graphics/api/BGFX/MemoryBuffer.h
 
 
 

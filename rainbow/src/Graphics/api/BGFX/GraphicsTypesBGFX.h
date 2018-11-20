@@ -2,6 +2,7 @@
 
 #include "../../GraphicsTypes.h"
 #include <bgfx/bgfx.h>
+#include "MemoryBuffer.h"
 
 namespace rainbow
 {
@@ -36,6 +37,26 @@ protected:
     };
 
     const bgfx::Memory* _mem;
+};
+
+
+//------------------------------------------------------------------------------
+// UniformBGFX
+//------------------------------------------------------------------------------
+class UniformBGFX : public Buffer
+{
+    friend class GraphicsBgfx;
+
+public:
+    UniformBGFX();
+    ~UniformBGFX();
+    void* getHostMemory() const override;
+
+private:
+    void* _hostMemory;
+    bgfx::UniformHandle _handle;    // uniform handle.
+    uint16_t _num;                  // number of elements.
+    MemoryBuffer _memBuffer;        // uniform data.
 };
 
 
@@ -118,6 +139,24 @@ public:
 
 private:
     bgfx::ShaderHandle _shaderHandle;
+};
+
+
+//------------------------------------------------------------------------------
+// DescriptorSetBGFX
+//-----------------------------------------------------------------------------
+/**
+ * bgfx impl of a DesctiptorSet.
+ */
+class DescriptorSetBGFX : public DescriptorSet
+{
+    friend class GraphicsBgfx;
+
+public:
+    DescriptorSetBGFX();
+    ~DescriptorSetBGFX();
+
+private:
 };
 
 } // end namespace rainbow

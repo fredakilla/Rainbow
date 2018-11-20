@@ -234,7 +234,7 @@ class Texture
 {
     friend class Graphics;
     friend class Activator;
-    friend class GraphicsBGFX;
+    friend class GraphicsBgfx;
     friend class GraphicsVK;
 
 public:
@@ -382,7 +382,7 @@ private:
 class Sampler
 {
     friend class Graphics;
-    friend class GraphicsBGFX;
+    friend class GraphicsBgfx;
     friend class GraphicsVK;
 
 public:
@@ -860,7 +860,7 @@ public:
 class RenderPass
 {
     friend class Graphics;
-    friend class GraphicsBGFX;
+    friend class GraphicsBgfx;
     friend class GraphicsVK;
 
 public:
@@ -965,7 +965,7 @@ private:
  */
 class Buffer
 {
-    friend class GraphicsBGFX;
+    friend class GraphicsBgfx;
 
 public:
 
@@ -1039,7 +1039,8 @@ protected:
  */
 class DescriptorSet
 {
-    friend class Graphics;
+    //friend class Graphics;
+    friend class GraphicsBgfx;
     friend class GraphicsVK;
 
 public:
@@ -1049,7 +1050,8 @@ public:
      */
     class Descriptor
     {
-        friend class GraphicsVK;
+        //friend class GraphicsBGFX;
+        //friend class GraphicsVK;
 
     public:
 
@@ -1183,6 +1185,7 @@ class RenderPipeline
 {
     friend class Graphics;
     friend class GraphicsVK;
+    friend class GraphicsBgfx;
 
 public:
 

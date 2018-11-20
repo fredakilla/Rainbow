@@ -206,6 +206,7 @@ public:
 private:
     bool createDevice();
     void createCommandBuffers();
+    void _bindUniform(const DescriptorSet::Descriptor& descriptor);
 
 private:    
     uint32_t _resetFlags;   // bgfx reset flags

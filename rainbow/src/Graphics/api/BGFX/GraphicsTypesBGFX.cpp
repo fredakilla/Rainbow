@@ -23,7 +23,24 @@ void* BufferBGFX::getHostMemory() const
     return _hostMemory;
 }
 
+//------------------------------------------------------------------------------
+// UniformBufferBGFX
+//-----------------------------------------------------------------------------
+UniformBGFX::UniformBGFX() :
+    Buffer(),
+    _num(0)
+{
+    _usage = Usage::eUniform;
+}
 
+UniformBGFX::~UniformBGFX()
+{
+}
+
+void* UniformBGFX::getHostMemory() const
+{
+    return _hostMemory;
+}
 
 //------------------------------------------------------------------------------
 // RenderPipelineBGFX
@@ -72,6 +89,19 @@ ShaderBGFX::ShaderBGFX() :
 ShaderBGFX::~ShaderBGFX()
 {
 
+}
+
+//------------------------------------------------------------------------------
+// DescriptorSetBGFX
+//-----------------------------------------------------------------------------
+
+DescriptorSetBGFX::DescriptorSetBGFX() :
+    DescriptorSet()
+{
+}
+
+DescriptorSetBGFX::~DescriptorSetBGFX()
+{
 }
 
 }
