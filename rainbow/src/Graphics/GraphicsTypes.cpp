@@ -373,7 +373,8 @@ Buffer::Buffer() :
     _usage(Usage::eVertex),
     _size(0),
     _stride(0),
-    _hostVisible(true)
+    _hostVisible(true),
+    _mapped(nullptr)
 {
 }
 

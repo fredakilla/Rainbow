@@ -1,6 +1,5 @@
 #include <rainbow.h>
 
-
 class Sample : public Game
 {
 public:
@@ -57,9 +56,9 @@ public:
         // Create the vertex buffer
         std::vector<float> vertices =
         {
-            0.25f,  0.25f,  0.0f,    1.0f, 0.0f, 0.0f,
-           -0.25f,  0.25f,  0.0f,    0.0f, 1.0f, 0.0f,
-            0.0f,  -0.25f,  0.0f,    0.0f, 0.0f, 1.0f
+           1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+          -1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+           0.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
         };
 
         uint32_t vertexCount = 3;
@@ -90,17 +89,20 @@ public:
 
 
         // create an uniform buffer
-        Vector4 fragUniformDataColor = Vector4(0.5f, 0.5f, 0.3f, 1.0f);
+        Vector4 fragUniformDataColor = Vector4(0.9f, 0.5f, 0.3f, 1.0f);
 
         size_t uniformBufferSize = sizeof(fragUniformDataColor);
-        _uniformBuffer = graphics->createUniformBuffer(uniformBufferSize, false, &fragUniformDataColor);
+        _uniformBuffer = graphics->createUniformBuffer(uniformBufferSize, true, &fragUniformDataColor);
 
         // supported uniform version for bgfx
         //_uniformBuffer = graphics->createUniform("u_color", UniformType::Vec4, &fragUniformDataColor, 1);
 
 
+
+
+
         // add a descriptor to bind uniform
-        DescriptorSet::Descriptor descriptor1;
+        DescriptorSet::Descriptor descriptor1 = {};
         descriptor1.type = DescriptorSet::Descriptor::Type::eUniform;
         descriptor1.count = 1;
         descriptor1.shaderStages = DescriptorSet::Descriptor::ShaderStages::eFrag;
@@ -150,7 +152,21 @@ public:
     {
         Game::onUpdate(elapsedTime);
 
+
+        float value = (sin(getAbsoluteTime() * 10) + 1.0f) * 0.5f;
+        //fragUniformDataColor = Vector4(value, 0.5f, 0.3f, 1.0f);
+
         std::shared_ptr<Graphics> graphics = getGraphics();
+
+        // Map uniform buffer and update it
+        /*void* pData = _uniformBuffer->map(sizeof(fragUniformDataColor));
+        memcpy(pData, &fragUniformDataColor, sizeof(fragUniformDataColor));
+        _uniformBuffer->unmap();*/
+
+        Vector4* pData = (Vector4*)_uniformBuffer->map(sizeof(Vector4));
+        pData->set(value,0.5f, 0.3f, 1.0f);
+        _uniformBuffer->unmap();
+
 
         _renderPass = graphics->acquireNextFrame();
 

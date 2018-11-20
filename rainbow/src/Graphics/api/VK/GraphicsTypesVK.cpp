@@ -11,7 +11,8 @@ BufferVK::BufferVK() :
     Buffer(),
     _hostMemory(nullptr),
     _deviceMemory(VK_NULL_HANDLE),
-    _buffer(VK_NULL_HANDLE)
+    _buffer(VK_NULL_HANDLE),
+    _device(VK_NULL_HANDLE)
 {
 }
 
@@ -22,6 +23,27 @@ BufferVK::~BufferVK()
 void* BufferVK::getHostMemory() const
 {
     return _hostMemory;
+}
+
+void* BufferVK::map(uint64_t size, uint64_t offset)
+{
+    GP_ASSERT(_device);
+    GP_ASSERT(_mapped == nullptr);
+
+    vkMapMemory(_device, _deviceMemory, offset, size, 0, &_mapped);
+    return _mapped;
+}
+
+void BufferVK::unmap()
+{
+    GP_ASSERT(_device);
+    GP_ASSERT(_mapped);
+
+    if (_mapped)
+    {
+        vkUnmapMemory(_device, _deviceMemory);
+        _mapped = nullptr;
+    }
 }
 
 
@@ -255,13 +277,5 @@ ShaderVK::ShaderVK(VkDevice device, VkShaderModule shaderModule) :
 ShaderVK::~ShaderVK()
 {
 }
-
-
-
-
-
-
-
-
 
 }

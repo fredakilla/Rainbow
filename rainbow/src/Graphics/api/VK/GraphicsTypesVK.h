@@ -23,12 +23,18 @@ public:
     ~BufferVK();
     //! @see Buffer::getHostMemory
     void* getHostMemory() const override;
+    //! @see Buffer::map
+    void* map(uint64_t size = VK_WHOLE_SIZE, uint64_t offset = 0) override;
+    ///! @see Buffer::unmap
+    void unmap();
 
 protected:
     void* _hostMemory;
     VkDeviceMemory _deviceMemory;
     VkBuffer _buffer;
     VkDescriptorBufferInfo _bufferView;
+    VkDevice _device;
+
 };
 
 //------------------------------------------------------------------------------

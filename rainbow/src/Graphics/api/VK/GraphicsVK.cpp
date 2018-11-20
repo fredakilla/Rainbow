@@ -553,6 +553,7 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
             memcpy(buffer->_hostMemory, data, size);
             vkUnmapMemory(_device, deviceMemory);
         }
+        buffer->_device = _device;
         buffer->_usage = usage;
         buffer->_size = size;
         buffer->_stride = stride;
@@ -620,6 +621,7 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         vkFreeMemory(_device, stagingMemory, nullptr);
 
         std::shared_ptr<BufferVK> buffer = std::make_shared<BufferVK>();
+        buffer->_device = _device;
         buffer->_usage = usage;
         buffer->_size = size;
         buffer->_stride = stride;

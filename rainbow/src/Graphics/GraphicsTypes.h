@@ -1022,12 +1022,32 @@ public:
      */
     virtual void* getHostMemory() const = 0;
 
+
+    /**
+    * Map a memory range of this buffer. If successful, mapped points to the specified buffer range.
+    *
+    * @param size (Optional) Size of the memory range to map. Pass VK_WHOLE_SIZE to map the complete buffer range.
+    * @param offset (Optional) Byte offset from beginning
+    *
+    * @return Pointer to the mapped memory
+    */
+    virtual void* map(uint64_t size = (~0ULL), uint64_t offset = 0) { return nullptr; }
+
+    /**
+    * Unmap a mapped memory range
+    *
+    * @note Does not return a result as vkUnmapMemory can't fail
+    */
+    virtual void unmap() {}
+
+
 protected:
 
     Usage _usage;
     size_t _size;
     size_t _stride;
     bool _hostVisible;
+    void* _mapped;
 };
 
 
