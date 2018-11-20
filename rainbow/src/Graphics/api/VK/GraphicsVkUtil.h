@@ -190,17 +190,17 @@ static const VkBlendFactor lookupVkBlendFactor[] =
     VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA
 };
 
-/**
- * Maps rainbow::DescriptorSet::Descriptor::ShaderStages to VkShaderStageFlags
- */
-static const VkShaderStageFlags lookupVkShaderStageFlags[] =
-{
-    VK_SHADER_STAGE_VERTEX_BIT,
-    VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT,
-    VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT,
-    VK_SHADER_STAGE_GEOMETRY_BIT,
-    VK_SHADER_STAGE_FRAGMENT_BIT
-};
+//@@/**
+//@@ * Maps rainbow::DescriptorSet::Descriptor::ShaderStages to VkShaderStageFlags
+//@@ */
+//@@static const VkShaderStageFlags lookupVkShaderStageFlags[] =
+//@@{
+//@@    VK_SHADER_STAGE_VERTEX_BIT,
+//@@    VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT,
+//@@    VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT,
+//@@    VK_SHADER_STAGE_GEOMETRY_BIT,
+//@@    VK_SHADER_STAGE_FRAGMENT_BIT
+//@@};
 
 /**
  * Maps rainbow::RasterizerState::FillMode to VkPolygonMode

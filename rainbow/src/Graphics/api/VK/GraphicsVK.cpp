@@ -1353,7 +1353,7 @@ std::shared_ptr<DescriptorSet> GraphicsVK::createDescriptorSet(const DescriptorS
             binding->binding = descriptor->binding;
             binding->descriptorType = (VkDescriptorType)typeIndex;
             binding->descriptorCount = descriptor->count;
-            binding->stageFlags = lookupVkShaderStageFlags[static_cast<uint32_t>(descriptor->shaderStages)];
+            binding->stageFlags = static_cast<uint32_t>(descriptor->shaderStages);
             binding->pImmutableSamplers = nullptr;
 
             poolSizesByType[typeIndex].descriptorCount += descriptor->count;
