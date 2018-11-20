@@ -1413,6 +1413,44 @@ std::shared_ptr<DescriptorSet> GraphicsVK::createDescriptorSet(const DescriptorS
         VK_CHECK_RESULT(vkAllocateDescriptorSets(_device, &allocInfo, &descriptorSetVK));
     }
 
+    // Update the descriptor set determining the shader binding points
+    // For every binding point used in a shader there needs to be one
+    // descriptor set matching that binding point
+    std::vector<VkWriteDescriptorSet> writeDescriptorSets;
+    for (size_t i = 0; i < descriptorCount; i++)
+    {
+        const DescriptorSet::Descriptor* descriptor = &descriptors[i];
+
+        VkWriteDescriptorSet writeDescriptorSet = {};
+        writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        writeDescriptorSet.dstSet = descriptorSetVK;
+        writeDescriptorSet.descriptorCount = 1; //descriptor->count;
+        writeDescriptorSet.dstBinding = descriptor->binding;
+
+        if (descriptor->type == DescriptorSet::Descriptor::Type::eUniform)
+        {
+            writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+            std::shared_ptr<BufferVK> bufferVK = std::static_pointer_cast<BufferVK>(descriptor->uniforms[0]);
+            writeDescriptorSet.pBufferInfo = &bufferVK->_bufferView;
+        }
+        else if (descriptor->type == DescriptorSet::Descriptor::Type::eSampler)
+        {
+
+        }
+        else if (descriptor->type == DescriptorSet::Descriptor::Type::eTexture)
+        {
+
+        }
+        else
+        {
+            GP_ERROR("descriptor type undefined");
+        }
+
+        writeDescriptorSets.push_back(writeDescriptorSet);
+    }
+    vkUpdateDescriptorSets(_device, descriptorCount, writeDescriptorSets.data(), 0, nullptr);
+
+
     std::shared_ptr<DescriptorSetVK> descriptorSet = std::make_shared<DescriptorSetVK>();
     descriptorSet->_descriptors.resize(descriptorCount);
     for (size_t i = 0; i < descriptorCount; ++i)
