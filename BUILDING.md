@@ -47,6 +47,7 @@ libtool libasound2-dev  libpulse-dev libaudio-dev libx11-dev libxext-dev libxran
 export VULKAN_SDK=~/VulkanSDK/1.1.70.0/x86_64 
 export PATH=$VULKAN_SDK/bin:$PATH
 export LD_LIBRARY_PATH=$VULKAN_SDK/lib:$LD_LIBRARY_PATH
+export VK_LAYER_PATH=$VULKAN_SDK/etc/explicit_layer.d
 ```
 - Reboot computer
 - Clone Rainbow repo

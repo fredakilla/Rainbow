@@ -81,17 +81,35 @@ void GraphicsVK::presentFrame(std::shared_ptr<Semaphore> waitSemaphore)
     VkPresentInfoKHR presentInfo {};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     presentInfo.pNext = nullptr;
+    presentInfo.swapchainCount = 1;
+    presentInfo.pSwapchains = &_swapchain;
+    presentInfo.pImageIndices = &_swapchainImageIndex;
+    presentInfo.pResults = nullptr;
+    // Check if a wait semaphore has been specified to wait for before presenting the image
     if (waitSemaphore != nullptr)
     {
         presentInfo.waitSemaphoreCount = 1;
         presentInfo.pWaitSemaphores = &std::static_pointer_cast<SemaphoreVK>(waitSemaphore)->_semaphore;
     }
-    presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = &_swapchain;
-    presentInfo.pImageIndices = &_swapchainImageIndex;
-    presentInfo.pResults = nullptr;
 
-    VK_CHECK_RESULT(vkQueuePresentKHR(_queue, &presentInfo));
+    //@@VK_CHECK_RESULT(vkQueuePresentKHR(_queue, &presentInfo));
+    //@@VK_CHECK_RESULT(vkQueueWaitIdle(_queue));
+
+    VkResult res = vkQueuePresentKHR(_queue, &presentInfo);
+    if (!((res == VK_SUCCESS) || (res == VK_SUBOPTIMAL_KHR)))
+    {
+        if (res == VK_ERROR_OUT_OF_DATE_KHR)
+        {
+            // Swap chain is no longer compatible with the surface and needs to be recreated
+
+            resize(Platform::getPlatform()->getWidth(), Platform::getPlatform()->getHeight());
+            return;
+        }
+        else
+        {
+            VK_CHECK_RESULT(res);
+        }
+    }
     VK_CHECK_RESULT(vkQueueWaitIdle(_queue));
 }
 
@@ -134,6 +152,7 @@ std::shared_ptr<Semaphore> GraphicsVK::createSemaphore()
 {
     VkSemaphoreCreateInfo semaphoreCreateInfo {};
     semaphoreCreateInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+    semaphoreCreateInfo.pNext = nullptr;
 
     VkSemaphore semaphoreVK;
     VK_CHECK_RESULT(vkCreateSemaphore(_device, &semaphoreCreateInfo, nullptr, &semaphoreVK));
@@ -548,7 +567,7 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         // Create a host-visible staging buffer to temp copy the vertex data to
         VkBuffer stagingBuffer;
         void* stagingData;
-        bufferCreateInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
+        bufferCreateInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
         VK_CHECK_RESULT(vkCreateBuffer(_device, &bufferCreateInfo, nullptr, &stagingBuffer));
         vkGetBufferMemoryRequirements(_device, stagingBuffer, &memReqs);
         memAlloc.allocationSize = memReqs.size;
@@ -558,6 +577,7 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         {
             GP_ERROR("Failed to find compatible memory for buffer.");
         }
+        memAlloc.memoryTypeIndex = memTypeIndex;
         VkDeviceMemory stagingMemory;
         VK_CHECK_RESULT(vkAllocateMemory(_device, &memAlloc, nullptr, &stagingMemory));
         VK_CHECK_RESULT(vkMapMemory(_device, stagingMemory, 0, memAlloc.allocationSize, 0, (void**)&stagingData));
@@ -567,7 +587,8 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
 
         // Create a device local buffer to copied into
         VkBuffer bufferVK;
-        bufferCreateInfo.usage |= VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+        //@@bufferCreateInfo.usage |= VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+        bufferCreateInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT;
         VK_CHECK_RESULT(vkCreateBuffer(_device, &bufferCreateInfo, nullptr, &bufferVK));
         vkGetBufferMemoryRequirements(_device, bufferVK, &memReqs);
         memAlloc.allocationSize = memReqs.size;
@@ -577,8 +598,8 @@ std::shared_ptr<Buffer> GraphicsVK::createBuffer(Buffer::Usage usage,
         {
             GP_ERROR("Failed to find compatible memory for buffer.");
         }
-        VkDeviceMemory deviceMemory;
         memAlloc.memoryTypeIndex = memTypeIndex;
+        VkDeviceMemory deviceMemory;
         VK_CHECK_RESULT(vkAllocateMemory(_device, &memAlloc, nullptr, &deviceMemory));
         VK_CHECK_RESULT(vkBindBufferMemory(_device, bufferVK, deviceMemory, 0));
 
@@ -2259,13 +2280,14 @@ void GraphicsVK::createSynchronizationObjects()
 {
     _presentCompleteSemaphore = createSemaphore();
     _renderCompleteSemaphore = createSemaphore();
+
+    VkFenceCreateInfo fenceCreateInfo = {};
+    fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    fenceCreateInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
     _waitFences.resize(_swapchainImageCount);
     for (size_t i = 0; i < _swapchainImageCount; i++)
     {
-        VkFenceCreateInfo fenceCreateInfo = {};
-        fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-        fenceCreateInfo.pNext = nullptr;
-        fenceCreateInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
         VK_CHECK_RESULT(vkCreateFence(_device, &fenceCreateInfo, nullptr, &_waitFences[i]));
     }
 }
