@@ -8,4 +8,4 @@ include(../common/samples-common.pri)
 
 SOURCES += src/sample.cpp
 
-HEADERS += src/sample.h
+HEADERS +=
