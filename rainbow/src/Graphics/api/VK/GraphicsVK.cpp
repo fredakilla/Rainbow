@@ -9,6 +9,9 @@
 #include "GraphicsTypesVK.h"
 #include "GraphicsVkUtil.h"
 
+// vks helper framwork
+#include "vks/VulkanTexture.hpp"
+
 
 namespace rainbow
 {
@@ -869,6 +872,40 @@ std::shared_ptr<Texture> GraphicsVK::createTexture2d(size_t width, size_t height
                          hostVisible, data, nullptr);
 }
 
+std::shared_ptr<Texture> GraphicsVK::createTexture2d(size_t width, size_t height, size_t mipLevels,
+                                                     PixelFormat pixelFormat,
+                                                     Texture::Usage usage,
+                                                     Texture::SampleCount sampleCount,
+                                                     bool hostVisible, const void* data, uint64_t dataSize)
+{
+    vks::VulkanDevice* vksDevice = new vks::VulkanDevice(_physicalDevice);
+    vksDevice->logicalDevice = _device;
+    vksDevice->commandPool = _commandPool;
+
+    VkFormat format = lookupVkFormat[static_cast<uint32_t>(pixelFormat)];
+
+    // create texture from data buffer using vks framework
+    vks::Texture2D vksTexture2D;
+    vksTexture2D.fromBuffer(const_cast<void*>(data), dataSize, format, width, height, vksDevice, _queue);
+
+    std::shared_ptr<TextureVK> texture = std::make_shared<TextureVK>();
+    texture->_type = Texture::Type::e2D;
+    texture->_width = width;
+    texture->_height = height;
+    texture->_depth = 1;
+    texture->_mipLevels = mipLevels;
+    texture->_pixelFormat = pixelFormat;
+    texture->_usage = usage;
+    texture->_sampleCount = sampleCount;
+    texture->_hostVisible = hostVisible;
+    texture->_hostOwned = true;
+    texture->_image = vksTexture2D.image;
+    texture->_deviceMemory = vksTexture2D.deviceMemory;
+    texture->_imageViewInfo = vksTexture2D.descriptor;
+
+    return texture;
+}
+
 std::shared_ptr<Texture> GraphicsVK::createTexture3d(size_t width, size_t height, size_t depth,
                                                      PixelFormat pixelFormat,
                                                      Texture::Usage usage,
@@ -1456,6 +1493,9 @@ std::shared_ptr<DescriptorSet> GraphicsVK::createDescriptorSet(const DescriptorS
         }
         else if (descriptor->type == DescriptorSet::Descriptor::Type::eTexture)
         {
+            writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+            std::shared_ptr<TextureVK> textureVK = std::static_pointer_cast<TextureVK>(descriptor->textures[0]);
+            writeDescriptorSet.pImageInfo = &textureVK->_imageViewInfo;
 
         }
         else
@@ -1465,7 +1505,8 @@ std::shared_ptr<DescriptorSet> GraphicsVK::createDescriptorSet(const DescriptorS
 
         writeDescriptorSets.push_back(writeDescriptorSet);
     }
-    vkUpdateDescriptorSets(_device, descriptorCount, writeDescriptorSets.data(), 0, nullptr);
+    vkUpdateDescriptorSets(_device, static_cast<uint32_t>(writeDescriptorSets.size()), writeDescriptorSets.data(), 0, nullptr);
+
 
 
     std::shared_ptr<DescriptorSetVK> descriptorSet = std::make_shared<DescriptorSetVK>();

@@ -357,6 +357,13 @@ public:
                                              Texture::SampleCount sampleCount,
                                              bool hostVisible,
                                              const void* data) = 0;
+
+    virtual std::shared_ptr<Texture> createTexture2d(size_t width, size_t height, size_t mipLevels,
+                                             PixelFormat pixelFormat,
+                                             Texture::Usage usage,
+                                             Texture::SampleCount sampleCount,
+                                             bool hostVisible, const void* data, uint64_t dataSize) {}
+
     /**
      * Creates a 3-dimensional texture.
      *
