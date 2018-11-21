@@ -1,4 +1,3 @@
-
 CONFIG(debug, debug|release): DEFINES += _DEBUG
 
 BUILD_DIR = $$PWD/../../build
@@ -7,8 +6,7 @@ EXTERNAL_DEPS_DIR = $$PWD/../../external-deps
 INCLUDEPATH += ../../rainbow/src
 INCLUDEPATH += $$EXTERNAL_DEPS_DIR/include
 
-DESTDIR = $$BUILD_DIR/bin
-
+#DESTDIR = $$BUILD_DIR/bin
 
 win32 {
     DEFINES += _WINDOWS WIN32

@@ -1302,7 +1302,7 @@ void GraphicsVK::destroySampler(std::shared_ptr<Sampler> sampler)
 std::shared_ptr<Shader> GraphicsVK::createShader(const std::string& url)
 {
     std::string shaderUrl = FileSystem::getHomePath();
-    shaderUrl.append(SHADER_PATH);
+    //shaderUrl.append(SHADER_PATH);
     shaderUrl.append(url);
     shaderUrl.append(SHADER_EXT);
     std::string shaderData = FileSystem::readAll(shaderUrl);

@@ -78,8 +78,8 @@ public:
         // Create the vertex and fragment shaders
         if(graphics->getApi() == Graphics::eVULKAN)
         {
-            _vertShader = graphics->createShader("color2.vert");
-            _fragShader = graphics->createShader("color2.frag");
+            _vertShader = graphics->createShader("color.vert");
+            _fragShader = graphics->createShader("color.frag");
         }
         else
         {
