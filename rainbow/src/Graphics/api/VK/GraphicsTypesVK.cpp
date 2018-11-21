@@ -29,6 +29,7 @@ void* BufferVK::map(uint64_t size, uint64_t offset)
 {
     GP_ASSERT(_device);
     GP_ASSERT(_mapped == nullptr);
+    GP_ASSERT(_hostVisible);
 
     vkMapMemory(_device, _deviceMemory, offset, size, 0, &_mapped);
     return _mapped;
@@ -38,6 +39,7 @@ void BufferVK::unmap()
 {
     GP_ASSERT(_device);
     GP_ASSERT(_mapped);
+    GP_ASSERT(_hostVisible);
 
     if (_mapped)
     {

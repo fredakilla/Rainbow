@@ -47,6 +47,10 @@ GraphicsVK::GraphicsVK() :
 
 GraphicsVK::~GraphicsVK()
 {
+}
+
+void GraphicsVK::finalize()
+{
     vkDeviceWaitIdle(_device);
     destroySemaphore(_presentCompleteSemaphore);
     destroySemaphore(_renderCompleteSemaphore);
@@ -57,10 +61,19 @@ GraphicsVK::~GraphicsVK()
     {
         vkDestroyDebugReportCallbackEXT(_instance, _debugMessageCallback, nullptr);
     }
+
     if (_surface != VK_NULL_HANDLE)
     {
+        vkDestroySwapchainKHR(_device, _swapchain, nullptr);
         vkDestroySurfaceKHR(_instance, _surface, nullptr);
     }
+
+    for (auto& fence : _waitFences)
+    {
+        vkDestroyFence(_device, fence, nullptr);
+    }
+
+    vkDestroyCommandPool(_device, _commandPool, nullptr);
     vkDestroyDevice(_device, nullptr);
     vkDestroyInstance(_instance, nullptr);
 }
@@ -101,7 +114,6 @@ void GraphicsVK::presentFrame(std::shared_ptr<Semaphore> waitSemaphore)
         if (res == VK_ERROR_OUT_OF_DATE_KHR)
         {
             // Swap chain is no longer compatible with the surface and needs to be recreated
-
             resize(Platform::getPlatform()->getWidth(), Platform::getPlatform()->getHeight());
             return;
         }
@@ -666,6 +678,7 @@ void GraphicsVK::destroyBuffer(std::shared_ptr<Buffer> buffer)
 {
     std::shared_ptr<BufferVK> bufferVK = std::static_pointer_cast<BufferVK>(buffer);
     vkDestroyBuffer(_device, bufferVK->_buffer, nullptr);
+    vkFreeMemory(_device, bufferVK->_deviceMemory, nullptr);
     buffer.reset();
 }
 

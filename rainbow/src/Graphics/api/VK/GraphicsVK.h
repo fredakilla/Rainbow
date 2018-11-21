@@ -29,6 +29,9 @@ public:
      */
     ~GraphicsVK();
 
+    //! @see Graphics::finalize
+    void finalize() override;
+
     /**
      * Gets the width of the graphics sytem swap images.
      *
