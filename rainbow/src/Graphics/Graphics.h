@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GraphicsTypes.h"
+#include <gli/gli.hpp>
 
 namespace rainbow
 {
@@ -358,11 +359,7 @@ public:
                                              bool hostVisible,
                                              const void* data) = 0;
 
-    virtual std::shared_ptr<Texture> createTexture2d(size_t width, size_t height, size_t mipLevels,
-                                             PixelFormat pixelFormat,
-                                             Texture::Usage usage,
-                                             Texture::SampleCount sampleCount,
-                                             bool hostVisible, const void* data, uint64_t dataSize) {}
+    virtual std::shared_ptr<Texture> createTexture2d(gli::texture2d& tex2D) {}
 
     /**
      * Creates a 3-dimensional texture.

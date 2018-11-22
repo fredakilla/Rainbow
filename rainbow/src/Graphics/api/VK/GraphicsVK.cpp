@@ -878,17 +878,19 @@ std::shared_ptr<Texture> GraphicsVK::createTexture2d(size_t width, size_t height
                          hostVisible, data, nullptr);
 }
 
-std::shared_ptr<Texture> GraphicsVK::createTexture2d(size_t width, size_t height, size_t mipLevels,
-                                                     PixelFormat pixelFormat,
-                                                     Texture::Usage usage,
-                                                     Texture::SampleCount sampleCount,
-                                                     bool hostVisible, const void* data, uint64_t dataSize)
+std::shared_ptr<Texture> GraphicsVK::createTexture2d(gli::texture2d& tex2D)
 {
+    PixelFormat pixelFormat = PixelFormat::eR8G8B8A8Unorm;
+
+    uint32_t width = static_cast<uint32_t>(tex2D[0].extent().x);
+    uint32_t height = static_cast<uint32_t>(tex2D[0].extent().y);
+    uint32_t mipLevels = static_cast<uint32_t>(tex2D.levels());
+
     VkFormat format = lookupVkFormat[static_cast<uint32_t>(pixelFormat)];
 
-    // create texture from data buffer using vks framework
+    // create texture from gli::texture using vks framework
     vks::Texture2D vksTexture2D;
-    vksTexture2D.fromBuffer(const_cast<void*>(data), dataSize, format, width, height, _vksDevice, _queue);
+    vksTexture2D.loadFromFile(tex2D, format, _vksDevice, _queue);
 
     std::shared_ptr<TextureVK> texture = std::make_shared<TextureVK>();
     texture->_type = Texture::Type::e2D;
@@ -897,9 +899,9 @@ std::shared_ptr<Texture> GraphicsVK::createTexture2d(size_t width, size_t height
     texture->_depth = 1;
     texture->_mipLevels = mipLevels;
     texture->_pixelFormat = pixelFormat;
-    texture->_usage = usage;
-    texture->_sampleCount = sampleCount;
-    texture->_hostVisible = hostVisible;
+    texture->_usage = Texture::Usage::eSampledImage;
+    texture->_sampleCount = Texture::SampleCount::e1X;
+    texture->_hostVisible = false;
     texture->_hostOwned = true;
     texture->_image = vksTexture2D.image;
     texture->_deviceMemory = vksTexture2D.deviceMemory;

@@ -334,11 +334,7 @@ public:
                                              bool hostVisible,
                                              const void* data);
 
-    std::shared_ptr<Texture> createTexture2d(size_t width, size_t height, size_t mipLevels,
-                                             PixelFormat pixelFormat,
-                                             Texture::Usage usage,
-                                             Texture::SampleCount sampleCount,
-                                             bool hostVisible, const void* data, uint64_t dataSize);
+    std::shared_ptr<Texture> createTexture2d(gli::texture2d& tex2D);
 
     /**
      * Creates a 3-dimensional texture.
