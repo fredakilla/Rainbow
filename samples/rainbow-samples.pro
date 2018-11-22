@@ -5,6 +5,7 @@ TEMPLATE = subdirs
 CONFIG = ordered
 
 SUBDIRS += \
-    01-triangle/sample-triangle.pro \
+    01-triangle/01-triangle.pro \
+    02-texturedQuad/02-texturedQuad.pro \
 
 
