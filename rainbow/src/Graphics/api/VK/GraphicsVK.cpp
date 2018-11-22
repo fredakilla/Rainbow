@@ -9,9 +9,9 @@
 #include "GraphicsTypesVK.h"
 #include "GraphicsVkUtil.h"
 
-// vks helper framwork
+// vks helper toolkit
 #include "vks/VulkanTexture.hpp"
-
+vks::VulkanDevice* _vksDevice = nullptr;
 
 namespace rainbow
 {
@@ -76,8 +76,12 @@ void GraphicsVK::finalize()
         vkDestroyFence(_device, fence, nullptr);
     }
 
-    vkDestroyCommandPool(_device, _commandPool, nullptr);
-    vkDestroyDevice(_device, nullptr);
+    //vkDestroyCommandPool(_device, _commandPool, nullptr);
+    //vkDestroyDevice(_device, nullptr);
+
+    // deleting vksdevice will destroy command pool and vulkan device
+    delete _vksDevice;
+
     vkDestroyInstance(_instance, nullptr);
 }
 
@@ -878,15 +882,11 @@ std::shared_ptr<Texture> GraphicsVK::createTexture2d(size_t width, size_t height
                                                      Texture::SampleCount sampleCount,
                                                      bool hostVisible, const void* data, uint64_t dataSize)
 {
-    vks::VulkanDevice* vksDevice = new vks::VulkanDevice(_physicalDevice);
-    vksDevice->logicalDevice = _device;
-    vksDevice->commandPool = _commandPool;
-
     VkFormat format = lookupVkFormat[static_cast<uint32_t>(pixelFormat)];
 
     // create texture from data buffer using vks framework
     vks::Texture2D vksTexture2D;
-    vksTexture2D.fromBuffer(const_cast<void*>(data), dataSize, format, width, height, vksDevice, _queue);
+    vksTexture2D.fromBuffer(const_cast<void*>(data), dataSize, format, width, height, _vksDevice, _queue);
 
     std::shared_ptr<TextureVK> texture = std::make_shared<TextureVK>();
     texture->_type = Texture::Type::e2D;
@@ -1845,6 +1845,11 @@ void GraphicsVK::initialize()
     createRenderPasses();
     createCommandBuffers();
     createSynchronizationObjects();
+
+    // bind vulkan to vks::VulkanDevice to use vks helpers
+    _vksDevice = new vks::VulkanDevice(_physicalDevice);
+    _vksDevice->logicalDevice = _device;
+    _vksDevice->commandPool = _commandPool;
 }
 
 void GraphicsVK::resize(size_t width, size_t height)
