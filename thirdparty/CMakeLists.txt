@@ -136,6 +136,8 @@ ENDFUNCTION(COPY_HEADERS)
 COPY_HEADERS(libjson/ ${OUT_DIR_INCLUDE}/libjson/)
 COPY_HEADERS(openal/include/AL/ ${OUT_DIR_INCLUDE}/AL/)
 COPY_HEADERS(sdl/include/ ${OUT_DIR_INCLUDE}/sdl/)
+COPY_HEADERS(gli/ ${OUT_DIR_INCLUDE}/gli/)
+COPY_HEADERS(glm/ ${OUT_DIR_INCLUDE}/glm/)
 
 # copy thirdparty bgfx stuff to output directory
 
