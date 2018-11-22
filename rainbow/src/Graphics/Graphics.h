@@ -289,18 +289,18 @@ public:
                                                bool hostVisible) = 0;
 
     /**
-     * Creates a index buffer.
+     * Creates an index buffer.
      *
-     * @param size The size of the index buffer (in bytes).
+     * @param indexCount The index count (in bytes).
      * @param indexStride The stride of the index data. sizeof(uint32_t) or sizeof(uint16_t)
-     * @param hostVisible true if this buffer memory can be access from the client, false if not.
      * @param data The index data to initialize thes buffer with.
+     * @param hostVisible true if this buffer memory can be access from the client, false if not.
      * @return The created index buffer.
      */
-    virtual std::shared_ptr<Buffer> createIndexBuffer(size_t size,
+    virtual std::shared_ptr<Buffer> createIndexBuffer(uint32_t indexCount,
                                               size_t indexStride,
-                                              bool hostVisible,
-                                              const void* data) = 0;
+                                              const void* data,
+                                              bool hostVisible) = 0;
 
     /**
      * Creates a uniform buffer.

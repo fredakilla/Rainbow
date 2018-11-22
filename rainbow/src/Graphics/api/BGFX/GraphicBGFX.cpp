@@ -365,10 +365,10 @@ std::shared_ptr<Buffer> GraphicsBgfx::createVertexBuffer(uint32_t vertexCount,
 
 }
 
-std::shared_ptr<Buffer> GraphicsBgfx::createIndexBuffer(size_t size,
+std::shared_ptr<Buffer> GraphicsBgfx::createIndexBuffer(uint32_t indexCount,
                                           size_t indexStride,
-                                          bool hostVisible,
-                                          const void* data)
+                                          const void* data,
+                                          bool hostVisible)
 {
     return nullptr;
 }

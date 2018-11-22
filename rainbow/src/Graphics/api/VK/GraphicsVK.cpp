@@ -666,11 +666,13 @@ std::shared_ptr<Buffer> GraphicsVK::createVertexBuffer(uint32_t vertexCount,
     return createBuffer(Buffer::Usage::eVertex, size, vertexStride, hostVisible, data);
 }
 
-std::shared_ptr<Buffer> GraphicsVK::createIndexBuffer(size_t size,
-                                                    size_t indexStride,
-                                                    bool hostVisible,
-                                                    const void* data)
+std::shared_ptr<Buffer> GraphicsVK::createIndexBuffer(uint32_t indexCount,
+                                          size_t indexStride,
+                                          const void* data,
+                                          bool hostVisible)
 {
+    size_t size = indexStride * indexCount;
+
     return createBuffer(Buffer::Usage::eIndex, size, indexStride, hostVisible, data);
 }
 

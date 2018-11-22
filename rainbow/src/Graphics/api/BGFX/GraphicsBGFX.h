@@ -111,10 +111,10 @@ public:
                                                const VertexLayout& layout,
                                                bool hostVisible) override;
 
-    std::shared_ptr<Buffer> createIndexBuffer(size_t size,
+    std::shared_ptr<Buffer> createIndexBuffer(uint32_t indexCount,
                                               size_t indexStride,
-                                              bool hostVisible,
-                                              const void* data) override;
+                                              const void* data,
+                                              bool hostVisible) override;
 
     std::shared_ptr<Buffer> createUniformBuffer(size_t size,
                                                 bool hostVisible,
