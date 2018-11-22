@@ -146,13 +146,7 @@ public:
         mipLevels = static_cast<size_t>(tex2D.levels());
         layerCount = static_cast<uint32_t>(tex2D.layers());
 
-        /*std::shared_ptr<Texture> texture = graphics->createTexture2d(width, height, mipLevels, PixelFormat::eR8G8B8A8Unorm,
-                                  Texture::Usage::eSampledImage, Texture::SampleCount::e1X, true, tex2D.data());*/
-
-        std::shared_ptr<Texture> texture = graphics->createTexture2d(width, height, mipLevels, PixelFormat::eR8G8B8A8Unorm,
-                                  Texture::Usage::eSampledImage, Texture::SampleCount::e1X, true, tex2D.data(), tex2D.size());
-
-
+        std::shared_ptr<Texture> texture = graphics->createTexture2d(tex2D);
 
 
 
