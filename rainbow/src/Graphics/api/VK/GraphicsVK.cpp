@@ -1406,7 +1406,7 @@ std::shared_ptr<DescriptorSet> GraphicsVK::createDescriptorSet(const DescriptorS
             typeIndex = VK_DESCRIPTOR_TYPE_SAMPLER; 
             break;
         case DescriptorSet::Descriptor::Type::eTexture:
-            typeIndex = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE; 
+            typeIndex = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER; //VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
             break;
         case DescriptorSet::Descriptor::Type::eUniform:
             typeIndex = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER; 
@@ -1503,7 +1503,7 @@ std::shared_ptr<DescriptorSet> GraphicsVK::createDescriptorSet(const DescriptorS
         }
         else if (descriptor->type == DescriptorSet::Descriptor::Type::eTexture)
         {
-            writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+            writeDescriptorSet.descriptorType = /*VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE; //*/ VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
             std::shared_ptr<TextureVK> textureVK = std::static_pointer_cast<TextureVK>(descriptor->textures[0]);
             writeDescriptorSet.pImageInfo = &textureVK->_imageViewInfo;
 
