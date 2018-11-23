@@ -512,7 +512,7 @@ private:
     void resize(size_t width, size_t height);
     void render(float elapsedTime);
     void createInstance();
-    void createDevice();
+    void createDevice(VkPhysicalDeviceFeatures deviceFeatures);
     void createSurface();
     void createSwapchain();
     void createRenderPasses();

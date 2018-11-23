@@ -1853,9 +1853,13 @@ void GraphicsVK::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPip
 
 void GraphicsVK::initialize()
 {
+    // Can be used to enable certain features upon device creation
+    VkPhysicalDeviceFeatures enabledFeatures = {};
+    enabledFeatures.samplerAnisotropy = VK_TRUE;
+
     Graphics::initialize();
     createInstance();
-    createDevice();
+    createDevice(enabledFeatures);
     createSurface();
     createSwapchain();
     createRenderPasses();
@@ -1866,6 +1870,7 @@ void GraphicsVK::initialize()
     _vksDevice = new vks::VulkanDevice(_physicalDevice);
     _vksDevice->logicalDevice = _device;
     _vksDevice->commandPool = _commandPool;
+    vkGetPhysicalDeviceFeatures(_physicalDevice, &_vksDevice->enabledFeatures);
 
     // Create a pipeline cache
     VkPipelineCacheCreateInfo pipelineCacheCreateInfo = {};
@@ -1977,7 +1982,7 @@ void GraphicsVK::createInstance()
     }
 }
 
-void GraphicsVK::createDevice()
+void GraphicsVK::createDevice(VkPhysicalDeviceFeatures deviceFeatures)
 {
     // Get the available physical devices
     uint32_t gpuCount = 0;
@@ -2072,7 +2077,6 @@ void GraphicsVK::createDevice()
     extensions.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
     // Create the logical device
-    VkPhysicalDeviceFeatures deviceFeatures = {};
     VkDeviceCreateInfo deviceCreateInfo = {};
     deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     deviceCreateInfo.queueCreateInfoCount = (uint32_t)queueCreateInfos.size();
