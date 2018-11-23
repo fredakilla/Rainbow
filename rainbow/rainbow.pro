@@ -74,7 +74,8 @@ SOURCES += \
     src/Graphics/api/BGFX/GraphicBGFX.cpp \
     src/Graphics/api/VK/GraphicsTypesVK.cpp \
     src/Graphics/api/VK/GraphicsVK.cpp \
-    src/Graphics/api/VK/vks/VulkanTools.cpp
+    src/Graphics/api/VK/vks/VulkanTools.cpp \
+    src/Graphics/api/VK/vks/VulkanUIOverlay.cpp
 
 HEADERS += \
     src/Animation/Animation.h \

@@ -498,6 +498,14 @@ public:
      */
     void destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline);
 
+
+
+    void imguiCreate();
+    void imguiDestroy();
+    void imguiUpdate();
+    void cmdDrawImgui(std::shared_ptr<CommandBuffer> commandBuffer);
+
+
 private:
 
     void initialize();
@@ -575,6 +583,9 @@ private:
     std::shared_ptr<Semaphore> _presentCompleteSemaphore;
     std::shared_ptr<Semaphore> _renderCompleteSemaphore;
     std::vector<VkFence> _waitFences;
+
+    // Pipeline cache object
+    VkPipelineCache _pipelineCache;
 };
 
 }

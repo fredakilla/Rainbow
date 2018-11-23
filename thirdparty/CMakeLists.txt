@@ -66,6 +66,7 @@ endif()
 
 add_subdirectory(bgfx-cmake)
 add_subdirectory(libjson)
+include(${PROJECT_SOURCE_DIR}/cmake/imgui.cmake)
 
 set(BUILD_TARGETS
     json
@@ -73,6 +74,7 @@ set(BUILD_TARGETS
     bimg
     bx
     brtshaderc
+    imgui
 )
 
 # Emscripten ships with its own implementation of the OpenAL, sdl2, freetype
@@ -138,6 +140,7 @@ COPY_HEADERS(openal/include/AL/ ${OUT_DIR_INCLUDE}/AL/)
 COPY_HEADERS(sdl/include/ ${OUT_DIR_INCLUDE}/sdl/)
 COPY_HEADERS(gli/ ${OUT_DIR_INCLUDE}/gli/)
 COPY_HEADERS(glm/ ${OUT_DIR_INCLUDE}/glm/)
+COPY_HEADERS(imgui/ ${OUT_DIR_INCLUDE}/imgui/)
 
 # copy thirdparty bgfx stuff to output directory
 

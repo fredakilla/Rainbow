@@ -524,6 +524,13 @@ public:
     virtual void destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline) = 0;
 
 
+
+    virtual void imguiCreate() {}
+    virtual void imguiDestroy() {}
+    virtual void imguiUpdate() {}
+    virtual void cmdDrawImgui(std::shared_ptr<CommandBuffer> commandBuffer) {}
+
+
 protected:
 
     bool _initialized;

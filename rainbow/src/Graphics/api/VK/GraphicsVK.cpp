@@ -11,6 +11,7 @@
 
 // vks helper toolkit
 #include "vks/VulkanTexture.hpp"
+#include "vks/VulkanUIOverlay.h"
 vks::VulkanDevice* _vksDevice = nullptr;
 
 namespace rainbow
@@ -76,12 +77,17 @@ void GraphicsVK::finalize()
         vkDestroyFence(_device, fence, nullptr);
     }
 
-    //vkDestroyCommandPool(_device, _commandPool, nullptr);
-    //vkDestroyDevice(_device, nullptr);
+    vkDestroyPipelineCache(_device, _pipelineCache, nullptr);
+    imguiDestroy();
 
-    // deleting vksdevice will destroy command pool and vulkan device
+    // unbind vulkan from vks::VulkanDevice before deleting
+    _vksDevice->logicalDevice = nullptr;
+    _vksDevice->physicalDevice = nullptr;
+    _vksDevice->commandPool = nullptr;
     delete _vksDevice;
 
+    vkDestroyCommandPool(_device, _commandPool, nullptr);
+    vkDestroyDevice(_device, nullptr);
     vkDestroyInstance(_instance, nullptr);
 }
 
@@ -1854,6 +1860,14 @@ void GraphicsVK::initialize()
     _vksDevice = new vks::VulkanDevice(_physicalDevice);
     _vksDevice->logicalDevice = _device;
     _vksDevice->commandPool = _commandPool;
+
+    // Create a pipeline cache
+    VkPipelineCacheCreateInfo pipelineCacheCreateInfo = {};
+    pipelineCacheCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
+    VK_CHECK_RESULT(vkCreatePipelineCache(_device, &pipelineCacheCreateInfo, nullptr, &_pipelineCache));
+
+    // create imgui graphics
+    imguiCreate();
 }
 
 void GraphicsVK::resize(size_t width, size_t height)
@@ -2632,5 +2646,76 @@ std::string toErrorString(VkResult result)
         return "UNKNOWN_ERROR";
     }
 }
+
+
+
+
+
+
+
+vks::UIOverlay UIOverlay;
+
+// List of shader modules created (stored for cleanup)
+std::vector<VkShaderModule> shaderModules;
+
+VkPipelineShaderStageCreateInfo loadShader(std::string fileName, VkShaderStageFlagBits stage)
+{
+    VkPipelineShaderStageCreateInfo shaderStage = {};
+    shaderStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+    shaderStage.stage = stage;
+#if defined(VK_USE_PLATFORM_ANDROID_KHR)
+    shaderStage.module = vks::tools::loadShader(androidApp->activity->assetManager, fileName.c_str(), device);
+#else
+    shaderStage.module = vks::tools::loadShader(fileName.c_str(), _vksDevice->logicalDevice);
+#endif
+    shaderStage.pName = "main"; // todo : make param
+    assert(shaderStage.module != VK_NULL_HANDLE);
+    shaderModules.push_back(shaderStage.module);
+    return shaderStage;
+}
+
+
+void GraphicsVK::imguiCreate()
+{
+    // Vulkan imgui
+    UIOverlay.device = _vksDevice;
+    UIOverlay.queue = _queue;
+    UIOverlay.shaders = {
+        loadShader("assets/shaders/spirv/uioverlay.vert.spv", VK_SHADER_STAGE_VERTEX_BIT),
+        loadShader("assets/shaders/spirv/uioverlay.frag.spv", VK_SHADER_STAGE_FRAGMENT_BIT),
+    };
+    UIOverlay.prepareResources();
+    std::shared_ptr<RenderPassVK> renderPassVK = std::static_pointer_cast<RenderPassVK>(_renderPass);
+    UIOverlay.preparePipeline(_pipelineCache, renderPassVK->_renderPass);
+}
+
+void GraphicsVK::imguiDestroy()
+{
+    for (auto& shaderModule : shaderModules)
+    {
+        vkDestroyShaderModule(_device, shaderModule, nullptr);
+    }
+
+    UIOverlay.freeResources();
+}
+
+void GraphicsVK::imguiUpdate()
+{
+    ImGui::Render();
+    UIOverlay.update();
+}
+
+void GraphicsVK::cmdDrawImgui(std::shared_ptr<CommandBuffer> commandBuffer)
+{
+    VkCommandBuffer commandeBufferVk = std::static_pointer_cast<CommandBufferVK>(commandBuffer)->_commandBuffer;
+
+    const VkViewport viewport = vks::initializers::viewport((float)_width, (float)_height, 0.0f, 1.0f);
+    const VkRect2D scissor = vks::initializers::rect2D(_width, _height, 0, 0);
+    vkCmdSetViewport(commandeBufferVk, 0, 1, &viewport);
+    vkCmdSetScissor(commandeBufferVk, 0, 1, &scissor);
+
+    UIOverlay.draw(commandeBufferVk);
+}
+
 
 }
