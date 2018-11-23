@@ -245,7 +245,7 @@ operator^=(E& lhs,E rhs){
 #define GP_GRAPHICS_FULLSCREEN                      false
 #define GP_GRAPHICS_VSYNC                           true
 #define GP_GRAPHICS_MULTISAMPLING                   1
-#define GP_GRAPHICS_VALIDATION                      false
+#define GP_GRAPHICS_VALIDATION                      true
 
 // Graphics limits
 #define GP_GRAPHICS_GPUS_MAX                        4

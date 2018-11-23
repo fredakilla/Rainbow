@@ -336,7 +336,7 @@ Game::Config::Config() :
     validation(GP_GRAPHICS_VALIDATION),
     homePath(GP_ENGINE_HOME_PATH),
     mainScene("main.scene"),
-    api(GP_ENGINE_API_BGFX)
+    api(GP_ENGINE_API_VULKAN)
 {
 }
 
