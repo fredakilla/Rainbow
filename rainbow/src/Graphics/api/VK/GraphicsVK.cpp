@@ -912,6 +912,8 @@ std::shared_ptr<Texture> GraphicsVK::createTexture2d(gli::texture2d& tex2D)
     texture->_image = vksTexture2D.image;
     texture->_deviceMemory = vksTexture2D.deviceMemory;
     texture->_imageViewInfo = vksTexture2D.descriptor;
+    texture->_imageView = vksTexture2D.view;
+    texture->_sampler = vksTexture2D.sampler;
 
     return texture;
 }
@@ -945,6 +947,10 @@ void GraphicsVK::destroyTexture(std::shared_ptr<Texture> texture)
     if (textureVK->_imageView)
     {
         vkDestroyImageView(_device, textureVK->_imageView, nullptr);
+    }
+    if (textureVK->_sampler)
+    {
+       vkDestroySampler(_device, textureVK->_sampler, nullptr);
     }
     texture.reset();
 }

@@ -179,6 +179,9 @@ private:
     void* _hostMemory;
     VkImageAspectFlags  _imageAspectFlags;
     VkDescriptorImageInfo _imageViewInfo;
+
+    //! Optional sampler to use with this texture
+    VkSampler _sampler;
 };
 
 //------------------------------------------------------------------------------

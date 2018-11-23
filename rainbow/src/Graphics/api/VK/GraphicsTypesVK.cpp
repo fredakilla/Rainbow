@@ -173,7 +173,9 @@ TextureVK::TextureVK() :
     _device(nullptr),
     _image(nullptr),
     _deviceMemory(nullptr),
-    _hostMemory(nullptr)
+    _hostMemory(nullptr),
+    _imageView(VK_NULL_HANDLE),
+    _sampler(VK_NULL_HANDLE)
 {
 }
 
