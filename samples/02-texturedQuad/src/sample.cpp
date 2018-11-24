@@ -6,6 +6,7 @@
 
 
 #include <gli/gli.hpp>
+#include <imgui/imgui.h>
 
 
 class TexturedQuadSample : public Game
@@ -230,6 +231,13 @@ public:
         Game::onUpdate(elapsedTime);
 
 
+        // Show ImGui test window
+        ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
+        ImGui::ShowDemoWindow();
+
+        Game::getInstance()->getGraphics()->imguiUpdate();
+
+
         // update vertex shader uniforms
         {
             float time = getAbsoluteTime();
@@ -276,6 +284,7 @@ public:
         graphics->cmdBindVertexBuffer(commandBuffer, _vertexBuffer);
         graphics->cmdBindIndexBuffer(commandBuffer, _indexBuffer);
         graphics->cmdDrawIndexed(commandBuffer, 6, 0);
+        graphics->cmdDrawImgui(commandBuffer);
         graphics->cmdEndRenderPass(commandBuffer);
         graphics->endCommands();
 
