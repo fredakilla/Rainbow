@@ -47,7 +47,7 @@ public:
     /**
      * Destructor.
      */
-    ~Game();
+    virtual ~Game();
 
     /**
      * Gets the single instance of the game.

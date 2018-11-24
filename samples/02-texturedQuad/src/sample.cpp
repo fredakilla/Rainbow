@@ -147,7 +147,7 @@ public:
         mipLevels = static_cast<size_t>(tex2D.levels());
         layerCount = static_cast<uint32_t>(tex2D.layers());
 
-        std::shared_ptr<Texture> texture = graphics->createTexture2d(tex2D);
+        _texture = graphics->createTexture2d(tex2D);
 
 
 
@@ -184,7 +184,7 @@ public:
         descriptors[2].binding = 2;
         descriptors[2].count = 1;
         descriptors[2].shaderStages = DescriptorSet::Descriptor::ShaderStages::eFrag;
-        descriptors[2].textures[0] = texture;
+        descriptors[2].textures[0] = _texture;
 
         // Create descriptor set
         _descriptorSet = graphics->createDescriptorSet(descriptors.data(), descriptors.size());
@@ -211,10 +211,12 @@ public:
         graphics->destroyRenderPipeline(_renderPipeline);
         graphics->destroyDescriptorSet(_descriptorSet);
         graphics->destroyBuffer(_vertexBuffer);
+        graphics->destroyBuffer(_indexBuffer);
         graphics->destroyBuffer(_uniformBufferVs);
         graphics->destroyBuffer(_uniformBufferFs);
         graphics->destroyShader(_vertShader);
         graphics->destroyShader(_fragShader);
+        graphics->destroyTexture(_texture);
 
         Game::onFinalize();
     }

@@ -2,9 +2,15 @@
 
 #include "../../../Core/Base.h"
 #include "../../../Graphics/Graphics.h"
+
 #include "GraphicsTypesVK.h"
 
 #include <vulkan/vulkan.h>
+
+#include "vks/VulkanUIOverlay.h"
+
+
+
 
 namespace rainbow
 {
@@ -586,6 +592,10 @@ private:
 
     // Pipeline cache object
     VkPipelineCache _pipelineCache;
+    std::vector<VkShaderModule> _shaderModules;
+    vks::UIOverlay _UIOverlay;
+    VkPipelineShaderStageCreateInfo loadShader(std::string fileName, VkShaderStageFlagBits stage);
+    std::shared_ptr<vks::VulkanDevice> _vksDevice;
 };
 
 }

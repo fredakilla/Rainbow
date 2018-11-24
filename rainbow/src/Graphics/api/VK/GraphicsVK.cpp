@@ -12,7 +12,7 @@
 // vks helper toolkit
 #include "vks/VulkanTexture.hpp"
 #include "vks/VulkanUIOverlay.h"
-vks::VulkanDevice* _vksDevice = nullptr;
+
 
 namespace rainbow
 {
@@ -41,7 +41,8 @@ GraphicsVK::GraphicsVK() :
     _colorSpace(VK_COLOR_SPACE_SRGB_NONLINEAR_KHR),
     _colorFormat(VK_FORMAT_UNDEFINED),
     _depthStencilFormat(VK_FORMAT_UNDEFINED),
-    _commandPool(VK_NULL_HANDLE)
+    _commandPool(VK_NULL_HANDLE),
+    _vksDevice(nullptr)
 {
     _api = Api::eVULKAN;
     _queueFamilyIndices.graphics = VK_NULL_HANDLE;
@@ -80,11 +81,10 @@ void GraphicsVK::finalize()
     vkDestroyPipelineCache(_device, _pipelineCache, nullptr);
     imguiDestroy();
 
-    // unbind vulkan from vks::VulkanDevice before deleting
+    // unbind device from vks::VulkanDevice to avoid double device deletion
     _vksDevice->logicalDevice = nullptr;
     _vksDevice->physicalDevice = nullptr;
     _vksDevice->commandPool = nullptr;
-    delete _vksDevice;
 
     vkDestroyCommandPool(_device, _commandPool, nullptr);
     vkDestroyDevice(_device, nullptr);
@@ -896,7 +896,7 @@ std::shared_ptr<Texture> GraphicsVK::createTexture2d(gli::texture2d& tex2D)
 
     // create texture from gli::texture using vks framework
     vks::Texture2D vksTexture2D;
-    vksTexture2D.loadFromFile(tex2D, format, _vksDevice, _queue);
+    vksTexture2D.loadFromFile(tex2D, format, _vksDevice.get(), _queue);
 
     std::shared_ptr<TextureVK> texture = std::make_shared<TextureVK>();
     texture->_type = Texture::Type::e2D;
@@ -1867,7 +1867,7 @@ void GraphicsVK::initialize()
     createSynchronizationObjects();
 
     // bind vulkan to vks::VulkanDevice to use vks helpers
-    _vksDevice = new vks::VulkanDevice(_physicalDevice);
+    _vksDevice = std::make_shared<vks::VulkanDevice>(_physicalDevice); //new vks::VulkanDevice(_physicalDevice);
     _vksDevice->logicalDevice = _device;
     _vksDevice->commandPool = _commandPool;
     vkGetPhysicalDeviceFeatures(_physicalDevice, &_vksDevice->enabledFeatures);
@@ -2663,12 +2663,12 @@ std::string toErrorString(VkResult result)
 
 
 
-vks::UIOverlay UIOverlay;
+//vks::UIOverlay UIOverlay;
 
 // List of shader modules created (stored for cleanup)
-std::vector<VkShaderModule> shaderModules;
+//std::vector<VkShaderModule> shaderModules;
 
-VkPipelineShaderStageCreateInfo loadShader(std::string fileName, VkShaderStageFlagBits stage)
+VkPipelineShaderStageCreateInfo GraphicsVK::loadShader(std::string fileName, VkShaderStageFlagBits stage)
 {
     VkPipelineShaderStageCreateInfo shaderStage = {};
     shaderStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -2680,7 +2680,7 @@ VkPipelineShaderStageCreateInfo loadShader(std::string fileName, VkShaderStageFl
 #endif
     shaderStage.pName = "main"; // todo : make param
     assert(shaderStage.module != VK_NULL_HANDLE);
-    shaderModules.push_back(shaderStage.module);
+    _shaderModules.push_back(shaderStage.module);
     return shaderStage;
 }
 
@@ -2688,31 +2688,31 @@ VkPipelineShaderStageCreateInfo loadShader(std::string fileName, VkShaderStageFl
 void GraphicsVK::imguiCreate()
 {
     // Vulkan imgui
-    UIOverlay.device = _vksDevice;
-    UIOverlay.queue = _queue;
-    UIOverlay.shaders = {
+    _UIOverlay.device = _vksDevice.get();
+    _UIOverlay.queue = _queue;
+    _UIOverlay.shaders = {
         loadShader("assets/shaders/spirv/uioverlay.vert.spv", VK_SHADER_STAGE_VERTEX_BIT),
         loadShader("assets/shaders/spirv/uioverlay.frag.spv", VK_SHADER_STAGE_FRAGMENT_BIT),
     };
-    UIOverlay.prepareResources();
+    _UIOverlay.prepareResources();
     std::shared_ptr<RenderPassVK> renderPassVK = std::static_pointer_cast<RenderPassVK>(_renderPass);
-    UIOverlay.preparePipeline(_pipelineCache, renderPassVK->_renderPass);
+    _UIOverlay.preparePipeline(_pipelineCache, renderPassVK->_renderPass);
 }
 
 void GraphicsVK::imguiDestroy()
 {
-    for (auto& shaderModule : shaderModules)
+    for (auto& shaderModule : _shaderModules)
     {
         vkDestroyShaderModule(_device, shaderModule, nullptr);
     }
 
-    UIOverlay.freeResources();
+    _UIOverlay.freeResources();
 }
 
 void GraphicsVK::imguiUpdate()
 {
     ImGui::Render();
-    UIOverlay.update();
+    _UIOverlay.update();
 }
 
 void GraphicsVK::cmdDrawImgui(std::shared_ptr<CommandBuffer> commandBuffer)
@@ -2724,7 +2724,7 @@ void GraphicsVK::cmdDrawImgui(std::shared_ptr<CommandBuffer> commandBuffer)
     vkCmdSetViewport(commandeBufferVk, 0, 1, &viewport);
     vkCmdSetScissor(commandeBufferVk, 0, 1, &scissor);
 
-    UIOverlay.draw(commandeBufferVk);
+    _UIOverlay.draw(commandeBufferVk);
 }
 
 

@@ -6,9 +6,10 @@
 namespace rainbow
 {
 
-std::string toErrorString(VkResult result);
 
-#define VK_CHECK_RESULT(f) \
+/*std::string toErrorString(VkResult result);
+
+/*#define VK_CHECK_RESULT(f) \
 { \
     VkResult res = (f); \
     if (res != VK_SUCCESS) \
@@ -16,7 +17,7 @@ std::string toErrorString(VkResult result);
         std::cout << "Fatal: VkResult is \"" << toErrorString(res) << "\" in " << __FILE__ << " at line " << __LINE__ << std::endl; \
         GP_ASSERT(res == VK_SUCCESS); \
     } \
-}
+}*/
 
 
 /**
