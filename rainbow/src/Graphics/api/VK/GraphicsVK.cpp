@@ -1856,6 +1856,7 @@ void GraphicsVK::initialize()
     // Can be used to enable certain features upon device creation
     VkPhysicalDeviceFeatures enabledFeatures = {};
     enabledFeatures.samplerAnisotropy = VK_TRUE;
+    enabledFeatures.fillModeNonSolid = VK_TRUE;
 
     Graphics::initialize();
     createInstance();

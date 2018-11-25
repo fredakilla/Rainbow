@@ -209,7 +209,8 @@ static const VkBlendFactor lookupVkBlendFactor[] =
 static const VkPolygonMode lookupVkPolygonMode[] =
 {
     VK_POLYGON_MODE_FILL,
-    VK_POLYGON_MODE_LINE
+    VK_POLYGON_MODE_LINE,
+    VK_POLYGON_MODE_POINT
 };
 
 /**

@@ -575,7 +575,8 @@ public:
     enum class FillMode
     {
         eSolid,
-        eWireframe
+        eWireframe,
+        ePoint
     };
 
 
