@@ -12,7 +12,7 @@
  * - using 2 descriptor sets for rendering 2 differents quads mesh
  * - with different textures and differents shaders data (UBO)
  */
-class PipelinesSample : public Game
+class DescriptorSets : public Game
 {
 private:
 
@@ -52,7 +52,7 @@ private:
 public:
 
     //! Constructor
-    PipelinesSample() :
+    DescriptorSets() :
         Game(),
         _vertexBuffer(nullptr),
         _indexBuffer(nullptr),
@@ -64,14 +64,14 @@ public:
     }
 
     //! Destructor
-    ~PipelinesSample()
+    ~DescriptorSets()
     {
     }
 
     //! @see Game::onInitialize
     void onInitialize()
     {
-        Platform::getPlatform()->setWindowTitle("Pipelines");
+        Platform::getPlatform()->setWindowTitle("Descriptor Sets");
         Game::onInitialize();
 
         std::shared_ptr<Graphics> graphics = getGraphics();
@@ -322,5 +322,5 @@ public:
 };
 
 // declare our game instance
-static PipelinesSample sample;
+static DescriptorSets sample;
 
