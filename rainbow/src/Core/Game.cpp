@@ -25,7 +25,7 @@ Game::Game() :
     _pausedCount(0),
     _frameLastFPS(0),
     _frameCount(0),
-    _frameRate(0),
+    _frameRate(16.67),
     _sceneLoading(nullptr),
     _scene(nullptr)
 {
@@ -286,7 +286,7 @@ double Game::updateFrameRate()
 {
     ++_frameCount;
     double now = Game::getGameTime();
-    if ((now - _frameLastFPS) >= 1000)
+    if ((now - _frameLastFPS) >= 1.0)
     {
         _frameRate = _frameCount;
         _frameCount = 0;

@@ -4,11 +4,17 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-
 #include <gli/gli.hpp>
 #include <imgui/imgui.h>
 
-
+/**
+ * In this example :
+ * - A quad mesh with vertex and index buffers.
+ * - Loading a texture.
+ * - A descriptor with 2 ubo and 1 texture.
+ * - Show imgui demo window
+ * - Using ImGui widgets to controls ubo values.
+ */
 class TexturedQuadSample : public Game
 {
 private:
@@ -147,6 +153,7 @@ public:
         mipLevels = static_cast<size_t>(tex2D.levels());
         layerCount = static_cast<uint32_t>(tex2D.layers());
 
+        // create vulkan texture using gli::texture2d
         _texture = graphics->createTexture2d(tex2D);
 
 
@@ -233,10 +240,20 @@ public:
         Game::onUpdate(elapsedTime);
 
 
-        // Show ImGui test window
+        // Create some ImGui widgets
+        static float zTranslation = 0.0f;
+        ImGui::SetNextWindowPos(ImVec2(10, 10));
+        ImGui::SetNextWindowSize(ImVec2(0, 0), ImGuiSetCond_FirstUseEver);
+        ImGui::Begin("Example");
+        ImGui::Text("%.2f ms/frame (%.1d fps)", (1000.0f / Game::getFrameRate()), Game::getFrameRate());
+        ImGui::SliderFloat("Translate Z", &zTranslation, 0.0f, -70.0f);
+        ImGui::End();
+
+        // Show ImGui demo window
         ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
         ImGui::ShowDemoWindow();
 
+        // update imgui
         Game::getInstance()->getGraphics()->imguiUpdate();
 
 
@@ -250,6 +267,7 @@ public:
             _uboVS.viewMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -4.0f));
 
             _uboVS.modelMatrix = glm::mat4(1.0f);
+            _uboVS.modelMatrix = glm::translate(_uboVS.modelMatrix, glm::vec3(0.0f, 0.0f, zTranslation));
             _uboVS.modelMatrix = glm::rotate(_uboVS.modelMatrix, glm::radians(time * 100), glm::vec3(0.0f, 1.0f, 0.0f));
 
             // Map uniform buffer and update it

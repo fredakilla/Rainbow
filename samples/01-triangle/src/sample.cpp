@@ -4,7 +4,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-
+/**
+ * In this example :
+ * - Creating and rendering a simple triangle mesh using a vertex buffer
+ * - A descriptor with 2 ubo for matrices and color update
+ * - setting up a render pipeline with descriptor set, shaders and states
+ * - Updating ubo data.
+ */
 class TriangleSample : public Game
 {
 private:
