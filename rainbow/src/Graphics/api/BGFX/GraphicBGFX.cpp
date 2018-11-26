@@ -8,6 +8,7 @@
 #include "GraphicsBGFX.h"
 #include "GraphicsTypesBGFX.h"
 #include "GraphicsBGFXUtils.h"
+#include "GraphicsImGUI.h"
 
 #include <bgfx/platform.h>
 #include <bgfx/bgfx.h>
@@ -85,10 +86,13 @@ void GraphicsBgfx::initialize()
         exit(-1);
 
     createCommandBuffers();
+
+    imguiCreate();
 }
 
 void GraphicsBgfx::finalize()
 {
+    imguiDestroy();
     bgfx::shutdown();
 }
 
@@ -670,6 +674,30 @@ void GraphicsBgfx::destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderP
     std::shared_ptr<RenderPipelineBGFX> renderPipelineBgfx = std::static_pointer_cast<RenderPipelineBGFX>(renderPipeline);
     bgfx::destroy(renderPipelineBgfx->_program);
     renderPipeline.reset();
+}
+
+
+
+
+
+void GraphicsBgfx::imguiCreate()
+{
+    GraphicsImGUI::getInstance().imguiInit();
+}
+
+void GraphicsBgfx::imguiDestroy()
+{
+    GraphicsImGUI::getInstance().imguiShutdown();
+}
+
+void GraphicsBgfx::imguiUpdate()
+{
+    ImGui::Render();
+}
+
+void GraphicsBgfx::cmdDrawImgui(std::shared_ptr<CommandBuffer> commandBuffer)
+{
+    GraphicsImGUI::getInstance().imguiRender(ImGui::GetDrawData());
 }
 
 }

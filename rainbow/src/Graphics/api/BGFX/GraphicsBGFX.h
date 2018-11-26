@@ -203,6 +203,11 @@ public:
     void destroyRenderPipeline(std::shared_ptr<RenderPipeline> renderPipeline) override;
 
 
+    void imguiCreate();
+    void imguiDestroy();
+    void imguiUpdate();
+    void cmdDrawImgui(std::shared_ptr<CommandBuffer> commandBuffer);
+
 private:
     bool createDevice();
     void createCommandBuffers();
