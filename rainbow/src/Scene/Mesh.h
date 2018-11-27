@@ -7,7 +7,7 @@
 namespace rainbow
 {
 
-class Mesh : public Component
+class Mesh
 {
 
 public:
@@ -37,42 +37,18 @@ public:
 
 
     /**
-     * Constructs a new mesh with the specified vertex layout.
+     * Set a mesh with the specified vertex layout and vertices.
      *
      * @param vertexLayout The vertex layout.
      * @param vertexCount The number of vertices.
+     * @param vertexData The vertices data.
      * @param dynamic true if the mesh is dynamic; false otherwise.
      *
      * @return The created mesh.
      */
-    static std::shared_ptr<Mesh> createMesh(const VertexLayout& vertexLayout, uint32_t vertexCount, const void* vertexData, bool dynamic = false);
-
-
-protected:
-
-    /**
-     * @see Activator::createObject
-     */
-    static std::shared_ptr<Serializable> createObject();
-
-    /**
-     * @see Serializable::getClassName
-     */
-    std::string getClassName() override;
-
-    /**
-     * @see Serializable::onSerialize
-     */
-    void onSerialize(Serializer* serializer) override;
-
-    /**
-     * @see Serializable::onDeserialize
-     */
-    void onDeserialize(Serializer* serializer) override;
+    void set(const VertexLayout& vertexLayout, uint32_t vertexCount, const void* vertexData, bool dynamic);
 
 private:
-
-    void set(const VertexLayout& vertexLayout, uint32_t vertexCount, const void* vertexData, bool dynamic);
 
     VertexLayout _vertexLayout;
     uint32_t _vertexCount;

@@ -6,7 +6,6 @@ namespace rainbow
 {
 
 Mesh::Mesh() :
-    Component(),
     _vertexCount(0),
     _dynamic(false),
     _primitiveType(PrimitiveTopology::eTriangleList),
@@ -23,6 +22,10 @@ Mesh::~Mesh()
 
 void Mesh::set(const VertexLayout& vertexLayout, uint32_t vertexCount, const void* vertexData, bool dynamic)
 {
+    GP_ASSERT(vertexLayout.getAttributeCount() > 0);
+    GP_ASSERT(vertexCount > 0);
+    GP_ASSERT(vertexData);
+
     _vertexLayout = vertexLayout;
     _vertexCount = vertexCount;
     _dynamic = dynamic;
@@ -31,33 +34,5 @@ void Mesh::set(const VertexLayout& vertexLayout, uint32_t vertexCount, const voi
 
     _vertexBuffer = graphics->createVertexBuffer(vertexCount, vertexData, vertexLayout, false);
 }
-
-std::shared_ptr<Mesh> Mesh::createMesh(const VertexLayout& vertexLayout, uint32_t vertexCount, const void* vertexData, bool dynamic)
-{
-    GP_ASSERT(vertexCount > 0);
-
-    std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-    mesh->set(vertexLayout, vertexCount, vertexData, dynamic);
-    return mesh;
-}
-
-std::shared_ptr<Serializable> Mesh::createObject()
-{
-    return std::static_pointer_cast<Serializable>(std::make_shared<Mesh>());
-}
-
-std::string Mesh::getClassName()
-{
-    return "rainbow::Mesh";
-}
-
-void Mesh::onSerialize(Serializer* serializer)
-{
-}
-
-void Mesh::onDeserialize(Serializer* serializer)
-{
-}
-
 
 }

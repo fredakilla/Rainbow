@@ -77,7 +77,8 @@ SOURCES += \
     src/Graphics/api/VK/vks/VulkanTools.cpp \
     src/Graphics/api/VK/vks/VulkanUIOverlay.cpp \
     src/Graphics/api/BGFX/GraphicsImGUI.cpp \
-    src/Scene/Mesh.cpp
+    src/Scene/Mesh.cpp \
+    src/Scene/Model.cpp
 
 HEADERS += \
     src/Animation/Animation.h \
@@ -149,7 +150,8 @@ HEADERS += \
     src/Graphics/api/VK/vks/VulkanTexture.hpp \
     src/Graphics/api/VK/vks/VulkanTools.h \
     src/Graphics/api/BGFX/GraphicsImGUI.h \
-    src/Scene/Mesh.h
+    src/Scene/Mesh.h \
+    src/Scene/Model.h
 
 
 
