@@ -38,7 +38,9 @@
 #include "Scene/Component.h"
 #include "Scene/Camera.h"
 #include "Scene/Light.h"
+#include "Scene/Mesh.h"
 #include "Scene/Tileset.h"
+
 
 //#include "Emitter.h"
 //#include "Terrain.h"
